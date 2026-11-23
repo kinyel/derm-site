@@ -8,6 +8,10 @@
 >   is the owner's other project. The owner watches the preview live, so colour/design changes show at once.
 > - The owner often works in their own Chrome on the dev URL, so the app's preview pane can be hidden; screenshots from a
 >   hidden pane are frozen on the first frame. Use `scripts/shot.mjs` (below) and read the PNGs instead.
+> - The site is deployed by the owner at https://derm-site.pages.dev (Cloudflare Pages, built from GitHub `kinyel/derm-site`,
+>   branch `main`). Commit or push ONLY when the owner asks in that message. After a deploy, run
+>   `node scripts/compare-live.mjs https://derm-site.pages.dev` to see exactly what differs from the local build.
+>   Never add an inline script: the live Content-Security-Policy refuses it (D84); the build and the tests now enforce this.
 > - `node scripts/fade-probe.mjs <outDir> "<url>?tier=2" [WxH]` steps through the home page's fade sequence;
 >   `node scripts/return-probe.mjs <outDir> "<url>?tier=2" [WxH]` scrolls away and back and checks the hero 3D still moves;
 >   `npm run test:cls` scans every page for layout shift with the fonts held back.
@@ -20,7 +24,7 @@
 
 ## Owner feedback received during the build (must be kept)
 
-Latest first; the newest instruction wins where two differ. Full reasoning in DECISIONS D23, D30–D38, D60–D83.
+Latest first; the newest instruction wins where two differ. Full reasoning in DECISIONS D23, D30–D38, D60–D84.
 
 0. **The clinic is in Victoria Island (Oniru), not Lagos Island** (D71). Never write that it is on or in Lagos Island, or
    "between" Victoria Island and Lekki. "Dermatologist in Lagos" (home) and "dermatologist in Lagos Island" (location page,
@@ -51,7 +55,7 @@ Latest first; the newest instruction wins where two differ. Full reasoning in DE
 
 ## Where the build stands (22 November 2026, end of session 4)
 
-**All ten phases are built, and the owner's redesign (design direction v4, DECISIONS D60–D83) is applied on top**: new
+**All ten phases are built, and the owner's redesign (design direction v4, DECISIONS D60–D84) is applied on top**: new
 type, colour, navigation, home page sections, spiral staircase and hero. Every check was re-run on the redesigned build.
 `docs/FINAL_REPORT.md` is the summary; regenerate it with `node scripts/final-report.mjs` after `npm run test:all`.
 
@@ -81,7 +85,7 @@ Worth doing in a later session:
 | Phase | Status |
 |---|---|
 | 1 Setup | ✅ |
-| 2 Design plan | ✅ `docs/DESIGN_PLAN.md` (colour, type, navigation and home layout are superseded by DECISIONS D60–D83) |
+| 2 Design plan | ✅ `docs/DESIGN_PLAN.md` (colour, type, navigation and home layout are superseded by DECISIONS D60–D84) |
 | 3 Foundation | ✅ tokens (palette v4), flat bands, navigation (D63), footer, dock, components, `/_styleguide/` |
 | 4 3D engine + hero | ✅ engine, 34 scenes, posters pipeline, depth script; Lighthouse passes on tested pages |
 | 5 Homepage | ✅ rebuilt to the owner's direction: hero (D65), spiral staircase (D64), sections on one header pattern (D67) |

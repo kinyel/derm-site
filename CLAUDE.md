@@ -157,7 +157,7 @@ number of inbound links and Lighthouse scores.
 - The clinic is in Victoria Island (Oniru is its eastern end, next to Lekki Phase 1). Never write that it is
   in or on Lagos Island, whatever the brief says; Lagos Island is an area it serves and a search phrase the
   location page targets (`/dermatologist-victoria-island-lekki/`, DECISIONS D71).
-- Owner's design direction and later corrections: DECISIONS D60–D83 override §10 of the brief. In short:
+- Owner's design direction and later corrections: DECISIONS D60–D84 override §10 of the brief. In short:
   buttons are 6px-corner plates with a round arrow chip and boxes are white hairline panels with 24px corners
   (copied from primetracknigeria.com), never pills; the home hero is light with no ribbons; the map loads by itself.
 - The clinic treats every skin type and tone (owner, DECISIONS D82): never describe its care as being "for brown

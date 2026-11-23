@@ -6,10 +6,14 @@
 | `npm run lint:content` | 0 errors, 0 warnings on 176 indexable pages: banned phrases, off-list terms, superlatives, prices, duplicate titles, descriptions and H1s, near-duplicate paragraphs, US spellings, alt text |
 | `npm run test:seo` | 0 errors, 0 warnings on 176 indexable pages; deepest page is 2 clicks from home |
 | `npm run contrast` | Every gradient stop passes 4.5:1 for the text set on it (3:1 for the large pink headline line on the light hero) |
-| `npm run test:cls` | Layout shift with the web fonts held back 600ms, every page at phone and desktop size: 352 of 354 page views within 0.05 (the home page 0.000 at both sizes); two legal pages at 0.06, where a paragraph takes a line more or fewer when the font arrives; none above 0.1 |
-| `npm run test:e2e` | 61 of 61 pass. 17 templates × 22 viewport sizes from brief §12 (no sideways scroll, one H1, body text ≥ 16px, no script errors); axe WCAG 2.2 AA on 17 templates at phone and desktop size with no violations; keyboard use of the mega menu, skip link and phone menu; reduced motion gets the static tier; four pages work with JavaScript off; the home page's LCP element is not a canvas; form fields are labelled |
+| `npm run test:cls` | Layout shift with the web fonts and scripts held back 600ms, every page at phone and desktop size: 350 of 354 page views within 0.05 (the home page 0.000 at both sizes); four between 0.06 and 0.09 (two legal pages, one category page and the not-found page, where a heading or paragraph takes a line more or fewer when the font arrives); none above 0.1 |
+| `npm run test:e2e` | 79 of 79 pass, all under the same security headers as the live site (D84). 17 templates × 22 viewport sizes from brief §12 (no sideways scroll, one H1, body text ≥ 16px, no script errors); axe WCAG 2.2 AA on 17 templates at phone and desktop size with no violations; keyboard use of the mega menu, skip link and phone menu; reduced motion gets the static tier; four pages work with JavaScript off; the home page's LCP element is not a canvas; form fields are labelled |
 | | The accessibility test now waits for entrance animations to finish before measuring contrast: measured 150ms after load, text that is still fading in reads as low contrast. |
 | `npm run test:keywords` | 50 of 50 (section 3) |
+
+### Found on the first deploy
+
+The site was deployed to Cloudflare Pages on 23 November 2026 and three things were wrong there that every local check had passed: the staircase, the section hand-over and the form scripts did not run (the site's security policy refuses inline scripts, and the local test server was not applying that policy); the menu arrows were larger than in the preview; and locally built pages could keep an old clinic fact. All three are fixed and now covered by the build and the tests (DECISIONS D84). **The fix is on this computer only until it is committed and pushed.**
 
 ### What these results do not cover
 

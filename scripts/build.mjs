@@ -11,7 +11,10 @@ const skipBudgets = process.argv.includes('--no-budgets');
 const gz = (file) => zlib.gzipSync(fs.readFileSync(file)).length;
 
 if ((await run('node', ['scripts/fm-check.mjs'])) !== 0) process.exit(1);
-if ((await run('astro', ['build'])) !== 0) process.exit(1);
+// --force: rebuild the content cache every time. Markdown pages take clinic facts through tokens such as
+// {{experience}}, filled in from src/data/clinic.ts while the page is rendered; the cache only knows the
+// markdown file, so after a fact changed, pages built on this computer kept the old wording (DECISIONS D84).
+if ((await run('astro', ['build', '--force'])) !== 0) process.exit(1);
 if ((await run('pagefind', ['--site', 'dist', '--silent'])) !== 0) console.warn('⚠ Pagefind index was not built; site search will be unavailable.');
 
 /* _redirects (Cloudflare Pages) from src/data/redirects.ts */
@@ -23,6 +26,32 @@ if (process.env.INDEXNOW_KEY) fs.writeFileSync(path.join(dist, `${process.env.IN
 /* Missing images: warning only (Addendum A.6) */
 const missing = missingImages().filter((i) => !i.optional);
 if (missing.length) console.warn(`\n⚠ ${missing.length} registry image(s) are not supplied yet; brand placeholders are shown. Run "npm run images:missing" for the list.`);
+
+/* ---------- no inline scripts (Content-Security-Policy) ----------
+   public/_headers sends `script-src 'self'`, so a browser on the live site refuses any script written into
+   the HTML. Data blocks (JSON-LD, import maps of type json) are not scripts and are fine. This is a hard
+   failure: an inline script works on a local preview and silently does nothing on Cloudflare (D84). */
+{
+  const offenders = [];
+  for (const { file, url } of htmlPages()) {
+    const html = fs.readFileSync(file, 'utf8');
+    for (const m of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)) {
+      const attrs = m[1];
+      if (/\bsrc\s*=/.test(attrs)) continue;
+      if (/type\s*=\s*["']?(application\/(ld\+)?json|speculationrules)/i.test(attrs)) continue;
+      if (!m[2].trim()) continue;
+      offenders.push(`${url}  <script${attrs ? ` ${attrs.trim().slice(0, 40)}` : ''}> ${m[2].trim().slice(0, 60)}…`);
+    }
+    if (/\son(click|load|error|submit|change|input)\s*=/.test(html.replace(/<script[\s\S]*?<\/script>/g, ''))) offenders.push(`${url}  inline event handler attribute`);
+  }
+  if (offenders.length) {
+    console.error(`\n✗ ${offenders.length} inline script(s) in the built pages. The site's Content-Security-Policy blocks them on the live site:`);
+    offenders.slice(0, 12).forEach((o) => console.error(`    ${o}`));
+    if (!skipBudgets) process.exit(1);
+  } else {
+    console.log('\n✓ No inline scripts: every script is a file the Content-Security-Policy allows.');
+  }
+}
 
 /* ---------- budgets ---------- */
 const assets = path.join(dist, '_assets');

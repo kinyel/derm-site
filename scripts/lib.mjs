@@ -38,6 +38,32 @@ export async function serveDist(port) {
   const http = await import('node:http');
   const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.mjs': 'text/javascript', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.avif': 'image/avif', '.woff2': 'font/woff2', '.xml': 'application/xml', '.txt': 'text/plain; charset=utf-8', '.ico': 'image/x-icon', '.webmanifest': 'application/manifest+json', '.wasm': 'application/wasm' };
   const zlib = await import('node:zlib');
+  // Apply dist/_headers the way Cloudflare Pages does, so every local check (end-to-end tests, Lighthouse,
+  // posters, layout-shift scan) runs under the same Content-Security-Policy as the live site. Without this
+  // a script the policy blocks works here and fails there (it did: DECISIONS D84). Two directives only make
+  // sense on https and are left out on this plain-http server: HSTS and upgrade-insecure-requests.
+  const rules = [];
+  const headersFile = path.join(dist, '_headers');
+  if (fs.existsSync(headersFile)) {
+    let cur = null;
+    for (const line of fs.readFileSync(headersFile, 'utf8').split(/\r?\n/)) {
+      if (!line.trim() || line.trim().startsWith('#')) continue;
+      if (!/^\s/.test(line)) {
+        const pattern = line.trim();
+        cur = { test: new RegExp(`^${pattern.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*')}$`), set: {} };
+        rules.push(cur);
+      } else if (cur) {
+        const i = line.indexOf(':');
+        if (i < 0) continue;
+        const name = line.slice(0, i).trim().toLowerCase();
+        let value = line.slice(i + 1).trim();
+        if (name === 'strict-transport-security') continue;
+        if (name === 'content-security-policy') value = value.split(';').map((d) => d.trim()).filter((d) => d && d !== 'upgrade-insecure-requests').join('; ');
+        cur.set[name] = value;
+      }
+    }
+  }
+  const extraHeaders = (p) => Object.assign({}, ...rules.filter((r) => r.test.test(p)).map((r) => r.set));
   const server = http.createServer((req, res) => {
     let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
     let file = path.join(dist, p);
@@ -50,7 +76,8 @@ export async function serveDist(port) {
     }
     const ext = path.extname(file);
     const body = fs.readFileSync(file);
-    const headers = { 'content-type': types[ext] ?? 'application/octet-stream', 'cache-control': p.startsWith('/_assets/') ? 'public, max-age=31536000, immutable' : 'no-cache' };
+    const headers = { 'content-type': types[ext] ?? 'application/octet-stream', 'cache-control': p.startsWith('/_assets/') ? 'public, max-age=31536000, immutable' : 'no-cache', ...extraHeaders(p) };
+    if (!p.startsWith('/_assets/') && !/^\/(posters|og)\//.test(p) && p !== '/noise.webp') headers['cache-control'] = 'no-cache';
     const compressible = /\.(html|css|js|mjs|json|svg|xml|txt|webmanifest)$/.test(ext);
     if (compressible && /\bbr\b/.test(req.headers['accept-encoding'] ?? '')) {
       headers['content-encoding'] = 'br';

@@ -1,7 +1,7 @@
 // npm run test:cls            every built page at phone and desktop size
 // node scripts/cls-probe.mjs /some/page/ [/another/] [--delay=600] [--sizes=412x823,1440x900] [--verbose]
 //
-// Layout shift under a slow font load. Lighthouse on localhost usually receives the web fonts before the
+// Layout shift under a slow font and script load. Lighthouse on localhost usually receives the web fonts before the
 // first paint, so it only sometimes sees what a visitor on a slow connection sees: the page painted in the
 // fallback font, then re-laid out when Alegreya Sans arrives. This loads each built page with the font
 // files held back and records every layout shift with the elements that moved.
@@ -31,6 +31,13 @@ async function probe(url, [w, h]) {
   const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: w < 700 ? 2 : 1, isMobile: w < 700, hasTouch: w < 700 });
   const page = await ctx.newPage();
   await page.route('**/*.woff2', async (route) => {
+    await new Promise((r) => setTimeout(r, delay));
+    await route.continue();
+  });
+  // Scripts are held back as well, so the page paints before any of them runs, as it does on a slow phone.
+  // A script that rearranges what is already on screen then shows up as a shift (the home page's section
+  // hand-over did, on Lighthouse's slowed-down phone, while a fast computer hid it: D84).
+  await page.route('**/*.js', async (route) => {
     await new Promise((r) => setTimeout(r, delay));
     await route.continue();
   });
@@ -76,5 +83,5 @@ for (const x of verbose ? results : results.filter((x) => x.total > WARN)) {
     for (const m of s.sources) console.log(`      ${m.node}  y ${m.from}→${m.to} (${m.dy >= 0 ? '+' : ''}${m.dy})${m.dx ? ` x ${m.dx >= 0 ? '+' : ''}${m.dx}` : ''}${m.dh ? ` height ${m.dh >= 0 ? '+' : ''}${m.dh}` : ''}`);
   }
 }
-console.log(`\ntest:cls — fonts delayed ${delay}ms, ${urls.length} pages × ${sizes.map((s) => s.join('×')).join(', ')}: ${results.length - bad.length - warned.length}/${results.length} page views within ${WARN}, ${warned.length} between ${WARN} and ${FAIL} (warning), ${bad.length} above ${FAIL} (fail); worst ${results[0]?.total.toFixed(3) ?? '0'}.`);
+console.log(`\ntest:cls — fonts and scripts delayed ${delay}ms, ${urls.length} pages × ${sizes.map((s) => s.join('×')).join(', ')}: ${results.length - bad.length - warned.length}/${results.length} page views within ${WARN}, ${warned.length} between ${WARN} and ${FAIL} (warning), ${bad.length} above ${FAIL} (fail); worst ${results[0]?.total.toFixed(3) ?? '0'}.`);
 process.exit(bad.length ? 1 : 0);

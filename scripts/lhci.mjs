@@ -66,11 +66,26 @@ try {
   /* warm-up only */
 }
 for (const url of urls) {
+  // Now and then Lighthouse returns a report with a metric missing (a trace it could not read). That is a
+  // failed measurement, not a failed page: measure again, up to three times, before giving up on the page.
   let lhr;
-  try {
-    ({ lhr } = await lighthouse(`${server.url}${url}`, { port: chrome.port, output: 'json', logLevel: 'error', onlyCategories: ['performance', 'seo', 'accessibility', 'best-practices'], formFactor: 'mobile' }));
-  } catch (e) {
-    console.log(`  ✗ ${url}  Lighthouse failed: ${String(e.message ?? e).split('\n')[0]}`);
+  let problem = '';
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      ({ lhr } = await lighthouse(`${server.url}${url}`, { port: chrome.port, output: 'json', logLevel: 'error', onlyCategories: ['performance', 'seo', 'accessibility', 'best-practices'], formFactor: 'mobile' }));
+      const complete = ['largest-contentful-paint', 'cumulative-layout-shift', 'total-blocking-time'].every((a) => typeof lhr.audits[a]?.numericValue === 'number') && ['performance', 'seo', 'accessibility', 'best-practices'].every((c) => typeof lhr.categories[c]?.score === 'number');
+      if (complete) {
+        problem = '';
+        break;
+      }
+      problem = 'a metric was missing from the report';
+    } catch (e) {
+      problem = String(e.message ?? e).split('\n')[0];
+    }
+    lhr = undefined;
+  }
+  if (!lhr) {
+    console.log(`  ✗ ${url}  Lighthouse could not measure this page after three tries: ${problem}`);
     failures++;
     continue;
   }

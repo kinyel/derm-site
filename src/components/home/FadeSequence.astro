@@ -131,6 +131,11 @@
   .fade-seq[data-on] > .fade-step[data-inert] {
     pointer-events: none;
   }
+  /* The step itself is transparent too, not only what is inside it. When the sequence switches on, a
+     waiting section moves up underneath the hero; a browser scores that as a layout shift unless the
+     box that moved is invisible, and it only looks at the box, not at whether anything is painted in it
+     (Lighthouse measured 0.299 for exactly this on a slow phone, D84). */
+  .fade-seq[data-on] > .fade-step[data-faded],
   .fade-seq[data-on] > .fade-step[data-faded] > * {
     opacity: 0;
   }

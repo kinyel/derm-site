@@ -85,6 +85,40 @@ test.describe('layout at every size (§12)', () => {
   }
 });
 
+/* The test server sends the same headers as Cloudflare Pages (public/_headers), above all the
+   Content-Security-Policy. An inline script works on a plain local preview and is refused on the live
+   site: that is how the staircase, the section hand-over and the form scripts came to be dead on the
+   first deploy while every test passed here (DECISIONS D84). */
+test.describe('same conditions as the live site (D84)', () => {
+  for (const [name, url] of pages) {
+    test(`${name}: nothing is blocked by the Content-Security-Policy`, async ({ page }) => {
+      const blocked: string[] = [];
+      page.on('console', (m) => {
+        if (m.type() === 'error' && /Content Security Policy|Refused to (execute|load|apply|connect|frame)/i.test(m.text())) blocked.push(m.text().slice(0, 220));
+      });
+      const resp = await page.goto(url, { waitUntil: 'load' });
+      expect(resp?.headers()['content-security-policy'], 'the test server must send the live policy').toBeTruthy();
+      await settle(page);
+      await page.waitForTimeout(700);
+      expect(blocked, `blocked on ${url}`).toEqual([]);
+    });
+  }
+  test('home: the staircase and the section hand-over are switched on', async ({ browser }) => {
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await ctx.newPage();
+    await page.goto('/', { waitUntil: 'load' });
+    await settle(page);
+    await page.waitForTimeout(800);
+    const on = await page.evaluate(() => ({
+      staircase: document.querySelector('[data-spiral]')?.hasAttribute('data-on') ?? false,
+      handOver: document.querySelector('[data-fade-seq]')?.hasAttribute('data-on') ?? false,
+      inlineScripts: [...document.querySelectorAll('script:not([src])')].filter((s) => !/json/i.test(s.getAttribute('type') ?? '') && (s.textContent ?? '').trim()).length,
+    }));
+    expect(on).toEqual({ staircase: true, handOver: true, inlineScripts: 0 });
+    await ctx.close();
+  });
+});
+
 test.describe('accessibility (axe, WCAG 2.2 AA)', () => {
   for (const [name, url] of pages) {
     for (const [label, width, height] of [['phone', 390, 844], ['desktop', 1440, 900]] as const) {

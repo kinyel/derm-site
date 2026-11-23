@@ -36,19 +36,19 @@ Generated on 2026-11-23 by `node scripts/final-report.mjs` from the current buil
 |---|---|---|---|---|---|---|---|---|---|
 | Home | `/` | 99 | 100 | 100 | 100 | 2.0s | 0.000 | 0ms | ✓ |
 | About | `/about/` | 100 | 100 | 100 | 100 | 1.8s | 0.000 | 0ms | ✓ |
-| Lead dermatologist profile | `/about/lead-dermatologist/` | 100 | 100 | 100 | 100 | 1.1s | 0.000 | 0ms | ✓ |
+| Lead dermatologist profile | `/about/lead-dermatologist/` | 100 | 100 | 100 | 100 | 1.2s | 0.000 | 0ms | ✓ |
 | Your visit | `/your-visit/` | 99 | 100 | 100 | 100 | 2.0s | 0.000 | 0ms | ✓ |
-| Services hub | `/services/` | 99 | 100 | 100 | 100 | 2.1s | 0.000 | 0ms | ✓ |
-| Category | `/services/aesthetic-treatments/` | 100 | 100 | 100 | 100 | 0.9s | 0.000 | 0ms | ✓ |
-| Procedure | `/services/aesthetic-treatments/botox/` | 100 | 100 | 100 | 100 | 1.8s | 0.000 | 0ms | ✓ |
+| Services hub | `/services/` | 98 | 100 | 100 | 100 | 2.3s | 0.000 | 0ms | ✓ |
+| Category | `/services/aesthetic-treatments/` | 100 | 100 | 100 | 100 | 1.2s | 0.000 | 0ms | ✓ |
+| Procedure | `/services/aesthetic-treatments/botox/` | 99 | 100 | 100 | 100 | 1.8s | 0.000 | 0ms | ✓ |
 | Conditions hub | `/conditions/` | 99 | 100 | 100 | 100 | 2.0s | 0.000 | 0ms | ✓ |
-| Condition | `/conditions/acne/` | 100 | 100 | 100 | 100 | 0.9s | 0.000 | 0ms | ✓ |
-| Learn hub | `/blog/` | 100 | 100 | 100 | 100 | 0.9s | 0.000 | 0ms | ✓ |
-| Article | `/blog/how-to-get-rid-of-pimples/` | 100 | 100 | 100 | 100 | 0.9s | 0.000 | 0ms | ✓ |
-| FAQ | `/faq/` | 100 | 100 | 100 | 100 | 0.9s | 0.000 | 0ms | ✓ |
-| Location | `/dermatologist-victoria-island-lekki/` | 100 | 100 | 100 | 100 | 0.9s | 0.000 | 0ms | ✓ |
-| Book an appointment | `/book-appointment/` | 100 | 100 | 100 | 100 | 0.9s | 0.000 | 0ms | ✓ |
-| Contact | `/contact/` | 100 | 100 | 100 | 100 | 1.7s | 0.000 | 0ms | ✓ |
+| Condition | `/conditions/acne/` | 100 | 100 | 100 | 100 | 1.2s | 0.000 | 0ms | ✓ |
+| Learn hub | `/blog/` | 100 | 100 | 100 | 100 | 1.1s | 0.015 | 0ms | ✓ |
+| Article | `/blog/how-to-get-rid-of-pimples/` | 100 | 100 | 100 | 100 | 1.2s | 0.000 | 0ms | ✓ |
+| FAQ | `/faq/` | 100 | 100 | 100 | 100 | 1.2s | 0.000 | 0ms | ✓ |
+| Location | `/dermatologist-victoria-island-lekki/` | 100 | 100 | 100 | 100 | 1.1s | 0.000 | 0ms | ✓ |
+| Book an appointment | `/book-appointment/` | 100 | 100 | 100 | 100 | 1.1s | 0.000 | 0ms | ✓ |
+| Contact | `/contact/` | 100 | 100 | 100 | 100 | 1.8s | 0.000 | 0ms | ✓ |
 | Legal | `/privacy-policy/` | 100 | 100 | 100 | 100 | 0.9s | 0.000 | 0ms | ✓ |
 
 All Lighthouse runs on record: **57 of 57 pages** meet every budget (performance ≥ 90, SEO 100, accessibility ≥ 95, best practices ≥ 95, LCP ≤ 2.5s, CLS ≤ 0.05, TBT ≤ 200ms). This includes every Priority 50 owner page; their scores are in `docs/KEYWORD_COVERAGE.md`.
@@ -57,13 +57,13 @@ All Lighthouse runs on record: **57 of 57 pages** meet every budget (performance
 
 | Budget | Measured | Limit | |
 |---|---|---|---|
-| Critical path, home (HTML + CSS + fonts + LCP image) | 99.8KB | 350.0KB | ✓ |
-| Critical path, condition page | 83.3KB | 350.0KB | ✓ |
-| JS before interaction, home (gzipped) | 4.3KB | 60.0KB | ✓ |
+| Critical path, home (HTML + CSS + fonts + LCP image) | 97.6KB | 350.0KB | ✓ |
+| Critical path, condition page | 83.6KB | 350.0KB | ✓ |
+| JS before interaction, home (gzipped) | 6.7KB | 60.0KB | ✓ |
 | JS before interaction, condition page (gzipped) | 4.3KB | 60.0KB | ✓ |
 | Deferred 3D bundle: three + engine + largest scene (gzipped) | 151.7KB | 300.0KB | ✓ |
 | Largest single scene module (gzipped) | 4.4KB | 150.0KB | ✓ |
-| First-view transfer on phones, home (estimate) | 391.6KB | 1500.0KB | ✓ |
+| First-view transfer on phones, home (estimate) | 391.7KB | 1500.0KB | ✓ |
 
 ### Other checks
 
@@ -73,10 +73,14 @@ All Lighthouse runs on record: **57 of 57 pages** meet every budget (performance
 | `npm run lint:content` | 0 errors, 0 warnings on 176 indexable pages: banned phrases, off-list terms, superlatives, prices, duplicate titles, descriptions and H1s, near-duplicate paragraphs, US spellings, alt text |
 | `npm run test:seo` | 0 errors, 0 warnings on 176 indexable pages; deepest page is 2 clicks from home |
 | `npm run contrast` | Every gradient stop passes 4.5:1 for the text set on it (3:1 for the large pink headline line on the light hero) |
-| `npm run test:cls` | Layout shift with the web fonts held back 600ms, every page at phone and desktop size: 352 of 354 page views within 0.05 (the home page 0.000 at both sizes); two legal pages at 0.06, where a paragraph takes a line more or fewer when the font arrives; none above 0.1 |
-| `npm run test:e2e` | 61 of 61 pass. 17 templates × 22 viewport sizes from brief §12 (no sideways scroll, one H1, body text ≥ 16px, no script errors); axe WCAG 2.2 AA on 17 templates at phone and desktop size with no violations; keyboard use of the mega menu, skip link and phone menu; reduced motion gets the static tier; four pages work with JavaScript off; the home page's LCP element is not a canvas; form fields are labelled |
+| `npm run test:cls` | Layout shift with the web fonts and scripts held back 600ms, every page at phone and desktop size: 350 of 354 page views within 0.05 (the home page 0.000 at both sizes); four between 0.06 and 0.09 (two legal pages, one category page and the not-found page, where a heading or paragraph takes a line more or fewer when the font arrives); none above 0.1 |
+| `npm run test:e2e` | 79 of 79 pass, all under the same security headers as the live site (D84). 17 templates × 22 viewport sizes from brief §12 (no sideways scroll, one H1, body text ≥ 16px, no script errors); axe WCAG 2.2 AA on 17 templates at phone and desktop size with no violations; keyboard use of the mega menu, skip link and phone menu; reduced motion gets the static tier; four pages work with JavaScript off; the home page's LCP element is not a canvas; form fields are labelled |
 | | The accessibility test now waits for entrance animations to finish before measuring contrast: measured 150ms after load, text that is still fading in reads as low contrast. |
 | `npm run test:keywords` | 50 of 50 (section 3) |
+
+### Found on the first deploy
+
+The site was deployed to Cloudflare Pages on 23 November 2026 and three things were wrong there that every local check had passed: the staircase, the section hand-over and the form scripts did not run (the site's security policy refuses inline scripts, and the local test server was not applying that policy); the menu arrows were larger than in the preview; and locally built pages could keep an old clinic fact. All three are fixed and now covered by the build and the tests (DECISIONS D84). **The fix is on this computer only until it is committed and pushed.**
 
 ### What these results do not cover
 
@@ -337,3 +341,4 @@ Full reasoning is in `docs/DECISIONS.md`.
 - **D81** Hero stays alive, sections hand over without a blank, a second mark (owner, 23 November 2026).
 - **D82** Hand-over rebuilt: held in place, dissolving in layers; and the clinic treats every skin type (owner, 23 November 2026).
 - **D83** Two hero refinements (owner, 23 November 2026).
+- **D84** First deploy to Cloudflare Pages (derm-site.pages.dev): the staircase, the section hand-over and the form scripts did not run.

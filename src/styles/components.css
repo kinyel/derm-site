@@ -471,37 +471,6 @@
     }
   }
 
-  /* ================= Icons (§10.8) ================= */
-  .icon {
-    width: 1.5rem;
-    height: 1.5rem;
-    flex: none;
-    fill: none;
-    stroke: url(#icon-grad);
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  .on-night .icon {
-    stroke: url(#icon-grad-night);
-  }
-  .icon.icon--solid,
-  .on-night .icon.icon--solid {
-    stroke: currentColor;
-  }
-  .icon--l {
-    width: 2rem;
-    height: 2rem;
-  }
-  .icon--xl {
-    width: 2.75rem;
-    height: 2.75rem;
-  }
-  .icon--fill-leaf {
-    stroke: none;
-    fill: url(#icon-grad-leaf);
-  }
-
   /* ================= Media: registry image or CSS placeholder ================= */
   .media {
     position: relative;
@@ -1543,5 +1512,43 @@
     transform-origin: 0 50%;
     scale: var(--progress, 0) 1;
     pointer-events: none;
+  }
+}
+
+/* Icons live in the BASE layer, below every component rule (DECISIONS D84). They used to sit in the
+   components layer, where `.icon { width: 1.5rem }` and a component's own size for its icon (for example
+   `.nav__chev { width: .875rem }`) had the same weight, so whichever stylesheet loaded last won. The dev
+   server and the production build load them in different orders: the menu arrows were 14px in the preview
+   and 24px on the live site. In the base layer a component's rule always wins, in any order. */
+@layer base {
+  /* ================= Icons (§10.8) ================= */
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex: none;
+    fill: none;
+    stroke: url(#icon-grad);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .on-night .icon {
+    stroke: url(#icon-grad-night);
+  }
+  .icon.icon--solid,
+  .on-night .icon.icon--solid {
+    stroke: currentColor;
+  }
+  .icon--l {
+    width: 2rem;
+    height: 2rem;
+  }
+  .icon--xl {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  .icon--fill-leaf {
+    stroke: none;
+    fill: url(#icon-grad-leaf);
   }
 }

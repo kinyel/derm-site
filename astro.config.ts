@@ -51,6 +51,11 @@ export default defineConfig({
   vite: {
     build: {
       cssMinify: true,
+      // Never inline a script (or any asset) into the HTML. Astro inlines component scripts under 4KB, and
+      // the site's Content-Security-Policy (public/_headers: script-src 'self') blocks inline scripts, so on
+      // Cloudflare the staircase, the section fades and the form scripts silently did not run (DECISIONS D84).
+      // `npm run build` fails if an inline script ever appears again.
+      assetsInlineLimit: 0,
       rollupOptions: {
         output: {
           // Keep three.js in one cacheable chunk shared by every scene.
