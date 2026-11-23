@@ -57,13 +57,15 @@ void main(){
 
 const PORTRAIT_FRAG = /* glsl */ `
 uniform sampler2D uMap; uniform sampler2D uDepth; uniform float uGlass; uniform float uTime; uniform float uFade;
-uniform vec2 uEdge;                    // x: side fade width, y: bottom fade height (fractions of the image)
+uniform vec3 uEdge;                    // fade widths as fractions of the image: x left side, y foot, z right side
 uniform vec3 uA; uniform vec3 uB; uniform vec3 uC;
 varying vec2 vUv;
 void main(){
   vec4 c = texture2D(uMap, vUv);
   // soft dissolve towards the left, right and bottom borders of the picture (alpha is 0 at the border)
-  float edge = smoothstep(0.0, uEdge.y, vUv.y) * smoothstep(0.0, uEdge.x, vUv.x) * smoothstep(0.0, uEdge.x, 1.0 - vUv.x);
+  float edge = smoothstep(0.0, uEdge.y, vUv.y) * smoothstep(0.0, uEdge.x, vUv.x) * smoothstep(0.0, uEdge.z, 1.0 - vUv.x);
+  // eased once more, so the picture thins out slowly towards its border instead of ending in a band
+  edge = edge * edge * (3.0 - 2.0 * edge);
   c.a *= edge;
   if (c.a < 0.004) discard;
   if (uGlass > 0.0) {
@@ -190,8 +192,8 @@ const factory: SceneFactory = async (ctx) => {
       spin.add(o, c);
       // pearls: small spheres on tilted orbits round the pair
       const pearls = [
-        { mat: pinkPearl, size: 0.15, r: 2.0, sp: 0.55, ph: 0.4, tilt: 0.5 },
-        { mat: bluePearl, size: 0.11, r: 1.8, sp: -0.42, ph: 2.6, tilt: -0.35 },
+        { mat: pinkPearl, size: 0.15, r: 1.72, sp: 0.55, ph: 0.4, tilt: 0.5 },
+        { mat: bluePearl, size: 0.11, r: 1.55, sp: -0.42, ph: 2.6, tilt: -0.35 },
       ].map((d) => {
         const mesh = new THREE.Mesh(pearlGeo, d.mat);
         mesh.scale.setScalar(d.size);
@@ -316,7 +318,7 @@ const factory: SceneFactory = async (ctx) => {
       uGlass: { value: isGlass },
       uTime: { value: 0 },
       uFade: { value: still ? 1 : 0 },
-      uEdge: { value: new THREE.Vector2(Math.max(0.001, Number(params.fadeSides ?? 0.14)), Math.max(0.001, Number(params.fadeBottom ?? 0.2))) },
+      uEdge: { value: new THREE.Vector3(Math.max(0.001, Number(params.fadeSides ?? 0.14)), Math.max(0.001, Number(params.fadeBottom ?? 0.2)), Math.max(0.001, Number(params.fadeSides ?? 0.14))) },
       uA: { value: color('rose') },
       uB: { value: color('blush') },
       uC: { value: color('leaf') },
@@ -379,6 +381,13 @@ const factory: SceneFactory = async (ctx) => {
     }
     portraitGroup.position.set(base.x, base.y, 0);
     portraitGroup.scale.setScalar(h / BASE_H);
+    // Wide screens (home): the portrait stands in front of the strip of services, so its left side and
+    // foot dissolve over a longer distance there: her arm melts into the box instead of stopping on it (D86).
+    if (mode === 'home' && params.fadeSides === undefined && params.fadeBottom === undefined) {
+      const e = portraitMat.uniforms.uEdge.value as THREE.Vector3;
+      if (aspect >= 1.2) e.set(0.24, 0.27, 0.12);
+      else e.set(0.14, 0.2, 0.14);
+    }
 
     lastAspect = aspect;
     placeMarks();
@@ -468,10 +477,12 @@ const factory: SceneFactory = async (ctx) => {
           // the main mark stays level with the buttons it is placed against; the corner one lifts a little
           m.root.position.y = m.base.y + Math.sin(t * 0.9) * base.hh * 0.016 + s1 * base.hh * (i === 0 ? 0 : 0.04);
           // sways and tumbles, and turns further with scroll, but never far enough to read back to front
+          // the static picture shows the marks square-on, so both rings read as the logo
+          const sway = still ? 0 : 1;
           m.root.rotation.set(
-            0.16 + Math.sin(t * 0.52) * 0.14 + rot.x * 5 + s1 * 0.55,
-            m.dir * (0.1 + Math.sin(t * 0.4) * 0.32) + rot.y * 6 + m.dir * s1 * 0.75,
-            Math.sin(t * 0.31) * 0.09 - 0.08 - m.dir * s1 * 0.3,
+            0.16 + sway * Math.sin(t * 0.52) * 0.14 + rot.x * 5 + s1 * 0.55,
+            m.dir * (0.1 + sway * Math.sin(t * 0.4) * 0.32) + rot.y * 6 + m.dir * s1 * 0.75,
+            sway * Math.sin(t * 0.31) * 0.09 - 0.08 - m.dir * s1 * 0.3,
           );
           m.pearls.forEach((pl) => {
             const ang = t * pl.sp + pl.ph;

@@ -95,6 +95,11 @@ let watchDone = pinned;
 
 /* Per-stage fade (D81): a section that fades on scroll sets `stage.__fade` (0 to 1). After the scene is
    drawn, its rectangle is multiplied by that value, so the 3D fades in the same frame it is drawn in. */
+/* Layering (D86). The canvas normally sits between a section's ground and its content. A stage marked
+   data-layer="front" (the home hero's portrait) asks to be drawn in FRONT of the content; the canvas is
+   shared, so it is only lifted (data-front, read by CSS) while every stage being drawn asks for it. */
+let isFront = false;
+
 let fadeScene: THREE.Scene | undefined;
 let fadeCamera: THREE.OrthographicCamera | undefined;
 let fadeMaterial: THREE.MeshBasicMaterial | undefined;
@@ -193,6 +198,7 @@ function frame(now: number) {
   const W = canvas.clientWidth;
   const H = canvas.clientHeight;
   let drew = false;
+  let allFront = true;
 
   for (const rec of stages) {
     if (rec.state !== 'live' || !rec.instance) continue;
@@ -208,6 +214,7 @@ function frame(now: number) {
       renderer.setScissorTest(true);
       drew = true;
     }
+    if (rec.el.dataset.layer !== 'front') allFront = false;
     const inst = rec.instance;
     const aspect = r.width / r.height;
     if (Math.abs(aspect - rec.aspect) > 0.002) {
@@ -251,6 +258,10 @@ function frame(now: number) {
     renderer.clear();
   }
   drewLast = drew;
+  if ((drew && allFront) !== isFront) {
+    isFront = drew && allFront;
+    canvas.toggleAttribute('data-front', isFront);
+  }
 
   // Watchdog (see the note above the constants)
   if (!watchDone && !still) {

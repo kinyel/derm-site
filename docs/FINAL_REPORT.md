@@ -57,13 +57,13 @@ All Lighthouse runs on record: **57 of 57 pages** meet every budget (performance
 
 | Budget | Measured | Limit | |
 |---|---|---|---|
-| Critical path, home (HTML + CSS + fonts + LCP image) | 97.6KB | 350.0KB | ✓ |
+| Critical path, home (HTML + CSS + fonts + LCP image) | 97.7KB | 350.0KB | ✓ |
 | Critical path, condition page | 83.6KB | 350.0KB | ✓ |
 | JS before interaction, home (gzipped) | 6.7KB | 60.0KB | ✓ |
 | JS before interaction, condition page (gzipped) | 4.3KB | 60.0KB | ✓ |
-| Deferred 3D bundle: three + engine + largest scene (gzipped) | 151.7KB | 300.0KB | ✓ |
-| Largest single scene module (gzipped) | 4.4KB | 150.0KB | ✓ |
-| First-view transfer on phones, home (estimate) | 391.7KB | 1500.0KB | ✓ |
+| Deferred 3D bundle: three + engine + largest scene (gzipped) | 151.9KB | 300.0KB | ✓ |
+| Largest single scene module (gzipped) | 4.6KB | 150.0KB | ✓ |
+| First-view transfer on phones, home (estimate) | 392.3KB | 1500.0KB | ✓ |
 
 ### Other checks
 
@@ -343,3 +343,4 @@ Full reasoning is in `docs/DECISIONS.md`.
 - **D83** Two hero refinements (owner, 23 November 2026).
 - **D84** First deploy to Cloudflare Pages (derm-site.pages.dev): the staircase, the section hand-over and the form scripts did not run.
 - **D85** The staircase's floor ring was off-centre on the live site.
+- **D86** The hero portrait stands in front of the strip of services, and the two meet in a longer, softer fade (owner, 23 November 2026).

@@ -23,9 +23,11 @@ interface Props {
   priority?: boolean;
   /** Set to "light" when the stage sits on a light band, so its poster is rendered in the light-surface colours. */
   surface?: 'light';
+  /** "front": on wide screens this stage is drawn in front of the section's content (the home hero's portrait). */
+  layer?: 'front';
   class?: string;
 }
-const { scene, poster, p = '4 / 3', l, d, params = {}, interactive = false, bleed, small = false, behind = false, priority = false, surface, class: cls } = Astro.props;
+const { scene, poster, p = '4 / 3', l, d, params = {}, interactive = false, bleed, small = false, behind = false, priority = false, surface, layer, class: cls } = Astro.props;
 
 type Manifest = Record<string, { variants: string[]; sizes: Record<string, [number, number]> }>;
 let manifest: Manifest = {};
@@ -49,6 +51,7 @@ const size = base ? entry!.sizes[base] : [800, 600];
   data-params={JSON.stringify(params)}
   data-interactive={interactive ? '' : undefined}
   data-surface={surface}
+  data-layer={layer}
   style={`--ar-p:${p};${l ? `--ar-l:${l};` : ''}${d ? `--ar-d:${d};` : ''}`}
   aria-hidden="true"
 >

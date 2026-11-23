@@ -647,6 +647,19 @@
     aspect-ratio: auto;
     z-index: 0 !important;
   }
+  /* In front on wide screens (owner, D86): the home hero's portrait stands in front of the strip of
+     services, so the last box runs behind her. The live 3D is on the shared canvas, which the engine
+     lifts (data-front) while the hero is the only 3D on screen; the static picture is this element.
+     Neither takes clicks. On phones the strip stays in front: there it crosses her whole width. */
+  @media (min-width: 64em) {
+    .scene-canvas[data-front] {
+      z-index: calc(var(--z-content) + 1);
+    }
+    .stage--behind[data-layer='front'] {
+      z-index: calc(var(--z-content) + 1) !important;
+      pointer-events: none;
+    }
+  }
 
   /* ================= Accordion (details) ================= */
   .accordion {
