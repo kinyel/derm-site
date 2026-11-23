@@ -117,6 +117,28 @@ test.describe('same conditions as the live site (D84)', () => {
     expect(on).toEqual({ staircase: true, handOver: true, inlineScripts: 0 });
     await ctx.close();
   });
+  // The preview does not minify CSS and the build does. A rule the minifier rewrites looks right in the
+  // preview and wrong on the live site: the staircase's floor ring lost the shift that centres it (D85).
+  for (const [label, width, height] of [['desktop', 1440, 900], ['phone', 390, 844]] as const) {
+    test(`home (${label}): the staircase's floor ring is centred under its spine`, async ({ browser }) => {
+      const ctx = await browser.newContext({ viewport: { width, height } });
+      const page = await ctx.newPage();
+      await page.goto('/', { waitUntil: 'load' });
+      await settle(page);
+      await page.waitForTimeout(600);
+      const m = await page.evaluate(() => {
+        const mid = (sel: string) => {
+          const r = document.querySelector(sel)!.getBoundingClientRect();
+          return { x: r.left + r.width / 2, bottom: r.bottom, width: r.width };
+        };
+        return { on: document.querySelector('[data-spiral]')!.hasAttribute('data-on'), floor: mid('.spiral__floor'), spine: mid('.spiral__spine'), stage: mid('.spiral__stage') };
+      });
+      expect(m.on).toBe(true);
+      expect(Math.abs(m.floor.x - m.spine.x), 'floor ring centre against the spine').toBeLessThanOrEqual(2);
+      expect(Math.abs(m.floor.x - m.stage.x), 'floor ring centre against the stage').toBeLessThanOrEqual(2);
+      await ctx.close();
+    });
+  }
 });
 
 test.describe('accessibility (axe, WCAG 2.2 AA)', () => {

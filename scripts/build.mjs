@@ -11,6 +11,8 @@ const skipBudgets = process.argv.includes('--no-budgets');
 const gz = (file) => zlib.gzipSync(fs.readFileSync(file)).length;
 
 if ((await run('node', ['scripts/fm-check.mjs'])) !== 0) process.exit(1);
+// CSS that the minifier would change between the preview and the built site (D85)
+if ((await run('node', ['scripts/css-pitfalls.mjs'])) !== 0) process.exit(1);
 // --force: rebuild the content cache every time. Markdown pages take clinic facts through tokens such as
 // {{experience}}, filled in from src/data/clinic.ts while the page is rendered; the cache only knows the
 // markdown file, so after a fact changed, pages built on this computer kept the old wording (DECISIONS D84).

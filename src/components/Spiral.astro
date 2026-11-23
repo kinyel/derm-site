@@ -329,10 +329,12 @@ const nn = (i: number) => String(i + 1).padStart(2, '0');
     bottom: 0;
     width: calc(var(--radius) * 2.6);
     aspect-ratio: 1;
-    translate: -50% 46%;
     border-radius: 50%;
     border: 1px solid var(--glacier-200);
-    transform: rotateX(74deg);
+    /* One `transform`, not `translate` plus `transform`: the build's minifier drops an individual
+       translate when the same rule also sets transform, which left this ring off-centre on the live
+       site while the preview showed it in place (DECISIONS D85; scripts/css-pitfalls.mjs guards it). */
+    transform: translate(-50%, 46%) rotateX(74deg);
     box-shadow: 0 0 0 1.25rem rgb(108 196 245 / 0.07), 0 0 0 3rem rgb(255 122 182 / 0.05);
   }
 

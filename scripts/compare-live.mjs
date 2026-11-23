@@ -5,18 +5,22 @@
 import { chromium } from '@playwright/test';
 import { requireDist, serveDist, freePort } from './lib.mjs';
 requireDist();
-const [live, ...given] = process.argv.slice(2);
+const [live, ...given] = process.argv.slice(2).filter((a) => !a.startsWith('--'));
+/** Pages whose layout changes when their scripts run. */
+const MOTION_PAGES = ['/'];
 const pages = given.length ? given : ['/', '/conditions/acne/', '/services/', '/services/aesthetic-treatments/botox/', '/contact/', '/blog/', '/about/', '/faq/', '/dermatologist-victoria-island-lekki/', '/book-appointment/'];
 const server = await serveDist(await freePort(4480));
 const browser = await chromium.launch();
-const collect = async (origin, url, w, h) => {
-  const ctx = await browser.newContext({ viewport: { width: w, height: h }, hasTouch: w < 1024, isMobile: w < 1024, reducedMotion: 'reduce' });
+const collect = async (origin, url, w, h, motion) => {
+  const ctx = await browser.newContext({ viewport: { width: w, height: h }, hasTouch: w < 1024, isMobile: w < 1024, reducedMotion: motion ? 'no-preference' : 'reduce' });
   const page = await ctx.newPage();
   const errors = [];
   page.on('console', (m) => m.type() === 'error' && errors.push(m.text().slice(0, 140)));
   await page.goto(`${origin}${url}?tier=0`, { waitUntil: 'load', timeout: 60000 });
   await page.evaluate(() => document.fonts.ready);
-  await page.waitForTimeout(900);
+  await page.waitForTimeout(motion ? 2600 : 900);
+  // with motion on, let entrance animations finish so both sides are measured at rest
+  if (motion) await page.evaluate(() => Promise.race([Promise.all(document.getAnimations().filter((a) => a.effect?.getComputedTiming().iterations !== Infinity).map((a) => a.finished.catch(() => undefined))), new Promise((r) => setTimeout(r, 4000))]));
   const rows = await page.evaluate(() => {
     const out = {};
     const path = (el) => {
@@ -39,14 +43,18 @@ const collect = async (origin, url, w, h) => {
   return { rows, errors: [...new Set(errors)] };
 };
 let total = 0;
+// Two passes: still (reduced motion: plain HTML and CSS) and with motion (scripts switch on the staircase,
+// the section hand-over and so on, so the states that only exist then are compared as well).
+const passes = process.argv.includes('--still-only') ? [false] : [false, true];
 for (const url of pages) {
-  for (const [w, h] of [[1440, 900], [390, 844]]) {
-    const [a, b] = [await collect(live, url, w, h), await collect(server.url, url, w, h)];
+  for (const motion of passes) for (const [w, h] of [[1440, 900], [390, 844]]) {
+    if (motion && !MOTION_PAGES.includes(url)) continue;
+    const [a, b] = [await collect(live, url, w, h, motion), await collect(server.url, url, w, h, motion)];
     const diffs = [];
     for (const k of Object.keys(b.rows)) if (a.rows[k] !== undefined && a.rows[k] !== b.rows[k]) diffs.push([k, a.rows[k], b.rows[k]]);
     const missing = Object.keys(b.rows).filter((k) => a.rows[k] === undefined).length;
     total += diffs.length + missing;
-    console.log(`${diffs.length || missing ? '✗' : '✓'} ${url} ${w}×${h}: ${diffs.length} element(s) differ${missing ? `, ${missing} only in the local build` : ''} (of ${Object.keys(b.rows).length})${a.errors.length ? `  live errors: ${a.errors.length}` : ''}${b.errors.length ? `  local errors: ${b.errors.length}` : ''}`);
+    console.log(`${diffs.length || missing ? '✗' : '✓'} ${url} ${w}×${h}${motion ? ' (motion on)' : ''}: ${diffs.length} element(s) differ${missing ? `, ${missing} only in the local build` : ''} (of ${Object.keys(b.rows).length})${a.errors.length ? `  live errors: ${a.errors.length}` : ''}${b.errors.length ? `  local errors: ${b.errors.length}` : ''}`);
     for (const [k, x, y] of diffs.slice(0, 6)) console.log(`    ${k.split('>').slice(-3).join('>')}\n      live : ${x}\n      local: ${y}`);
   }
 }
