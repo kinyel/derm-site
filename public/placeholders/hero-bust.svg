@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="a" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#ff7ab6"/>
+      <stop offset="0.6" stop-color="#ff7ab6"/>
+      <stop offset="1" stop-color="#ffc2dc"/>
+    </linearGradient>
+    <linearGradient id="b" x1="0.9" y1="0" x2="0.1" y2="1">
+      <stop offset="0" stop-color="#ff7ab6"/>
+      <stop offset="0.6" stop-color="#ffc2dc"/>
+      <stop offset="1" stop-color="#5fdda0"/>
+    </linearGradient>
+    <radialGradient id="hl" cx="0.34" cy="0.26" r="0.62">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.95"/>
+      <stop offset="0.45" stop-color="#fff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="core" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#140a10" stop-opacity="0"/>
+      <stop offset="0.7" stop-color="#140a10" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#140a10" stop-opacity="0.34"/>
+    </radialGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.95"/>
+      <stop offset="0.5" stop-color="#fff" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0.7"/>
+    </linearGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.72" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="m"><rect width="800" height="1000" fill="url(#fade)"/></mask>
+    <path id="head" d="M400 150C512 150 580 250 576 378C572 512 494 612 400 612C306 612 228 512 224 378C220 250 288 150 400 150Z"/>
+    <path id="torso" d="M40 1000C40 812 188 746 318 716C350 708 362 690 362 652L362 590C374 600 388 606 400 606C412 606 426 600 438 590L438 652C438 690 450 708 482 716C612 746 760 812 760 1000Z"/>
+  </defs>
+  <g mask="url(#m)">
+    <use href="#torso" fill="url(#b)" opacity="0.72"/>
+    <use href="#torso" fill="url(#hl)" opacity="0.7"/>
+    <use href="#torso" fill="url(#core)"/>
+    <path d="M150 1000C160 880 240 800 400 790C560 800 640 880 650 1000" fill="none" stroke="#fff" stroke-opacity="0.28" stroke-width="2"/>
+    <path d="M250 1000C262 920 310 868 400 862C490 868 538 920 550 1000" fill="none" stroke="#fff" stroke-opacity="0.2" stroke-width="2"/>
+    <use href="#torso" fill="none" stroke="url(#rim)" stroke-width="3"/>
+  </g>
+  <use href="#head" fill="url(#a)" opacity="0.8"/>
+  <use href="#head" fill="url(#hl)"/>
+  <use href="#head" fill="url(#core)"/>
+  <path d="M300 250C330 205 372 186 414 190" fill="none" stroke="#fff" stroke-opacity="0.75" stroke-width="5" stroke-linecap="round"/>
+  <path d="M286 420C300 520 350 578 420 586" fill="none" stroke="#fff" stroke-opacity="0.22" stroke-width="2" stroke-linecap="round"/>
+  <path d="M520 300C540 380 528 470 482 536" fill="none" stroke="#fff" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/>
+  <use href="#head" fill="none" stroke="url(#rim)" stroke-width="3"/>
+</svg>

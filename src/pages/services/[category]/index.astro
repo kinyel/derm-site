@@ -1,0 +1,160 @@
+---
+/** Category page (§9.2). One file in src/content/services = one page, nav item, footer link and sitemap entry. */
+import { render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import Band from '../../../components/Band.astro';
+import Stage from '../../../components/Stage.astro';
+import Media from '../../../components/Media.astro';
+import Trust from '../../../components/Trust.astro';
+import ItemGroups from '../../../components/ItemGroups.astro';
+import Faq from '../../../components/Faq.astro';
+import VisitUs from '../../../components/VisitUs.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import Icon from '../../../components/Icon.astro';
+import { loadAll, paths, conditionLinks, conditionsOfCategory, articlesAbout, type Service } from '../../../lib/content.ts';
+import { categorySchema, faqSchema } from '../../../lib/schema.ts';
+
+export async function getStaticPaths() {
+  const all = await loadAll();
+  return all.services.map((entry) => ({ params: { category: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props as { entry: Service };
+const d = entry.data;
+const all = await loadAll();
+const { Content } = await render(entry);
+const path = paths.service(entry.id);
+const crumbs = [
+  { label: 'Services', href: '/services/' },
+  { label: d.navLabel, href: path },
+];
+const conditionIds = [...new Set([...d.conditions, ...conditionsOfCategory(all, entry.id).map((c) => c.id)])];
+const conditions = conditionLinks(all, conditionIds, `services/${entry.id}`);
+const related = d.related.map((id) => all.services.find((s) => s.id === id)).filter((s) => s !== undefined);
+const articles = articlesAbout(all, 'categories', entry.id).slice(0, 4);
+const isMedicine = entry.id === 'internal-medicine';
+const steps = isMedicine
+  ? [
+      { t: 'Consultation', x: 'The doctor asks about your symptoms, your medicines and your family history, then examines you.' },
+      { t: 'Tests', x: 'Blood pressure, blood and urine tests show what is happening and give a starting point to measure against.' },
+      { t: 'Plan and review', x: 'You agree a plan together and come back for regular checks so treatment can be adjusted safely.' },
+    ]
+  : [
+      { t: 'Consultation', x: 'The dermatologist asks about your skin and your general health, then examines the area closely.' },
+      { t: 'Tests if needed', x: 'Some conditions need a scraping, swab, biopsy or blood test before the diagnosis is certain.' },
+      { t: 'Treatment plan', x: 'You get a clear plan, what to expect and when to come back so progress can be checked.' },
+    ];
+const meta = { path, title: d.seoTitle, description: d.description, updatedOn: d.updatedOn, reviewedBy: d.reviewedBy, reviewedOn: d.reviewedOn };
+---
+
+<BaseLayout seoTitle={d.seoTitle} description={d.description} path={path} section="services" crumbs={crumbs} schema={[categorySchema(meta, d.title, d.specialty), faqSchema(d.faqs)]} searchType="Service">
+  <PageHero h1={d.h1} lead={d.answer} crumbs={crumbs}>
+    <Trust slot="meta" updatedOn={d.updatedOn} reviewedBy={d.reviewedBy} reviewedOn={d.reviewedOn} />
+    <Stage slot="stage" priority scene={d.scene} p="4 / 3" l="1 / 1" d="1 / 1" />
+  </PageHero>
+
+  <Band tone="reading">
+    <div class="container stack" style="--stack: var(--space-xl)">
+      <div class="split split--7-5 split--top">
+        <div class="prose"><Content /></div>
+        {d.image && <Media id={d.image} feature sizes="(min-width: 64em) 36vw, 92vw" />}
+      </div>
+
+      <section aria-labelledby="offer">
+        <div class="section-head">
+          <h2 id="offer">What we offer</h2>
+        </div>
+        <ItemGroups service={entry} />
+      </section>
+
+      {
+        conditions.length > 0 && (
+          <section aria-labelledby="conditions-treated">
+            <div class="section-head">
+              <h2 id="conditions-treated">Conditions we treat</h2>
+              <p>Each guide explains the signs, the causes and the treatment available at the clinic.</p>
+            </div>
+            <ul class="cluster" role="list">
+              {conditions.map((l) => (
+                <li><a class="chip chip--blush" href={l.href}>{l.label}</a></li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      <section aria-labelledby="how-it-works">
+        <div class="section-head">
+          <h2 id="how-it-works">How a consultation works</h2>
+        </div>
+        <ol class="steps">
+          {steps.map((s) => (
+            <li>
+              <div>
+                <h3>{s.t}</h3>
+                <p>{s.x}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <p style="margin-block-start: var(--space-m)"><a class="link" href="/your-visit/">What to expect at your visit</a></p>
+      </section>
+
+      <Faq faqs={d.faqs} />
+
+      {
+        articles.length > 0 && (
+          <section aria-labelledby="reading">
+            <h2 id="reading" class="h-small">Further reading</h2>
+            <ul class="link-list" role="list">
+              {articles.map((a) => (
+                <li><a href={paths.article(a.id)} class="link-list__strong"><span>{a.data.h1}</span></a></li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      {
+        related.length > 0 && (
+          <section aria-labelledby="related-services">
+            <h2 id="related-services" class="h-small">Related services</h2>
+            <div class="card-grid">
+              {related.map((s) => (
+                <a class="panel panel--light tilt related-card" href={paths.service(s.id)}>
+                  <Icon name={s.data.icon} size="l" />
+                  <strong>{s.data.navLabel}</strong>
+                  <span class="meta">{s.data.summary}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      <VisitUs />
+    </div>
+  </Band>
+
+  <CtaBand heading={isMedicine ? 'Book a medical consultation' : undefined} />
+</BaseLayout>
+
+<style>
+  .h-small {
+    font-size: var(--step-2);
+    margin-block-end: var(--space-s);
+  }
+  .related-card {
+    display: grid;
+    gap: var(--space-2xs);
+    align-content: start;
+    text-decoration: none;
+  }
+  .related-card > :global(*) {
+    margin: 0;
+  }
+  .link-list__strong {
+    color: var(--link) !important;
+    font-weight: 600 !important;
+  }
+</style>

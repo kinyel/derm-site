@@ -1,0 +1,117 @@
+---
+/** Contact (§9.6): address, hours, phone, WhatsApp, form, map, corporate enquiries. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Band from '../components/Band.astro';
+import Stage from '../components/Stage.astro';
+import Icon from '../components/Icon.astro';
+import MapFacade from '../components/MapFacade.astro';
+import ContactForm from '../components/ContactForm.astro';
+import VisitUs from '../components/VisitUs.astro';
+import { clinic, telHref, whatsappHref, emailHref, hoursSummary } from '../data/clinic.ts';
+import { pageSchema } from '../lib/schema.ts';
+
+const path = '/contact/';
+const crumbs = [{ label: 'Contact', href: path }];
+const seoTitle = 'Contact Our Dermatology Clinic in Lagos';
+const description = `Contact ${clinic.name} in ${clinic.address.neighbourhood}, Lagos: phone, WhatsApp, contact form, address, opening hours, map, and corporate skin screening enquiries.`;
+---
+
+<BaseLayout seoTitle={seoTitle} description={description} path={path} section="contact" crumbs={crumbs} schema={[pageSchema({ path, title: seoTitle, description }, 'ContactPage')]} searchType="Clinic">
+  <PageHero h1={`Contact ${clinic.name}`} lead={`Call, message or write to the clinic. We answer during opening hours: ${hoursSummary}.`} crumbs={crumbs} hasStage={false}>
+    <div class="contact__cards" data-signal>
+      <Stage scene="signal" behind p="3 / 1" />
+      <a class="panel panel--light tilt contact__card" href={telHref} data-event="call_click" data-signal-source>
+        <Icon name="phone" size="l" />
+        <strong>Call</strong>
+        <span>{clinic.phone.display}</span>
+      </a>
+      <a class="panel panel--light tilt contact__card" href={whatsappHref} target="_blank" rel="noopener noreferrer" data-event="whatsapp_click" data-signal-source>
+        <Icon name="spark" size="l" />
+        <strong>WhatsApp</strong>
+        <span>{clinic.whatsapp.display}</span>
+      </a>
+      {emailHref ? (
+        <a class="panel panel--light tilt contact__card" href={emailHref} data-signal-source>
+          <Icon name="mail" size="l" />
+          <strong>Email</strong>
+          <span>{clinic.email}</span>
+        </a>
+      ) : (
+        <a class="panel panel--light tilt contact__card" href="#contact-form" data-signal-source>
+          <Icon name="mail" size="l" />
+          <strong>Write to us</strong>
+          <span>Use the contact form below</span>
+        </a>
+      )}
+    </div>
+  </PageHero>
+
+  <Band tone="reading">
+    <div class="container stack" style="--stack: var(--space-2xl)">
+      <div class="split split--7-5 split--top">
+        <div class="panel panel--light panel--feature">
+          <ContactForm heading="Send us a message" />
+        </div>
+        <div class="stack">
+          <section aria-labelledby="where">
+            <h2 id="where" class="contact__h">Where we are</h2>
+            <address class="contact__address">{clinic.address.displayed}</address>
+            <p><a class="link" href="/dermatologist-victoria-island-lekki/">Directions from Lekki, Victoria Island, Ikoyi, Ikate and Ajah</a></p>
+          </section>
+          <MapFacade />
+          <section class="panel panel--light" aria-labelledby="corporate">
+            <h2 id="corporate" class="contact__h">Corporate and workplace enquiries</h2>
+            <p class="meta">
+              Employers and HR teams can arrange skin health screening for staff, at the clinic or at the workplace. Choose “Corporate or workplace enquiry” in the form,
+              or read about <a href="/services/dermatology-consultations/corporate-skin-screening/">corporate skin screening</a>.
+            </p>
+          </section>
+        </div>
+      </div>
+      <VisitUs heading="Opening hours and booking" headingId="hours" />
+    </div>
+  </Band>
+</BaseLayout>
+
+<style>
+  .contact__cards {
+    position: relative;
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    margin-block-start: var(--space-m);
+  }
+  .contact__card {
+    display: grid;
+    gap: var(--space-3xs);
+    text-decoration: none;
+    color: var(--night);
+  }
+  .contact__card > :global(*) {
+    margin: 0;
+  }
+  .contact__card strong {
+    font-size: var(--step-1);
+    font-weight: 500;
+  }
+  .contact__card span {
+    color: var(--ink-soft);
+    overflow-wrap: anywhere;
+  }
+  .contact__h {
+    font-size: var(--step-1);
+    font-weight: 450;
+    margin-block-end: var(--space-2xs);
+  }
+  .contact__address {
+    font-style: normal;
+    font-size: var(--step-1);
+    line-height: 1.4;
+    margin-block-end: var(--space-2xs);
+  }
+  .panel a {
+    color: var(--link);
+    font-weight: 600;
+  }
+</style>

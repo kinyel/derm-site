@@ -1,0 +1,77 @@
+---
+/** Home §9 "Visit us": address, hours, map and directions, call, WhatsApp, contact form link. */
+import Band from '../Band.astro';
+import SectionHead from '../SectionHead.astro';
+import Icon from '../Icon.astro';
+import Button from '../Button.astro';
+import MapFacade from '../MapFacade.astro';
+import { clinic, telHref, whatsappHref, directionsHref } from '../../data/clinic.ts';
+---
+
+<Band tone="mist" labelledby="visit-us-heading" data-visit-us>
+  <div class="container">
+    <SectionHead id="visit-us-heading" eyebrow="Find us" title={`Visit us in ${clinic.address.neighbourhood}, ${clinic.address.addressLocality}`} lead={`The clinic is next to Lekki Phase 1 and one bridge from Ikoyi and Lagos Island.`} action={{ href: '/dermatologist-victoria-island-lekki/', label: 'Directions from Lekki, Ikoyi and Lagos Island' }} />
+    <div class="visit-home">
+      <div class="visit-home__facts">
+        <div>
+          <p class="eyebrow eyebrow--plain">Address</p>
+          <address class="visit-home__address">{clinic.address.displayed}</address>
+        </div>
+        <div>
+          <p class="eyebrow eyebrow--plain">Opening hours</p>
+          <table class="hours">
+            <caption class="visually-hidden">Opening hours</caption>
+            <tbody>
+              {
+                clinic.hours.map((h) => (
+                  <tr>
+                    <th scope="row">{h.label}</th>
+                    <td>{h.display}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <div class="cluster">
+          <Button href={telHref} variant="secondary" icon="phone" event="call_click">Call {clinic.phone.display}</Button>
+          <Button href={whatsappHref} variant="whatsapp" event="whatsapp_click">Chat on WhatsApp</Button>
+          <Button href={directionsHref} variant="secondary" icon="directions" event="directions_click">Get directions</Button>
+        </div>
+        <p>
+          <a class="link link--arrow" href="/contact/">Send a message with the contact form <Icon name="arrow" solid /></a>
+        </p>
+      </div>
+      <MapFacade />
+    </div>
+  </div>
+</Band>
+
+<style>
+  .visit-home {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-l);
+    align-items: start;
+  }
+  .visit-home__facts {
+    display: grid;
+    gap: var(--space-m);
+  }
+  .visit-home__facts :global(.eyebrow) {
+    margin-block-end: var(--space-2xs);
+  }
+  .visit-home__address {
+    font-style: normal;
+    font-size: var(--step-1);
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 24rem;
+  }
+  @media (min-width: 64em) {
+    .visit-home {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: var(--space-xl);
+    }
+  }
+</style>

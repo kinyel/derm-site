@@ -1,0 +1,238 @@
+---
+/**
+ * Navigation (owner brief, D63): a full-width bar on the page edges — logo, links, phone, booking —
+ * with white dropdown panels: labelled groups of items (icon tile, name, one-line note), a feature
+ * card and a hub link. One DOM for both presentations:
+ *  - desktop: bar + dropdown panels
+ *  - phones/tablets: bar + full-height white sheet with accordion groups
+ * Everything is in the HTML of every page; without JS the top-level links go to the hubs and
+ * menus open on hover/focus (desktop) or via :target (sheet).
+ */
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import Button from './Button.astro';
+import { clinic, telHref, whatsappHref, experienceFragment } from '../data/clinic.ts';
+import { mainNav, menuGroupList } from '../data/taxonomy.ts';
+import { loadAll, paths, topConditions, conditionsByArea, proceduresOf } from '../lib/content.ts';
+
+interface Props {
+  current?: string;
+  /** The page opens on a dark hero (home): the bar starts transparent with light text. */
+  overDark?: boolean;
+}
+const { current = '', overDark = false } = Astro.props;
+const all = await loadAll();
+
+const groups = menuGroupList.map((g) => ({ ...g, services: all.services.filter((s) => s.data.menuGroup === g.id) }));
+const dermatology = groups.find((g) => g.id === 'dermatology');
+const aesthetics = groups.find((g) => g.id === 'aesthetics-and-laser');
+const featured = all.procedures.find((p) => p.data.featured) ?? all.procedures[0];
+const areas = conditionsByArea(all).map((a) => ({
+  ...a,
+  conditions: [...a.conditions].sort((x, y) => (x.data.topRank ?? 50) - (y.data.topRank ?? 50)).slice(0, 5),
+}));
+const top = topConditions(all);
+const internal = all.services.find((s) => s.data.menuGroup === 'internal-medicine');
+const internalTopics = internal ? proceduresOf(all, internal.id) : [];
+const popular = all.procedures.filter((p) => p.data.popular);
+const clinicPoints = [`Lead consultant with ${experienceFragment}`, 'Care for every skin type and tone', `In person in ${clinic.address.neighbourhood}, or by online consultation`];
+
+const isCurrent = (id: string) => current === id;
+---
+
+<header class:list={['nav', overDark && 'is-over-dark']} data-nav data-over-dark={overDark ? '' : undefined}>
+  <div class="nav__bar">
+    <a class="nav__logo" href="/" aria-label={`${clinic.name} home`}><Logo /></a>
+
+    <a class="nav__menu-btn" href="#site-menu" data-menu-open aria-controls="site-menu" aria-expanded="false">
+      <Icon name="menu" solid />
+      <span>Menu</span>
+    </a>
+
+    <div class="nav__panel" id="site-menu" data-menu-panel>
+      <div class="nav__sheet-head">
+        <Logo />
+        <a class="nav__close" href="#top" data-menu-close aria-label="Close menu"><Icon name="close" solid /></a>
+      </div>
+
+      <nav class="nav__primary" aria-label="Main">
+        <ul class="nav__list" role="list" data-nav-list>
+          {
+            mainNav.map((item) => (
+              <li class:list={['nav__item', item.menu && 'has-mega']} data-nav-item={item.id}>
+                <a class="nav__link" href={item.href} aria-current={isCurrent(item.id) ? 'true' : undefined} data-nav-link aria-controls={item.menu ? `mega-${item.id}` : undefined}>
+                  <span class="nav__label">{item.label}</span>
+                  {item.menu && <Icon name="chevron" solid class="nav__chev" />}
+                </a>
+                {item.menu && (
+                  <button class="nav__toggle" type="button" aria-expanded="false" aria-controls={`mega-${item.id}`} data-mega-toggle>
+                    <span class="visually-hidden">{item.label} menu</span>
+                    <Icon name="chevron" solid />
+                  </button>
+                )}
+
+                {item.id === 'services' && (
+                  <div class="mega" id="mega-services" data-mega>
+                    <div class="mega__cols mega__cols--services">
+                      {dermatology && (
+                        <div class="mega__group mega__group--wide">
+                          <p class="mega__label">{dermatology.label}</p>
+                          <ul class="mega__items mega__items--2" role="list">
+                            {dermatology.services.map((s) => (
+                              <li>
+                                <a class="mega__item" href={paths.service(s.id)} data-mega-link>
+                                  <span class="mega__icon"><Icon name={s.data.icon} /></span>
+                                  <span class="mega__text">
+                                    <strong>{s.data.navLabel}</strong>
+                                    {s.data.menuNote && <small>{s.data.menuNote}</small>}
+                                  </span>
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      <div class="mega__group">
+                        {aesthetics && (
+                          <>
+                            <p class="mega__label">{aesthetics.label}</p>
+                            <ul class="mega__items" role="list">
+                              {aesthetics.services.map((s) => (
+                                <li>
+                                  <a class="mega__item" href={paths.service(s.id)} data-mega-link>
+                                    <span class="mega__icon"><Icon name={s.data.icon} /></span>
+                                    <span class="mega__text">
+                                      <strong>{s.data.navLabel}</strong>
+                                      {s.data.menuNote && <small>{s.data.menuNote}</small>}
+                                    </span>
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </>
+                        )}
+                        {internal && (
+                          <>
+                            <p class="mega__label mega__label--next">Internal medicine</p>
+                            <ul class="mega__items" role="list">
+                              <li>
+                                <a class="mega__item" href={paths.service(internal.id)} data-mega-link>
+                                  <span class="mega__icon"><Icon name={internal.data.icon} /></span>
+                                  <span class="mega__text">
+                                    <strong>{internal.data.navLabel}</strong>
+                                    {internal.data.menuNote && <small>{internal.data.menuNote}</small>}
+                                  </span>
+                                </a>
+                              </li>
+                            </ul>
+                            <ul class="mega__links mega__links--inset" role="list">
+                              {internalTopics.map((p) => (
+                                <li>
+                                  <a href={paths.procedure(p)} data-mega-link>{p.data.navLabel ?? p.data.title}</a>
+                                </li>
+                              ))}
+                            </ul>
+                          </>
+                        )}
+                      </div>
+                      <aside class="mega__feature" aria-label="About the clinic">
+                        <p class="mega__feature-label">At the clinic</p>
+                        <ul class="mega__checks" role="list">
+                          {clinicPoints.map((t) => (
+                            <li>
+                              <Icon name="check" />
+                              <span>{t}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        <p class="mega__feature-links">
+                          {featured && (
+                            <a href={paths.procedure(featured)} data-mega-link>
+                              {featured.data.navLabel ?? featured.data.title} <Icon name="arrow" />
+                            </a>
+                          )}
+                          <a href="/about/" data-mega-link>
+                            About the clinic <Icon name="arrow" />
+                          </a>
+                        </p>
+                      </aside>
+                    </div>
+                    {popular.length > 0 && (
+                      <div class="mega__row">
+                        <p class="mega__label mega__label--inline">Popular treatments</p>
+                        <ul class="mega__links mega__links--row" role="list">
+                          {popular.map((p) => (
+                            <li>
+                              <a href={paths.procedure(p)} data-mega-link>{p.data.navLabel ?? p.data.title}</a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    <a class="mega__hub" href="/services/" data-mega-link>
+                      All services <Icon name="arrow" />
+                    </a>
+                  </div>
+                )}
+
+                {item.id === 'conditions' && (
+                  <div class="mega" id="mega-conditions" data-mega>
+                    <div class="mega__cols mega__cols--conditions">
+                      <div class="mega__areas">
+                        {areas.map((a) => (
+                          <div class="mega__group">
+                            <p class="mega__label">{a.label}</p>
+                            <ul class="mega__links" role="list">
+                              {a.conditions.map((c) => (
+                                <li>
+                                  <a href={paths.condition(c.id)} data-mega-link>{c.data.shortTitle}</a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                      <aside class="mega__feature" aria-label="Most searched conditions">
+                        <p class="mega__feature-label">Most searched</p>
+                        <ul class="mega__links mega__links--2" role="list">
+                          {top.map((c) => (
+                            <li>
+                              <a href={paths.condition(c.id)} data-mega-link>{c.data.shortTitle}</a>
+                            </li>
+                          ))}
+                        </ul>
+                      </aside>
+                    </div>
+                    <a class="mega__hub" href="/conditions/" data-mega-link>
+                      All conditions A–Z <Icon name="arrow" />
+                    </a>
+                  </div>
+                )}
+              </li>
+            ))
+          }
+          <li class="nav__indicator" aria-hidden="true" data-nav-indicator hidden></li>
+        </ul>
+      </nav>
+
+      <div class="nav__sheet-actions">
+        <Button href="/book-appointment/" icon="calendar" block event="book_click">Book an appointment</Button>
+        <div class="nav__sheet-row">
+          <Button href={whatsappHref} variant="whatsapp" block event="whatsapp_click">WhatsApp</Button>
+          <Button href={telHref} variant="secondary" icon="phone" block event="call_click">Call</Button>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav__actions">
+      <a class="nav__util" href={telHref} aria-label={`Call ${clinic.name} on ${clinic.phone.display}`} data-event="call_click">
+        <Icon name="phone" />
+        <span>{clinic.phone.display}</span>
+      </a>
+      <a class="nav__cta" href="/book-appointment/" data-event="book_click">
+        <span>Book an appointment</span>
+        <span class="nav__cta-arrow"><Icon name="arrow" /></span>
+      </a>
+    </div>
+  </div>
+</header>

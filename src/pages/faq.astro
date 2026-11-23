@@ -1,0 +1,62 @@
+---
+/** Clinic FAQ (§9.6): grouped clinic questions from src/content/faqs/clinic.yaml; medical questions link to articles. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Band from '../components/Band.astro';
+import Stage from '../components/Stage.astro';
+import Faq from '../components/Faq.astro';
+import VisitUs from '../components/VisitUs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { clinic } from '../data/clinic.ts';
+import { faqGroups } from '../data/taxonomy.ts';
+import { loadAll, paths } from '../lib/content.ts';
+import { pageSchema, faqSchema } from '../lib/schema.ts';
+
+const all = await loadAll();
+const groups = faqGroups.map((g) => ({ ...g, faqs: all.faqs.filter((f) => f.data.group === g.id).map((f) => ({ q: f.data.q, a: f.data.a })) })).filter((g) => g.faqs.length);
+const allFaqs = groups.flatMap((g) => g.faqs);
+const medical = all.articles.filter((a) => a.data.mostAsked).slice(0, 10);
+const path = '/faq/';
+const crumbs = [{ label: 'Questions and answers', href: path }];
+const seoTitle = 'Dermatology Clinic FAQ: Booking, Fees, HMOs';
+const description = `Answers to common questions about ${clinic.name}, Lagos: booking, fees, HMOs, online consultations, your first consultation, children and finding the clinic.`;
+---
+
+<BaseLayout seoTitle={seoTitle} description={description} path={path} section="about" crumbs={crumbs} schema={[pageSchema({ path, title: seoTitle, description }, 'WebPage'), faqSchema(allFaqs)]} searchType="Clinic">
+  <PageHero h1="Questions about the clinic, answered" lead={`How to book, what a consultation involves, how fees and HMOs work, and how online consultations run at ${clinic.name}. For questions about a skin condition, see the articles at the end of this page.`} crumbs={crumbs}>
+    <Stage slot="stage" priority scene="constellation" p="16 / 9" l="1 / 1" d="1 / 1" params={{ groups: groups.length }} />
+  </PageHero>
+
+  <Band tone="reading">
+    <div class="container stack" style="--stack: var(--space-xl)">
+      <nav aria-label="Question topics" class="cluster">
+        {groups.map((g) => <a class="chip" href={`#${g.id}`}>{g.label}</a>)}
+      </nav>
+      {groups.map((g) => <Faq faqs={g.faqs} heading={g.label} id={g.id} />)}
+
+      {
+        medical.length > 0 && (
+          <section aria-labelledby="medical">
+            <div class="section-head">
+              <h2 id="medical">Questions about skin, hair and nails</h2>
+              <p>Medical questions need more room than a short answer. These articles cover the ones we are asked most.</p>
+            </div>
+            <ul class="link-list link-list--cols faq__articles" role="list">
+              {medical.map((a) => <li><a href={paths.article(a.id)}><span>{a.data.h1}</span></a></li>)}
+              <li><a href="/blog/"><span>All articles</span></a></li>
+            </ul>
+          </section>
+        )
+      }
+      <VisitUs />
+    </div>
+  </Band>
+  <CtaBand heading="Still have a question?" text="Message the clinic on WhatsApp or call during opening hours, and we will help." label="Book an appointment" />
+</BaseLayout>
+
+<style>
+  .faq__articles a {
+    color: var(--link);
+    font-weight: 600;
+  }
+</style>

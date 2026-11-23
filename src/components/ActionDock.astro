@@ -1,0 +1,11 @@
+---
+/** Bottom action dock on phones and tablets (§10.6): Call · WhatsApp · Book. */
+import Button from './Button.astro';
+import { telHref, whatsappHref } from '../data/clinic.ts';
+---
+
+<div class="dock on-night" data-dock role="region" aria-label="Quick contact">
+  <Button href={telHref} variant="secondary" icon="phone" event="call_click">Call</Button>
+  <Button href={whatsappHref} variant="whatsapp" event="whatsapp_click">WhatsApp</Button>
+  <Button href="/book-appointment/" icon="calendar" event="book_click">Book</Button>
+</div>

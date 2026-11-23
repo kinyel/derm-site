@@ -1,0 +1,39 @@
+---
+/** FAQ accordions (details/summary: works without JS). Answers accept inline Markdown links. */
+import { mdInline } from '../lib/md.ts';
+
+interface Props {
+  faqs: { q: string; a: string }[];
+  heading?: string;
+  id?: string;
+  level?: 'h2' | 'h3';
+  /** id of a heading that already names this list: no heading is rendered here. */
+  labelledby?: string;
+}
+const { faqs, heading = 'Common questions', id = 'questions', level: H = 'h2', labelledby } = Astro.props;
+---
+
+{
+  faqs.length > 0 && (
+    <section class="faq" aria-labelledby={labelledby ?? id}>
+      {!labelledby && <H id={id}>{heading}</H>}
+      <div class="faq__list" data-faq-list>
+        {faqs.map((f) => (
+          <details class="accordion">
+            <summary>{f.q}</summary>
+            <div class="accordion__body">
+              <p set:html={mdInline(f.a)} />
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .faq__list {
+    margin-block-start: var(--space-m);
+    max-width: 48rem;
+  }
+</style>

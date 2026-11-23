@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Types
+        run: npm run check
+      - name: Build (budgets enforced)
+        run: npm run build
+      - name: Contrast
+        run: npm run contrast
+      - name: Content rules
+        run: npm run lint:content
+      - name: SEO
+        run: npm run test:seo
+      - name: Priority 50 keywords
+        run: npm run test:keywords
+      - name: End-to-end (sizes, axe, keyboard, no-JS)
+        run: npm run test:e2e
+      - name: Lighthouse budgets (templates)
+        run: npm run lhci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reports
+          path: |
+            docs/KEYWORD_COVERAGE.md
+            .lighthouseci/summary.json
+            test-results/screens
+          retention-days: 14

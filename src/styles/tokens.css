@@ -1,0 +1,200 @@
+/* Design tokens — the only place raw colour, size and shadow values live (brief §10). */
+@layer reset, tokens, base, layout, components, utilities;
+
+@layer tokens {
+  :root {
+    /* Palette v4 (owner feedback, 23 Nov 2026): pink and glacier blue are both primary colours, green is the
+       accent, surfaces stay white-led. Pink is the action colour (buttons, links); glacier blue is the information
+       colour (labels, numbering, icons, 3D lines). Supersedes D34–D35. See docs/DECISIONS.md D60–D66. */
+    --blush-100: #ffe6f0;
+    --blush-200: #ffc2dc;
+    --blush-400: #ff7ab6;
+    --blush-600: #dc1c6b;
+    --blush-700: #b31259;
+    --blush-800: #7d0f47;
+    --glacier-50: #f3f9fe;
+    --glacier-100: #e1f2fd;
+    --glacier-200: #c4e6fb;
+    --glacier-400: #6cc4f5;
+    --glacier-600: #2187c9;
+    --glacier-700: #17669a;
+    --glacier-800: #0f4a72;
+    --leaf-400: #5fdda0;
+    --leaf-700: #126e44;
+    --leaf-100: #e2f9ec;
+    --mist: #f3f9fe;
+    --night: #0f1a2c;
+    --night-2: #18283f;
+    --night-3: #233a5a;
+    --black: #000000;
+    --grey-600: #515b6e;
+    --grey-300: #d6dde8;
+    --white: #ffffff;
+
+    /* Skin tones for the stylised condition specimens only (§11.4): light brown → deep brown */
+    --skin-1: #c99670;
+    --skin-2: #a9734e;
+    --skin-3: #8a5839;
+    --skin-4: #653d27;
+    --skin-5: #3b2318;
+
+    /* Roles */
+    --ink: var(--night);
+    --ink-soft: var(--grey-600);
+    --on-night: var(--white);
+    --on-night-soft: rgb(255 255 255 / 0.82);
+    --link: var(--blush-700);
+    --label: var(--glacier-700);
+    --rule: var(--grey-300);
+    --link-pink: var(--blush-700);
+
+    /* Gradients — all between 100° and 160°. Pink and glacier blue meet through a soft violet. */
+    --grad-night:
+      radial-gradient(48% 62% at 78% 22%, rgb(255 194 220 / 0.34), transparent 70%),
+      radial-gradient(56% 58% at 62% 78%, rgb(108 196 245 / 0.42), transparent 72%),
+      radial-gradient(38% 40% at 100% 62%, rgb(255 122 182 / 0.3), transparent 70%),
+      radial-gradient(36% 34% at 0% 100%, rgb(95 221 160 / 0.26), transparent 72%),
+      radial-gradient(30% 26% at 6% 96%, rgb(255 122 182 / 0.28), transparent 72%),
+      linear-gradient(115deg, var(--night) 0%, var(--night-2) 46%, var(--night-3) 100%);
+    /* Home hero (owner, D77): white, washed with glacier blue and light pink. The blooms are placed, not
+       random: glacier blue rises behind the text, pink gathers behind the portrait, and a band of white
+       crosses between them so the two colours meet through light instead of through violet. */
+    --grad-hero:
+      linear-gradient(112deg, rgb(255 255 255 / 0) 22%, rgb(255 255 255 / 0.78) 46%, rgb(255 255 255 / 0) 70%),
+      radial-gradient(58% 72% at 84% 20%, rgb(255 194 220 / 0.9), rgb(255 230 240 / 0.5) 46%, transparent 72%),
+      radial-gradient(54% 60% at 68% 96%, rgb(196 230 251 / 0.95), transparent 70%),
+      radial-gradient(46% 58% at 2% 4%, rgb(196 230 251 / 0.9), rgb(225 242 253 / 0.55) 48%, transparent 74%),
+      radial-gradient(40% 46% at 0% 100%, rgb(255 230 240 / 0.95), transparent 72%),
+      linear-gradient(118deg, var(--glacier-50) 0%, var(--white) 46%, var(--blush-100) 100%);
+    --grad-night-continue:
+      radial-gradient(46% 44% at 22% -6%, rgb(108 196 245 / 0.3), transparent 70%),
+      radial-gradient(56% 60% at 100% 100%, rgb(255 122 182 / 0.3), transparent 70%),
+      radial-gradient(30% 30% at 0% 100%, rgb(95 221 160 / 0.16), transparent 72%),
+      linear-gradient(20deg, var(--night), var(--night-2) 45%, var(--night-3));
+    --grad-night-plain: linear-gradient(160deg, var(--night), var(--night-2) 55%, var(--night-3));
+    --grad-reading: linear-gradient(180deg, var(--white), var(--white));
+    --grad-mist: linear-gradient(180deg, var(--mist), var(--mist));
+    --grad-aurora: linear-gradient(120deg, var(--blush-600) 0%, var(--blush-400) 42%, var(--glacier-400) 100%);
+    --grad-cta: linear-gradient(120deg, var(--blush-600) 0%, var(--blush-700) 50%, var(--blush-800) 100%);
+    --grad-btn: linear-gradient(180deg, var(--blush-600) 0%, var(--blush-700) 100%);
+    --grad-rose: linear-gradient(135deg, var(--glacier-100), var(--glacier-200));
+    --grad-blush: linear-gradient(135deg, var(--blush-100), var(--blush-400));
+    --grad-glacier: linear-gradient(135deg, var(--glacier-100), var(--glacier-400));
+    --grad-leaf: linear-gradient(135deg, var(--leaf-100), var(--leaf-400));
+    --grad-ink: linear-gradient(100deg, var(--night) 25%, var(--glacier-700) 100%);
+    --grad-pearl: linear-gradient(100deg, var(--white) 40%, var(--glacier-200) 78%, var(--blush-200) 118%);
+    --grad-hairline: linear-gradient(120deg, var(--glacier-200), var(--blush-200));
+    --grad-hairline-strong: linear-gradient(120deg, var(--blush-400), var(--glacier-400));
+    --grad-hairline-night: linear-gradient(120deg, rgb(255 122 182 / 0.85), rgb(108 196 245 / 0.75));
+    --grad-glass: linear-gradient(150deg, rgb(255 255 255 / 0.09), rgb(255 255 255 / 0.03));
+    --grad-glass-strong: linear-gradient(150deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.05));
+    --grad-smoke: linear-gradient(120deg, rgb(15 26 44 / 0.88), rgb(16 28 54 / 0.8));
+    --grad-light-panel: linear-gradient(160deg, var(--white), var(--white) 60%, var(--mist));
+    --grad-blush-soft: linear-gradient(135deg, var(--white), var(--white) 45%, var(--blush-100));
+    --grad-glacier-soft: linear-gradient(135deg, var(--white), var(--white) 45%, var(--glacier-100));
+    --grad-leaf-soft: linear-gradient(135deg, var(--white), var(--leaf-100));
+    --grad-rose-soft: linear-gradient(135deg, var(--white), var(--white) 55%, var(--glacier-100));
+
+    /* Scrims keep text readable where 3D passes behind it */
+    --scrim-night-inline: linear-gradient(100deg, rgb(15 26 44 / 0.92), rgb(15 26 44 / 0.66) 36%, rgb(15 26 44 / 0) 62%);
+    --scrim-night-block: linear-gradient(180deg, rgb(15 26 44 / 0.92), rgb(15 26 44 / 0.7) 48%, rgb(15 26 44 / 0) 70%);
+    --scrim-night-soft: radial-gradient(closest-side, rgb(15 26 44 / 0.72), rgb(15 26 44 / 0));
+    --scrim-light-inline: linear-gradient(100deg, rgb(255 255 255 / 0.72), rgb(255 255 255 / 0.4) 34%, rgb(255 255 255 / 0) 58%);
+    --scrim-light-block: linear-gradient(180deg, rgb(255 255 255 / 0.78), rgb(255 255 255 / 0.5) 46%, rgb(255 255 255 / 0) 68%);
+
+    /* Radius: the owner's PrimeTrack shapes (D75). Buttons and chips are rectangles with a 6px corner,
+       never pills; boxes are 24px; small tiles and cards inside boxes 14px. --r-pill is only for round
+       things: the arrow chip inside a button, dots, tick marks. */
+    --r-pill: 999px;
+    --r-feature: 1.5rem;
+    --r-card: 0.875rem;
+    --r-btn: 0.375rem;
+    --r-field: 0.375rem;
+
+    /* Shadows and glows — never grey */
+    --shadow-panel: 0 14px 34px -16px rgb(23 60 110 / 0.26);
+    --shadow-panel-lift: 0 26px 52px -20px rgb(23 60 110 / 0.36);
+    --glow-blush: 0 16px 44px -12px rgb(255 79 154 / 0.65);
+    --glow-rose: 0 16px 44px -14px rgb(108 196 245 / 0.5);
+    /* Button plates (D75): a lit top edge, a firmer foot, contact shadow, then a glow in the plate's own colour */
+    --shadow-btn: inset 0 1px 0 rgb(255 255 255 / 0.38), inset 0 -1px 0 rgb(15 26 44 / 0.14), 0 1px 2px rgb(15 26 44 / 0.2), 0 10px 26px -12px rgb(220 28 107 / 0.7);
+    --shadow-btn-hover: inset 0 1px 0 rgb(255 255 255 / 0.45), inset 0 -1px 0 rgb(15 26 44 / 0.14), 0 1px 2px rgb(15 26 44 / 0.2), 0 16px 36px -12px rgb(220 28 107 / 0.85);
+    --shadow-btn-light: 0 1px 2px rgb(15 26 44 / 0.06), inset 0 -1px 0 rgb(15 26 44 / 0.04);
+    --shadow-btn-light-hover: 0 10px 24px -14px rgb(15 26 44 / 0.35), inset 0 -1px 0 rgb(15 26 44 / 0.04);
+    /* A box under the pointer (D79): it lifts, its shadow lengthens and a faint pink halo gathers round it */
+    --shadow-box-hover: 0 2px 4px rgb(15 26 44 / 0.05), 0 14px 28px -12px rgb(23 60 110 / 0.2), 0 32px 60px -28px rgb(23 60 110 / 0.32), 0 0 0 4px rgb(220 28 107 / 0.07);
+    --highlight-top: inset 0 1px 0 rgb(255 255 255 / 0.22);
+    --highlight-top-strong: inset 0 1px 0 rgb(255 255 255 / 0.6);
+    --focus-ring: 0 0 0 2px var(--white), 0 0 0 5px var(--night);
+    --focus-ring-night: 0 0 0 2px var(--night), 0 0 0 5px var(--white);
+
+    /* Motion (§11.6) */
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --dur-micro: 200ms;
+    --dur-ui: 450ms;
+    --dur-reveal: 800ms;
+
+    /* Type (§10.2) — ratio 1.2 @360 → 1.333 @1440 */
+    --font-display: 'Alegreya Sans', 'Alegreya Sans Fallback', 'Alegreya Sans Fallback Android', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+    --font-body: 'Alegreya Sans', 'Alegreya Sans Fallback', 'Alegreya Sans Fallback Android', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+    /* One typeface, one compact scale used the same way on every page (owner feedback, D61):
+       label 12 · small 15 · body 17 · lead 18→21 · h3 21→27 · h2 29→44 · page h1 34→54 · home display 38→76 */
+    --step--2: 0.75rem;
+    --step--1: 0.9375rem;
+    --step-0: 1.0625rem;
+    --step-1: clamp(1.125rem, 1.06rem + 0.3vw, 1.3125rem);
+    --step-2: clamp(1.3125rem, 1.19rem + 0.55vw, 1.6875rem);
+    --step-3: clamp(1.8125rem, 1.44rem + 1.65vw, 2.75rem);
+    --step-4: clamp(2.125rem, 1.62rem + 2.25vw, 3.375rem);
+    --step-5: clamp(2.375rem, 1.5rem + 3.9vw, 4.75rem);
+    --leading-body: 1.65;
+    --leading-heading: 1.12;
+    --leading-display: 1.08;
+    --measure: 68ch;
+
+    /* Space (Utopia, 360 → 1440) */
+    --space-3xs: clamp(0.25rem, 0.2292rem + 0.0926vw, 0.3125rem);
+    --space-2xs: clamp(0.5rem, 0.4792rem + 0.0926vw, 0.5625rem);
+    --space-xs: clamp(0.75rem, 0.7083rem + 0.1852vw, 0.875rem);
+    --space-s: clamp(1rem, 0.9583rem + 0.1852vw, 1.125rem);
+    --space-m: clamp(1.5rem, 1.4375rem + 0.2778vw, 1.6875rem);
+    --space-l: clamp(2rem, 1.9167rem + 0.3704vw, 2.25rem);
+    --space-xl: clamp(3rem, 2.5rem + 2.2222vw, 4.5rem);
+    --space-2xl: clamp(4rem, 3.1rem + 4vw, 6rem);
+    --space-3xl: clamp(6rem, 4.5rem + 6.6667vw, 10.5rem);
+
+    /* Layout (§10.3) */
+    --content-max: 84rem; /* 1344px: one left and right edge for the nav and every section */
+    --gutter: var(--space-m);
+    --page-pad: max(clamp(1.125rem, 0.45rem + 3vw, 3rem), env(safe-area-inset-left), env(safe-area-inset-right));
+    --nav-h: 4.5rem;
+    --nav-top: 0rem;
+    --nav-clear: var(--nav-h);
+    --seam-h: 0px; /* sections meet on a straight edge (D62); kept as a token so layouts that add it still compute */
+    --tap: 2.75rem; /* 44px minimum touch target */
+    --btn-h: 3rem; /* 48px phone */
+
+    /* Stacking */
+    --z-canvas: 1;
+    --z-content: 2;
+    --z-dock: 40;
+    --z-nav: 50;
+    --z-sheet: 60;
+    --z-banner: 70;
+  }
+
+  @media (min-width: 64em) {
+    :root {
+      --btn-h: 3.25rem; /* 52px desktop */
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --dur-micro: 0.01ms;
+      --dur-ui: 0.01ms;
+      --dur-reveal: 0.01ms;
+    }
+  }
+}

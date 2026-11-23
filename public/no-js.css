@@ -1,0 +1,13 @@
+/* Loaded only inside <noscript>: fallbacks for browsers without JavaScript (rule 4.7). */
+.no-js-only { display: revert; }
+.dock:not(.is-visible) { translate: 0 0; }
+@media (max-width: 63.99em) {
+  .mega { display: block; }
+  .nav__toggle { display: none; }
+}
+@media (min-width: 64em) {
+  .nav__item:hover > .mega,
+  .nav__item:focus-within > .mega { visibility: visible; opacity: 1; translate: 0 0; transition-delay: 0s; }
+}
+/* Without JS the bar cannot tell when it has left the dark hero, so it keeps a solid dark ground. */
+.nav.is-over-dark::before { background: #0f1a2c; }

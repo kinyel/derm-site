@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Band from '../components/Band.astro';
+import FadeSequence from '../components/home/FadeSequence.astro';
+import HomeHero from '../components/home/HomeHero.astro';
+import TheClinic from '../components/home/TheClinic.astro';
+import WhatWeTreat from '../components/home/WhatWeTreat.astro';
+import FindConcern from '../components/home/FindConcern.astro';
+import SkinOfColour from '../components/home/SkinOfColour.astro';
+import YourVisit from '../components/home/YourVisit.astro';
+import Learn from '../components/home/Learn.astro';
+import HomeFaq from '../components/home/HomeFaq.astro';
+import VisitHome from '../components/home/VisitHome.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { clinic, experienceFragment } from '../data/clinic.ts';
+import { loadAll, paths, formatDate, isoDate } from '../lib/content.ts';
+import { clinicSchema, faqSchema } from '../lib/schema.ts';
+
+const all = await loadAll();
+const HOME_ORDER = ['fees', 'hmo', 'online-consultation', 'first-visit', 'referral', 'children'];
+const homeFaqs = all.faqs
+  .filter((f) => f.data.home)
+  .sort((a, b) => HOME_ORDER.indexOf(a.id) - HOME_ORDER.indexOf(b.id))
+  .slice(0, 6)
+  .map((f) => ({ q: f.data.homeQ ?? f.data.q, a: f.data.homeA ?? f.data.a }));
+// The home page is assembled from the category pages and clinic FAQs, so it is as fresh as the newest of them (§14.1.8).
+const updatedOn = new Date(Math.max(...all.services.map((s) => s.data.updatedOn.getTime()), ...all.procedures.filter((p) => p.data.featured).map((p) => p.data.updatedOn.getTime())));
+const specialties = [...new Set(all.services.map((s) => s.data.specialty))];
+const services = [
+  ...all.services.map((s) => ({ name: s.data.title, url: paths.service(s.id) })),
+  ...all.procedures.map((p) => ({ name: p.data.title, url: paths.procedure(p) })),
+];
+const description = `Dermatologist in Lagos at ${clinic.name}, ${clinic.address.neighbourhood}, ${clinic.address.addressLocality}: a skin doctor on the Island with ${experienceFragment.replace(' in dermatology', '')}. Book an appointment.`;
+---
+
+<BaseLayout seoTitle={`Dermatologist in Lagos: ${clinic.address.neighbourhood}, ${clinic.address.addressLocality}`} description={description} path="/" schema={[clinicSchema(services, specialties), faqSchema(homeFaqs)]} searchType="Clinic">
+  <!-- LCP help on phones: fetch the portrait hero poster early (the <picture> picks the same file) -->
+  <link slot="head" rel="preload" as="image" type="image/avif" href="/posters/hero-p@2x.avif" imagesrcset="/posters/hero-p@1x.avif 1x, /posters/hero-p@2x.avif 2x" media="(max-width: 63.99em) and (orientation: portrait)" fetchpriority="high" />
+  <FadeSequence>
+    <div class="fade-step fade-step--hero"><div class="fade-bg"></div><div class="fade-view"><HomeHero /></div></div>
+    <div class="fade-step"><div class="fade-bg"></div><div class="fade-view"><TheClinic /></div></div>
+    <div class="fade-step fade-step--self"><WhatWeTreat /></div>
+  </FadeSequence>
+  <FindConcern />
+  <SkinOfColour />
+  <YourVisit />
+  <Learn />
+  <HomeFaq>
+    <p class="home-updated">Updated <time datetime={isoDate(updatedOn)} data-updated>{formatDate(updatedOn)}</time></p>
+  </HomeFaq>
+  <VisitHome />
+  <CtaBand heading="Have your skin looked at by a dermatologist in Lagos" />
+</BaseLayout>
+
+<style>
+  .home-updated {
+    margin-block-start: var(--space-l);
+    font-size: var(--step--1);
+    color: var(--grey-600);
+  }
+</style>

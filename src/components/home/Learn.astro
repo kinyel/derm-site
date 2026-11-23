@@ -1,0 +1,95 @@
+---
+/** Home §7 "Learn": latest three articles + the most-asked questions (all real links). */
+import Band from '../Band.astro';
+import Media from '../Media.astro';
+import SectionHead from '../SectionHead.astro';
+import Icon from '../Icon.astro';
+import { loadAll, paths } from '../../lib/content.ts';
+
+const all = await loadAll();
+const latest = all.articles.slice(0, 3);
+const asked = all.articles.filter((a) => a.data.mostAsked && !latest.includes(a)).slice(0, 6);
+---
+
+<Band tone="mist" labelledby="learn-heading">
+  <div class="container">
+    <SectionHead
+      id="learn-heading"
+      eyebrow="Learn"
+      title="Learn about your skin"
+      lead="Plain answers to the questions people in Lagos ask about skin, hair and nails, written by the clinic’s editorial team."
+      action={{ href: '/blog/', label: 'All articles' }}
+    />
+    <div class="card-grid">
+      {
+        latest.map((a) => (
+          <article class="card">
+            <Media id={`articles/${a.id}`} alt={a.data.imageAlt} sizes="(min-width: 64em) 26vw, 90vw" />
+            <div class="card__body">
+              <h3 class="card__title"><a href={paths.article(a.id)}>{a.data.title}</a></h3>
+              <p>{a.data.summary}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+    {
+      asked.length > 0 && (
+        <div class="asked">
+          <h3 class="eyebrow eyebrow--plain">Most-asked questions</h3>
+          <ul class="asked__list" role="list">
+            {asked.map((a) => (
+              <li>
+                <a href={paths.article(a.id)}>
+                  <span>{a.data.h1}</span>
+                  <Icon name="arrow" solid />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+</Band>
+
+<style>
+  .asked {
+    margin-block-start: var(--space-xl);
+  }
+  .asked h3 {
+    margin-block-end: var(--space-xs);
+    letter-spacing: 0.14em;
+  }
+  .asked__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+    column-gap: var(--space-xl);
+  }
+  .asked__list a {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-s);
+    min-height: 3.25rem;
+    padding-block: var(--space-xs);
+    border-block-start: 1px solid var(--rule);
+    color: var(--ink);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color var(--dur-micro) var(--ease-out);
+  }
+  .asked__list :global(.icon) {
+    width: 1rem;
+    height: 1rem;
+    color: var(--glacier-600);
+    stroke-width: 2;
+    transition: translate var(--dur-micro) var(--ease-out);
+  }
+  .asked__list a:hover {
+    color: var(--blush-700);
+  }
+  .asked__list a:hover :global(.icon) {
+    translate: 3px 0;
+  }
+</style>

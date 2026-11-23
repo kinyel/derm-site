@@ -1,0 +1,56 @@
+---
+/**
+ * Text logotype until src/assets/brand/logo.svg exists, then the SVG is used automatically.
+ * The mark is an "O" ring and a "C" arc drawn in the aurora gradient.
+ */
+import { clinic } from '../data/clinic.ts';
+import { logoSvg } from '../lib/media.ts';
+
+interface Props {
+  class?: string;
+}
+const { class: cls } = Astro.props;
+---
+
+<span class:list={['logo', cls]}>
+  {
+    logoSvg ? (
+      <span class="logo__svg" set:html={logoSvg} aria-hidden="true" />
+    ) : (
+      <>
+        <svg class="logo__mark" viewBox="0 0 40 28" aria-hidden="true" focusable="false">
+          <circle cx="13" cy="14" r="9.5" fill="none" stroke="url(#logo-grad)" stroke-width="3" />
+          <path d="M35.2 7.6a9.5 9.5 0 1 0 0 12.8" fill="none" stroke="url(#logo-grad)" stroke-width="3" stroke-linecap="round" />
+        </svg>
+        <span class="logo__text">{clinic.name}</span>
+      </>
+    )
+  }
+  {logoSvg && <span class="visually-hidden">{clinic.name}</span>}
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: inherit;
+    line-height: 1;
+  }
+  .logo__mark {
+    width: 2.5rem;
+    height: 1.75rem;
+    flex: none;
+  }
+  .logo__text {
+    font-family: var(--font-display);
+    font-size: 1.1875rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  .logo__svg :global(svg) {
+    height: 2rem;
+    width: auto;
+  }
+</style>

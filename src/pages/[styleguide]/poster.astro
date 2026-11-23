@@ -1,0 +1,56 @@
+---
+/**
+ * Poster harness (used only by `npm run posters`): renders ONE scene at rest on a transparent
+ * page so Playwright can capture it. /_styleguide/ is noindex and disallowed in robots.txt.
+ * Query: ?poster=1&scene=helix&params={…}&w=600&h=450&progress=0.35&surface=light
+ */
+import '../../styles/tokens.css';
+import '../../styles/base.css';
+import '../../styles/components.css';
+
+export function getStaticPaths() {
+  return [{ params: { styleguide: '_styleguide' } }];
+}
+---
+
+<!doctype html>
+<html lang="en-NG">
+  <head>
+    <meta charset="utf-8" />
+    <!-- Cascade layer order must be declared before any stylesheet: build chunks can load in any order (see DECISIONS D53). -->
+    <style is:inline>@layer reset, tokens, base, layout, components, utilities;</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Poster harness</title>
+    <style>
+      html,
+      body {
+        background: transparent !important;
+        margin: 0;
+        overflow: hidden;
+      }
+      #stage {
+        position: absolute;
+        inset: 0 auto auto 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas class="scene-canvas" data-scene-canvas aria-hidden="true" hidden></canvas>
+    <div id="stage" class="stage on-night"></div>
+    <script>
+      import { startEngine } from '../../scenes/engine.ts';
+      const q = new URLSearchParams(location.search);
+      const stage = document.getElementById('stage')!;
+      // scenes on a light band are drawn in the deeper light-surface colours
+      if (q.get('surface') === 'light') stage.classList.remove('on-night');
+      stage.dataset.scene = q.get('scene') ?? 'hero';
+      stage.dataset.params = q.get('params') ?? '{}';
+      stage.dataset.posterProgress = q.get('progress') ?? '0.35';
+      stage.style.width = `${q.get('w') ?? 600}px`;
+      stage.style.height = `${q.get('h') ?? 450}px`;
+      stage.style.aspectRatio = 'auto';
+      startEngine(2);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+---
+import BlogIndex from '../../components/BlogIndex.astro';
+import { loadAll } from '../../lib/content.ts';
+import { PER_PAGE } from '../../lib/paging.ts';
+
+const all = await loadAll();
+const pages = Math.max(1, Math.ceil(all.articles.length / PER_PAGE));
+---
+
+<BlogIndex articles={all.articles.slice(0, PER_PAGE)} page={1} pages={pages} stack={all.articles.slice(0, 5)} />

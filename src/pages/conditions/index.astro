@@ -1,0 +1,132 @@
+---
+/** Conditions library: search, by body area, A–Z. Links to every condition page. */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Band from '../../components/Band.astro';
+import Stage from '../../components/Stage.astro';
+import Search from '../../components/Search.astro';
+import VisitUs from '../../components/VisitUs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { clinic } from '../../data/clinic.ts';
+import { loadAll, paths, conditionsByArea } from '../../lib/content.ts';
+import { pageSchema } from '../../lib/schema.ts';
+
+const all = await loadAll();
+const areas = conditionsByArea(all);
+const letters = [...new Set(all.conditions.map((c) => c.data.shortTitle[0].toUpperCase()))].sort();
+const byLetter = letters.map((l) => ({ letter: l, items: all.conditions.filter((c) => c.data.shortTitle[0].toUpperCase() === l) }));
+const path = '/conditions/';
+const crumbs = [{ label: 'Conditions', href: path }];
+const seoTitle = 'Skin, Hair & Nail Conditions A–Z';
+const description = `Plain-language guides to ${all.conditions.length} skin, hair and nail conditions: signs, including on brown and Black skin, causes and treatment at ${clinic.name}, Lagos.`;
+---
+
+<BaseLayout seoTitle={seoTitle} description={description} path={path} section="conditions" crumbs={crumbs} schema={[pageSchema({ path, title: seoTitle, description }, 'CollectionPage')]} searchType="Condition">
+  <PageHero h1="Skin, hair and nail conditions explained" lead={`Each guide answers the same questions: what the condition is, what it looks like, including on brown and Black skin, when to see a dermatologist and how it is treated at ${clinic.name} in Lagos.`} crumbs={crumbs}>
+    <Stage slot="stage" priority scene="wall" p="4 / 3" l="1 / 1" d="1 / 1" params={{ n: all.conditions.length }} />
+  </PageHero>
+
+  <Band tone="reading">
+    <div class="container stack" style="--stack: var(--space-2xl)">
+      <Search label="Search conditions, treatments and articles" />
+
+      <section aria-labelledby="by-area">
+        <div class="section-head">
+          <h2 id="by-area">By body area</h2>
+        </div>
+        <div class="area-grid">
+          {
+            areas.map((a) => (
+              <section class="item-group" id={`area-${a.id}`}>
+                <h3>{a.label}</h3>
+                <ul>
+                  {a.conditions.map((c) => (
+                    <li><a href={paths.condition(c.id)}>{c.data.shortTitle}</a></li>
+                  ))}
+                </ul>
+              </section>
+            ))
+          }
+        </div>
+      </section>
+
+      <section aria-labelledby="a-z">
+        <div class="section-head">
+          <h2 id="a-z">All conditions A–Z</h2>
+        </div>
+        <nav aria-label="Jump to letter" class="cluster az-nav">
+          {letters.map((l) => (
+            <a class="chip" href={`#letter-${l}`}>{l}</a>
+          ))}
+        </nav>
+        <div class="az">
+          {
+            byLetter.map((g) => (
+              <section class="az__group" id={`letter-${g.letter}`} aria-label={g.letter}>
+                <p class="az__letter" aria-hidden="true">{g.letter}</p>
+                <ul class="az__list" role="list">
+                  {g.items.map((c) => (
+                    <li>
+                      <a href={paths.condition(c.id)}>{c.data.title}</a>
+                      <span class="meta">{c.data.summary}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))
+          }
+        </div>
+      </section>
+      <VisitUs />
+    </div>
+  </Band>
+  <CtaBand heading="Not sure what it is?" text="You do not need a name for it before you come. Book an appointment and the dermatologist will examine it." />
+</BaseLayout>
+
+<style>
+  .area-grid {
+    display: grid;
+    gap: var(--space-l) var(--gutter);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  }
+  .az-nav {
+    margin-block-end: var(--space-l);
+  }
+  .az {
+    display: grid;
+    gap: var(--space-l);
+  }
+  .az__group {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: var(--space-s);
+    padding-block-start: var(--space-s);
+    border-block-start: 1px solid transparent;
+    border-image: var(--grad-hairline-strong) 1;
+  }
+  .az__letter {
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    line-height: 1;
+    background: var(--grad-ink);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .az__list {
+    display: grid;
+    gap: var(--space-xs) var(--gutter);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+  }
+  .az__list li {
+    display: grid;
+    max-width: none;
+  }
+  .az__list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: var(--link);
+    font-weight: 600;
+  }
+</style>

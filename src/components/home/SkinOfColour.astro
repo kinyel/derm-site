@@ -1,0 +1,114 @@
+---
+/** Home §5: the clinic treats every skin type (owner, D82); these panels explain what differs on brown and Black skin. */
+import Band from '../Band.astro';
+import Stage from '../Stage.astro';
+import SectionHead from '../SectionHead.astro';
+import Icon from '../Icon.astro';
+import { loadAll, resolveRef } from '../../lib/content.ts';
+
+const all = await loadAll();
+const link = (ref: string, label: string) => resolveRef(all, ref, label);
+const panels = [
+  {
+    title: 'Pigmentation',
+    text: 'Brown and Black skin makes extra melanin whenever it is inflamed. A pimple, a scratch or a harsh product can leave a dark mark that lasts longer than the thing that caused it. Redness also looks different: it shows as violet, brown or grey rather than pink, so rashes are easy to miss.',
+    links: [link('conditions/hyperpigmentation', 'Hyperpigmentation and dark spots'), link('conditions/melasma', 'Melasma')],
+  },
+  {
+    title: 'Keloids',
+    text: 'A keloid is a raised scar that grows past the edge of the original wound. Keloids are more common in people of African descent, which changes how piercings, minor surgery and even acne treatment should be planned.',
+    links: [link('conditions/keloids', 'Keloids'), link('conditions/acne-scars', 'Acne scars')],
+  },
+  {
+    title: 'Laser safety',
+    text: 'Melanin absorbs laser light. On dark skin the wrong wavelength or setting can burn or leave marks, so the choice of device, a test patch and cautious settings matter more than speed.',
+    links: [link('services/laser-treatments', 'Laser and light treatments'), link('articles/is-laser-hair-removal-safe-on-dark-skin', 'Is laser hair removal safe on dark skin?')],
+  },
+];
+---
+
+<Band tone="mist" labelledby="colour-heading">
+  <div class="container">
+    <div class="colour__head">
+      <SectionHead
+        id="colour-heading"
+        eyebrow="Every skin type"
+        title="Care for every skin type and tone"
+        lead="We see people of every skin type and tone. Most skin textbooks were illustrated on light skin, so this is what we watch for when skin is brown or Black."
+      />
+      <div class="colour__stage"><Stage scene="melanocyte" p="4 / 3" l="4 / 3" d="4 / 3" small /></div>
+    </div>
+    <div class="colour__panels">
+      {
+        panels.map((p, i) => (
+          <article class="colour__panel">
+            <p class="colour__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</p>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+            <p class="colour__links">
+              {p.links.filter((l) => l !== undefined).map((l) => (
+                <a class="link link--arrow" href={l.href}>{l.label} <Icon name="arrow" solid /></a>
+              ))}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</Band>
+
+<style>
+  .colour__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-m);
+    align-items: end;
+  }
+  .colour__stage {
+    display: none;
+  }
+  .colour__panels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: var(--gutter);
+  }
+  .colour__panel {
+    display: grid;
+    align-content: start;
+    gap: var(--space-xs);
+    padding: var(--space-m);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-card);
+    background: var(--white);
+    box-shadow: var(--shadow-panel);
+  }
+  .colour__num {
+    font-size: var(--step--2);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--label);
+  }
+  .colour__panel > p:not(.colour__num):not(.colour__links) {
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+  .colour__links {
+    display: grid;
+    margin-block-start: var(--space-2xs);
+    padding-block-start: var(--space-xs);
+    border-block-start: 1px solid var(--rule);
+  }
+  @media (min-width: 64em) {
+    .colour__head {
+      grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    }
+    .colour__stage {
+      display: block;
+      width: 100%;
+      max-width: 20rem;
+      justify-self: end;
+      margin-block-end: var(--space-l);
+    }
+  }
+</style>

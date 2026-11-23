@@ -1,0 +1,23 @@
+---
+/**
+ * Trust signals for medical pages (§15.3): byline, Updated date, review line only when
+ * the frontmatter review fields are filled (§6), editorial policy link.
+ */
+import { clinic } from '../data/clinic.ts';
+import { formatDate, isoDate } from '../lib/content.ts';
+
+interface Props {
+  updatedOn: Date;
+  publishedOn?: Date;
+  reviewedBy?: string;
+  reviewedOn?: Date;
+}
+const { updatedOn, publishedOn, reviewedBy, reviewedOn } = Astro.props;
+---
+
+<p class="byline">
+  <span>By the <a href="/editorial-policy/">{clinic.editorialByline}</a></span>
+  {publishedOn && <span>Published <time datetime={isoDate(publishedOn)}>{formatDate(publishedOn)}</time></span>}
+  <span>Updated <time datetime={isoDate(updatedOn)} data-updated>{formatDate(updatedOn)}</time></span>
+  {reviewedBy && <span>Medically reviewed by {reviewedBy}{reviewedOn && <>, <time datetime={isoDate(reviewedOn)}>{formatDate(reviewedOn)}</time></>}</span>}
+</p>

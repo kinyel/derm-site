@@ -1,0 +1,65 @@
+---
+import { seedOf } from '../lib/content.ts';
+/**
+ * Address, hours and contact actions from clinic.ts (NAP identical everywhere, §13.4).
+ * variant "strip": compact block at the end of content pages (local signal, §14.1.5).
+ */
+import Button from './Button.astro';
+import { clinic, telHref, whatsappHref, directionsHref } from '../data/clinic.ts';
+
+interface Props {
+  variant?: 'full' | 'strip';
+  heading?: string;
+  headingId?: string;
+}
+const { variant = 'strip', heading = `Visit ${clinic.name} in ${clinic.address.neighbourhood}`, headingId = 'visit-us' } = Astro.props;
+// The link to the location page appears on almost every page, so its label takes turns through a few honest
+// wordings (brief §14.1.4: anchor text that varies). The choice is fixed per page, so builds are stable.
+const DIRECTIONS = [
+  'Directions from Lekki, Victoria Island, Ikoyi, Ikate and Ajah',
+  'Dermatologist in Lekki: directions to the clinic',
+  'Dermatologist in Victoria Island: how to reach us',
+  'A dermatologist on the Island: find the clinic',
+  'Skin clinic for Lekki and Victoria Island: map and directions',
+];
+const directions = DIRECTIONS[Math.floor(seedOf(Astro.url.pathname) * 1000) % DIRECTIONS.length];
+---
+
+<section class:list={[variant === 'strip' ? 'visit-strip panel panel--light panel--feature' : 'visit']} aria-labelledby={headingId} data-visit-us>
+  {variant === 'strip' ? <h2 id={headingId} class="visit-strip__title">{heading}</h2> : <slot name="heading" />}
+  <div class={variant === 'strip' ? 'visit-strip__inner' : 'visit'}>
+    <div>
+      <address>{clinic.address.displayed}</address>
+      <p class="meta" style="margin-block-start: var(--space-2xs)">
+        <a class="link" href="/dermatologist-victoria-island-lekki/">{directions}</a>
+      </p>
+    </div>
+    <table class="hours">
+      <caption class="visually-hidden">Opening hours</caption>
+      <tbody>
+        {clinic.hours.map((h) => (
+          <tr>
+            <th scope="row">{h.label}</th>
+            <td>{h.display}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <div class="cluster">
+      <Button href="/book-appointment/" icon="calendar" size={variant === 'strip' ? 'small' : 'm'} event="book_click">Book an appointment</Button>
+      <Button href={whatsappHref} variant="whatsapp" size={variant === 'strip' ? 'small' : 'm'} event="whatsapp_click">WhatsApp</Button>
+      <Button href={telHref} variant="secondary" icon="phone" size={variant === 'strip' ? 'small' : 'm'} event="call_click">Call</Button>
+      {variant === 'full' && <Button href={directionsHref} variant="secondary" icon="directions" event="directions_click">Directions</Button>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .visit-strip__title {
+    font-size: var(--step-2);
+  }
+  .visit-strip address {
+    font-size: var(--step-0);
+    font-weight: 600;
+  }
+</style>

@@ -1,0 +1,66 @@
+---
+/** Related links block: conditions (chips), treatments and categories, articles. All generated from data. */
+import type { Link } from '../lib/content.ts';
+
+interface Props {
+  conditions?: Link[];
+  treatments?: Link[];
+  articles?: Link[];
+  conditionsHeading?: string;
+  treatmentsHeading?: string;
+}
+const { conditions = [], treatments = [], articles = [], conditionsHeading = 'Related conditions', treatmentsHeading = 'Related treatments and services' } = Astro.props;
+---
+
+{
+  (conditions.length > 0 || treatments.length > 0 || articles.length > 0) && (
+    <section class="related" aria-label="Related pages">
+      {conditions.length > 0 && (
+        <div>
+          <h2 id="related-conditions">{conditionsHeading}</h2>
+          <ul class="cluster" role="list">
+            {conditions.map((l) => (
+              <li><a class="chip chip--blush" href={l.href}>{l.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {treatments.length > 0 && (
+        <div>
+          <h2 id="related-treatments">{treatmentsHeading}</h2>
+          <ul class="cluster" role="list">
+            {treatments.map((l) => (
+              <li><a class="chip" href={l.href}>{l.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {articles.length > 0 && (
+        <div>
+          <h2 id="related-reading">Further reading</h2>
+          <ul class="link-list" role="list">
+            {articles.map((l) => (
+              <li><a href={l.href}><span>{l.label}</span></a></li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
+  )
+}
+
+<style>
+  .related {
+    display: grid;
+    gap: var(--space-l);
+  }
+  .related h2 {
+    font-size: var(--step-1);
+    font-weight: 450;
+    margin-block-end: var(--space-xs);
+  }
+  .related .link-list a {
+    color: var(--link);
+    font-weight: 600;
+  }
+</style>

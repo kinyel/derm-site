@@ -1,0 +1,101 @@
+---
+/** Home §4 "Find your concern": body areas → conditions. The 3D figure's hotspots mirror these links. */
+import Band from '../Band.astro';
+import Stage from '../Stage.astro';
+import SectionHead from '../SectionHead.astro';
+import { loadAll, conditionsByArea, paths } from '../../lib/content.ts';
+
+const all = await loadAll();
+const areas = conditionsByArea(all).map((a) => ({
+  ...a,
+  total: a.conditions.length,
+  conditions: [...a.conditions].sort((x, y) => (x.data.topRank ?? 50) - (y.data.topRank ?? 50)).slice(0, 5),
+}));
+---
+
+<Band tone="reading" labelledby="concern-heading">
+  <div class="container">
+    <SectionHead
+      id="concern-heading"
+      eyebrow="Conditions"
+      title="Find your concern"
+      lead="Start with where the trouble is. Each guide explains what the condition looks like, including on brown and Black skin, and when to have it checked."
+      action={{ href: '/conditions/', label: 'All conditions A–Z' }}
+    />
+    <div class="concern">
+      <div class="concern__areas" data-areas>
+        {
+          areas.map((a, i) => (
+            <section class="concern__area" data-area={a.id}>
+              <p class="concern__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</p>
+              <h3>
+                <a href={`/conditions/#area-${a.id}`} data-hotspot={`/conditions/#area-${a.id}`}>{a.label}</a>
+              </h3>
+              <ul class="link-list" role="list">
+                {a.conditions.map((c) => (
+                  <li>
+                    <a href={paths.condition(c.id)}><span>{c.data.shortTitle}</span></a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+      </div>
+      <div class="concern__stage">
+        <Stage scene="figure" interactive p="3 / 4" l="3 / 4" d="4 / 5" />
+      </div>
+    </div>
+  </div>
+</Band>
+
+<style>
+  .concern {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-xl);
+    align-items: start;
+  }
+  .concern__areas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+    gap: var(--space-l) var(--gutter);
+  }
+  .concern__area {
+    padding-block-start: var(--space-s);
+    border-block-start: 1px solid var(--rule);
+  }
+  .concern__num {
+    font-size: var(--step--2);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--label);
+  }
+  .concern__area h3 {
+    margin-block: var(--space-3xs) var(--space-xs);
+    font-size: var(--step-1);
+  }
+  .concern__area h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .concern__area h3 a:hover {
+    color: var(--blush-700);
+  }
+  .concern__stage {
+    width: 100%;
+    max-width: 14rem;
+  }
+  @media (min-width: 64em) {
+    .concern {
+      grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    }
+    .concern__areas {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .concern__stage {
+      max-width: 22rem;
+      justify-self: end;
+    }
+  }
+</style>

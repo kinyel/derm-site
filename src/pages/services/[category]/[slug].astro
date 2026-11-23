@@ -1,0 +1,57 @@
+---
+/** Procedure / test / internal-medicine topic page (§9.3). URL and breadcrumb come from its primary category. */
+import { render } from 'astro:content';
+import ReadingPage from '../../../layouts/ReadingPage.astro';
+import Stage from '../../../components/Stage.astro';
+import Media from '../../../components/Media.astro';
+import Related from '../../../components/Related.astro';
+import { loadAll, paths, conditionLinks, procedureLinks, serviceLinks, articleLinks, articlesAbout, seedOf, type Procedure } from '../../../lib/content.ts';
+import { procedureSchema, faqSchema } from '../../../lib/schema.ts';
+
+export async function getStaticPaths() {
+  const all = await loadAll();
+  return all.procedures.map((entry) => ({ params: { category: entry.data.category, slug: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props as { entry: Procedure };
+const d = entry.data;
+const all = await loadAll();
+const category = all.services.find((s) => s.id === d.category);
+if (!category) throw new Error(`Procedure "${entry.id}" names unknown category "${d.category}"`);
+const { Content, headings } = await render(entry);
+const path = paths.procedure(entry);
+const crumbs = [
+  { label: 'Services', href: '/services/' },
+  { label: category.data.navLabel, href: paths.service(category.id) },
+  { label: d.navLabel ?? d.title, href: path },
+];
+const articleIds = [...new Set([...d.articles, ...articlesAbout(all, 'procedures', entry.id).map((a) => a.id)])].slice(0, 4);
+const self = `procedures/${entry.id}`;
+const treatments = [...procedureLinks(all, d.relatedProcedures, self), ...serviceLinks(all, [d.category, ...d.alsoIn], self)];
+const meta = { path, title: d.seoTitle, description: d.description, updatedOn: d.updatedOn, reviewedBy: d.reviewedBy, reviewedOn: d.reviewedOn };
+const isMedicine = category.id === 'internal-medicine';
+---
+
+<ReadingPage
+  seoTitle={d.seoTitle}
+  description={d.description}
+  path={path}
+  section="services"
+  crumbs={crumbs}
+  h1={d.h1}
+  answer={d.answer}
+  updatedOn={d.updatedOn}
+  reviewedBy={d.reviewedBy}
+  reviewedOn={d.reviewedOn}
+  headings={headings}
+  faqs={d.faqs}
+  references={d.references}
+  schema={[procedureSchema(meta, { name: d.title, kind: d.kind, description: d.summary }), faqSchema(d.faqs)]}
+  searchType={d.kind === 'test' ? 'Test' : isMedicine ? 'Internal medicine' : 'Treatment'}
+  ctaHeading={isMedicine ? 'Book a medical consultation' : d.kind === 'test' ? 'Find out what is causing it' : 'Talk to a dermatologist about this treatment'}
+  ctaText="Every treatment starts with a consultation, so the plan fits your skin and your health. Book an appointment at the clinic in Oniru, Lagos."
+>
+  <Stage slot="stage" priority scene={category.data.scene} poster={`${category.data.scene}--${entry.id}`} p="1 / 1" params={{ seed: seedOf(entry.id), variant: 1 }} />
+  {d.image && !d.abstractVisualOnly && <Media slot="media" id={d.image} ratio="16 / 9" sizes="(min-width: 64em) 52vw, 92vw" feature />}
+  <Content />
+  <Related slot="related" conditions={conditionLinks(all, d.conditions, self)} treatments={treatments} articles={articleLinks(all, articleIds, self)} conditionsHeading={isMedicine ? 'Related skin conditions' : 'Conditions this helps with'} />
+</ReadingPage>

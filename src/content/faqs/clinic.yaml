@@ -1,0 +1,146 @@
+# Clinic questions (booking, fees, HMO, online consultations, first visit…). One entry per question.
+# {{tokens}} are filled from src/data/clinic.ts. `home: true` shows the question on the home page.
+
+- id: how-to-book
+  group: booking
+  order: 1
+  q: How do I book an appointment?
+  a: "Send a WhatsApp message to {{whatsapp}}, call {{phone}}, or use the [booking form](/book-appointment/). Tell us briefly what the consultation is about and which days suit you. We reply during opening hours to confirm a time."
+
+- id: referral
+  group: booking
+  order: 2
+  home: true
+  homeQ: "Do I need a referral to see a dermatologist in Nigeria?"
+  homeA: "No. In Nigeria you can book a private dermatologist directly, and {{clinic}} does not ask for a referral letter. If a GP, a pharmacist or another specialist has sent you, bring the letter, any results and every cream or tablet you have tried. That history often shortens the route to the right diagnosis."
+  q: Do I need a referral to see the dermatologist?
+  a: "No. You can book directly. If a doctor or pharmacist has referred you, bring the letter, any test results and the creams or tablets you have already tried, so the dermatologist can see what has been done."
+
+- id: opening-hours
+  group: booking
+  order: 3
+  q: When is the clinic open?
+  a: "Opening hours are {{hours}}. Saturday appointments fill quickly, so book ahead if that is the only day you can come."
+
+- id: reschedule
+  group: booking
+  order: 4
+  q: What if I need to change or cancel my appointment?
+  a: "Message or call the clinic as early as you can, so the time can be offered to someone else. We will find you another slot."
+
+- id: walk-in
+  group: booking
+  order: 5
+  q: Can I walk in without an appointment?
+  a: "Booking ahead is the surest way to be seen, because the doctor's day is planned around appointments. If you are nearby and it is urgent, call first and we will tell you whether you can be fitted in."
+
+- id: fees
+  group: fees-and-hmo
+  order: 1
+  home: true
+  homeQ: "How much does it cost to see a dermatologist in Lagos?"
+  homeA: "The fee depends on the kind of consultation you need, and tests or treatment are charged separately, so {{clinic}} does not publish figures on this website. Send a WhatsApp message to {{whatsapp}} or call {{phone}} and the team will give you the consultation fee before you book. You are told the cost of any test or procedure before it is carried out."
+  q: How much does a consultation cost?
+  a: "Fees depend on the type of consultation and on any tests or treatment you go on to have, so we do not list them online. Message us on WhatsApp at {{whatsapp}} or call {{phone}} and we will tell you the consultation fee before you book. Any further cost is explained before a test or procedure is done."
+
+- id: hmo
+  group: fees-and-hmo
+  order: 2
+  home: true
+  homeQ: "Can I use my HMO to see a dermatologist?"
+  homeA: "That depends on which HMO you are with and what your plan covers for specialist care. Tell us the name of your HMO by WhatsApp or phone before you book. The clinic will confirm whether it can be used here, whether you need an authorisation code from the HMO first, and what to bring on the day."
+  q: Do you accept HMOs?
+  a: "Cover depends on your HMO and your plan. Before you book, message or call the clinic with the name of your HMO and we will tell you whether it can be used here and what you would need to bring."
+
+- id: payment
+  group: fees-and-hmo
+  order: 3
+  q: How do I pay?
+  a: "Ask about payment options when you book. If you need a receipt or an invoice for your employer or insurer, tell the front desk and one will be prepared."
+
+- id: online-consultation
+  group: online
+  order: 1
+  home: true
+  homeQ: "Can I consult a dermatologist online from anywhere in Nigeria?"
+  homeA: "Yes. {{clinic}} offers [online consultations](/services/dermatology-consultations/online-consultation/) by video call for patients in Lagos and elsewhere in Nigeria. You send clear photographs first, then speak to the doctor. Acne, many rashes, hair concerns and follow-up reviews suit this well. A changing mole, a lump or anything that needs a test must be examined at the clinic in Oniru."
+  q: Do you offer online consultations?
+  a: "Yes. An [online consultation](/services/dermatology-consultations/online-consultation/) is a video call with the doctor, supported by photographs you send beforehand. It suits follow-up, acne, many rashes and first assessments for people outside Lagos. Some conditions, such as a changing mole, still need to be seen in person."
+
+- id: online-prescription
+  group: online
+  order: 2
+  q: Can I get a prescription after an online consultation?
+  a: "If the doctor can make a diagnosis safely from the call and your photographs, treatment can be prescribed. If an examination or test is needed first, you will be asked to come in. Some medicines need blood tests before they are started."
+
+- id: online-photos
+  group: online
+  order: 3
+  q: How do I take good photographs of my skin?
+  a: "Use daylight near a window, with no flash and no filter. Take one photo from a distance to show where the rash is, and one close-up in sharp focus. Include something for scale, such as a coin. Photograph both sides of the body if both are affected."
+
+- id: first-visit
+  group: first-visit
+  order: 1
+  home: true
+  homeQ: "What happens when you see a dermatologist for the first time?"
+  homeA: "You talk through your symptoms, medicines and skincare, then the dermatologist examines your skin, hair or nails, often with a handheld magnifier called a dermatoscope. Most people leave their first consultation with a diagnosis and a written treatment plan. If a scraping, swab, biopsy or blood test is needed, it is explained first. See [your visit](/your-visit/) for the five steps."
+  q: What happens at a first consultation?
+  a: "The doctor asks about your symptoms, health, medicines and skin products, then examines the area, often with a magnifying dermatoscope. You are told the likely diagnosis, whether any test is needed, and the treatment options. [Your visit](/your-visit/) explains each step."
+
+- id: what-to-bring
+  group: first-visit
+  order: 2
+  q: What should I bring?
+  a: "Bring every cream, soap, tablet and supplement you use, or photos of the packs; a list of your medical conditions and allergies; and any referral letter or test results. If the rash comes and goes, bring photographs of it at its worst."
+
+- id: full-skin-check
+  group: first-visit
+  order: 3
+  q: Will I need to undress?
+  a: "Only as far as is needed to examine the affected area. A full skin check means undressing to your underwear. You can ask for a chaperone, and you can ask to be seen by the female dermatologist."
+
+- id: children
+  group: children
+  order: 1
+  home: true
+  homeQ: "Can a dermatologist treat babies and children?"
+  homeA: "Yes. The clinic sees babies, children and teenagers for eczema, nappy rash, ringworm, warts, birthmarks, acne and hair loss, with treatment strengths chosen for a child. A parent or guardian must attend with anyone under 18 and stays in the room throughout. Read more about [children’s skin care](/services/childrens-skin-care/) in Lagos."
+  q: Do you see babies and children?
+  a: "Yes. Babies, children and teenagers are seen for eczema, rashes, birthmarks, infections, acne, and hair and nail conditions. A parent or guardian must come with anyone under 18. See [children's skin care](/services/childrens-skin-care/)."
+
+- id: children-procedures
+  group: children
+  order: 2
+  q: Will my child need a painful test?
+  a: "Most children's skin conditions are diagnosed by looking. If a test is needed, the doctor explains it to you first and uses numbing cream or local anaesthetic where it helps. You stay with your child throughout."
+
+- id: treatment-same-day
+  group: treatments
+  order: 1
+  q: Can I have a treatment on the same day as my consultation?
+  a: "Sometimes. Simple tests are usually done during the consultation. Minor procedures can often be done the same day if time allows. Aesthetic and laser treatments start with a consultation, and sometimes a test patch, before the first full treatment."
+
+- id: dark-skin
+  group: treatments
+  order: 2
+  q: Are your laser and peel treatments safe for dark skin?
+  a: "Lasers and peels can be used on brown and Black skin when the device, settings and peel strength are chosen for it and the skin is prepared first. The risks, mainly burns and dark or light marks, are explained at your consultation. See [laser and light treatments](/services/laser-treatments/)."
+
+- id: prices-aesthetic
+  group: treatments
+  order: 3
+  q: Why can't you quote for a treatment before a consultation?
+  a: "The right treatment, the number of treatments and the area to be treated can only be decided after the doctor has examined your skin. Once that is clear, the full cost is explained before anything is done."
+
+- id: where
+  group: location
+  order: 1
+  q: Where is the clinic?
+  a: "{{clinic}} is at {{address}}. {{area}} is the eastern end of Victoria Island, next to Lekki Phase 1. Directions from Lekki, Victoria Island, Ikoyi, Ikate and Ajah are on the [location page](/dermatologist-victoria-island-lekki/)."
+
+- id: outside-lagos
+  group: location
+  order: 2
+  q: I live outside Lagos. Can I still be seen?
+  a: "Yes. Many people start with an online consultation and travel only if an examination, test or procedure is needed. Follow-up can usually be done online as well."

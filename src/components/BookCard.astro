@@ -1,0 +1,36 @@
+---
+/** Booking card for the sticky rail on reading pages. */
+import Button from './Button.astro';
+import { clinic, whatsappHref, telHref } from '../data/clinic.ts';
+
+interface Props {
+  heading?: string;
+  text?: string;
+}
+const { heading = 'Book an appointment', text = `See a dermatologist at ${clinic.name} in ${clinic.address.neighbourhood}, or start with an online consultation.` } = Astro.props;
+---
+
+<aside class="panel panel--light book-card desktop-only" aria-label={heading}>
+  <p class="book-card__title">{heading}</p>
+  <p class="meta">{text}</p>
+  <Button href="/book-appointment/" icon="calendar" size="small" block event="book_click">Book an appointment</Button>
+  <Button href={whatsappHref} variant="whatsapp" size="small" block event="whatsapp_click">Chat on WhatsApp</Button>
+  <a class="link" href={telHref} data-event="call_click">Call {clinic.phone.display}</a>
+</aside>
+
+<style>
+  .book-card {
+    display: grid;
+    gap: var(--space-xs);
+    justify-items: start;
+  }
+  .book-card > :global(*) {
+    margin: 0;
+  }
+  .book-card__title {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100, 'WONK' 0;
+    font-size: var(--step-1);
+    line-height: 1.2;
+  }
+</style>

@@ -1,0 +1,67 @@
+/* Self-hosted fonts via Fontsource (§7). One family for headings and text: Alegreya Sans, the typeface
+   of the owner's reference sites (D61). The Latin 400 and 500 files are preloaded in <head>. */
+@import '@fontsource/alegreya-sans/400.css';
+@import '@fontsource/alegreya-sans/400-italic.css';
+@import '@fontsource/alegreya-sans/500.css';
+@import '@fontsource/alegreya-sans/700.css';
+
+/* Metric-matched fallbacks so the swap does not re-wrap or move text (CLS budget, §13.1).
+   Alegreya Sans is narrow: measured against Arial it is 86.2% as wide at 400, 87.2% at 500 and
+   82.1% at 700 (against Arial Bold). One face per weight, because the ratio differs by weight.
+   ascent/descent = 900/300 per 1000 units, divided by the size adjustment.
+   A second family covers Android, where the system face is Roboto (about 0.8% wider than Arial;
+   that figure is from published metrics, not measured here). */
+@font-face {
+  font-family: 'Alegreya Sans Fallback';
+  font-weight: 400;
+  src: local('Arial'), local('ArialMT'), local('Helvetica Neue');
+  size-adjust: 86.2%;
+  ascent-override: 104.4%;
+  descent-override: 34.8%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Alegreya Sans Fallback';
+  font-weight: 500;
+  src: local('Arial'), local('ArialMT'), local('Helvetica Neue');
+  size-adjust: 87.2%;
+  ascent-override: 103.2%;
+  descent-override: 34.4%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Alegreya Sans Fallback';
+  font-weight: 700;
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Helvetica Neue Bold');
+  size-adjust: 82.1%;
+  ascent-override: 109.6%;
+  descent-override: 36.5%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Alegreya Sans Fallback Android';
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular');
+  size-adjust: 85.5%;
+  ascent-override: 105.3%;
+  descent-override: 35.1%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Alegreya Sans Fallback Android';
+  font-weight: 500;
+  src: local('Roboto'), local('Roboto-Regular');
+  size-adjust: 86.5%;
+  ascent-override: 104%;
+  descent-override: 34.7%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Alegreya Sans Fallback Android';
+  font-weight: 700;
+  src: local('Roboto Bold'), local('Roboto-Bold');
+  size-adjust: 81.5%;
+  ascent-override: 110.4%;
+  descent-override: 36.8%;
+  line-gap-override: 0%;
+}

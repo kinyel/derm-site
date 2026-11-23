@@ -1,0 +1,17 @@
+---
+import BlogIndex from '../../../components/BlogIndex.astro';
+import { loadAll, type Article } from '../../../lib/content.ts';
+import { PER_PAGE } from '../../../lib/paging.ts';
+
+export async function getStaticPaths() {
+  const all = await loadAll();
+  const pages = Math.ceil(all.articles.length / PER_PAGE);
+  return Array.from({ length: Math.max(0, pages - 1) }, (_, i) => {
+    const n = i + 2;
+    return { params: { n: String(n) }, props: { n, pages, articles: all.articles.slice((n - 1) * PER_PAGE, n * PER_PAGE), stack: all.articles.slice(0, 5) } };
+  });
+}
+const { n, pages, articles, stack } = Astro.props as { n: number; pages: number; articles: Article[]; stack: Article[] };
+---
+
+<BlogIndex articles={articles} page={n} pages={pages} stack={stack} />

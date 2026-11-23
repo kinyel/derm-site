@@ -1,0 +1,129 @@
+---
+/** About (§9.6): clinic story, approach, experience statement, lead dermatologist, facilities, memberships from §1 only. */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Band from '../../components/Band.astro';
+import Stage from '../../components/Stage.astro';
+import Media from '../../components/Media.astro';
+import VisitUs from '../../components/VisitUs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { clinic, experienceStatement, leadPath, leadName, knownList } from '../../data/clinic.ts';
+import { loadAll, paths } from '../../lib/content.ts';
+import { pageSchema, clinicSchema } from '../../lib/schema.ts';
+
+const all = await loadAll();
+const path = '/about/';
+const crumbs = [{ label: 'About', href: path }];
+const seoTitle = 'About Our Dermatology Clinic in Oniru';
+const description = `${clinic.name} is a dermatology clinic in ${clinic.address.neighbourhood}, Lagos, caring for skin, hair and nails, with aesthetics, laser and internal medicine in the same building.`;
+const memberships = [...knownList(clinic.lead.memberships), ...knownList(clinic.lead.affiliations)];
+const lasers = clinic.laserTechnologies.join(', ');
+const photo = clinic.phototherapyEquipment.join(' and a ');
+---
+
+<BaseLayout seoTitle={seoTitle} description={description} path={path} section="about" crumbs={crumbs} schema={[pageSchema({ path, title: seoTitle, description }, 'AboutPage'), clinicSchema()]}>
+  <PageHero h1={`About ${clinic.name}`} lead={`${clinic.name} is a dermatology clinic on ${clinic.address.streetAddress.replace(/^\d+\s*/, '')} in ${clinic.address.neighbourhood}, Lagos. We diagnose and treat conditions of the skin, hair and nails, and offer aesthetic and laser treatments and internal medicine in the same clinic.`} crumbs={crumbs}>
+    <Stage slot="stage" priority scene="bloom" p="1 / 1" />
+  </PageHero>
+
+  <Band tone="reading">
+    <div class="container stack" style="--stack: var(--space-2xl)">
+      <section class="split split--7-5 split--top" aria-labelledby="story">
+        <div class="prose">
+          <h2 id="story">What the clinic is for</h2>
+          <p>
+            Skin conditions are very common, and in Lagos many are first treated with creams bought over the counter. Some of those creams
+            contain strong steroids or bleaching agents that make the original condition harder to treat.
+          </p>
+          <p>
+            Our aim is simple: people on the Island should be able to see a dermatologist close to home, get a clear diagnosis, and be treated
+            with medicines and procedures chosen for their skin type.
+          </p>
+          <p class="about__statement">{experienceStatement()}</p>
+          <h2 id="approach">How we work</h2>
+          <ul>
+            <li><strong>Diagnosis first.</strong> We examine before we treat, and we test when the answer is not clear from looking.</li>
+            <li><strong>Plain explanations.</strong> You should leave knowing what you have, what the treatment does and how long it takes.</li>
+            <li><strong>Skin of colour as the norm.</strong> Pigment changes, keloid risk and laser safety are part of every plan.</li>
+            <li><strong>Caution with newer treatments.</strong> Where the evidence is still emerging, we say so.</li>
+            <li><strong>Privacy.</strong> Photographs are taken only with your consent and kept in your clinical record.</li>
+          </ul>
+        </div>
+        <Media id="real/specialist-at-work" feature sizes="(min-width: 64em) 36vw, 92vw" />
+      </section>
+
+      <section aria-labelledby="lead" class="split split--5-7">
+        <Media id="real/specialist-portrait" feature sizes="(min-width: 64em) 30vw, 70vw" class="about__portrait" />
+        <div class="stack">
+          <h2 id="lead">The lead dermatologist</h2>
+          <p class="lead">{experienceStatement()}</p>
+          <p>
+            As the clinic’s {clinic.lead.title.toLowerCase()}, {clinic.lead.pronouns.subject} sees adults and children with conditions of the skin, hair and nails.
+          </p>
+          <p><a class="link" href={leadPath}>Read {leadName()}’s profile</a></p>
+        </div>
+      </section>
+
+      <section aria-labelledby="care">
+        <div class="section-head">
+          <h2 id="care">What we look after</h2>
+          <p>Three areas of care share one clinic, so a skin problem linked to your general health can be dealt with together.</p>
+        </div>
+        <ul class="link-list link-list--cols about__services" role="list">
+          {all.services.map((s) => (
+            <li><a href={paths.service(s.id)}><span>{s.data.navLabel}</span></a></li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="facilities">
+        <div class="section-head">
+          <h2 id="facilities">The clinic and its equipment</h2>
+          <p>
+            Treatment rooms are equipped for minor skin surgery, phototherapy and laser. Phototherapy uses a {photo}. Laser technologies at the
+            clinic include {lasers}.
+          </p>
+        </div>
+        <div class="card-grid">
+          <Media id="real/reception" />
+          <Media id="real/treatment-room" />
+          <Media id="real/exterior" />
+          <Media id="real/team" />
+        </div>
+      </section>
+
+      {
+        memberships.length > 0 && (
+          <section aria-labelledby="memberships">
+            <h2 id="memberships">Memberships and affiliations</h2>
+            <ul>
+              {memberships.map((m) => <li>{m}</li>)}
+            </ul>
+          </section>
+        )
+      }
+
+      <VisitUs />
+    </div>
+  </Band>
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .about__statement {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100, 'WONK' 0;
+    font-size: var(--step-2);
+    line-height: 1.2;
+    padding-inline-start: var(--space-m);
+    border-inline-start: 3px solid transparent;
+    border-image: var(--grad-aurora) 1;
+  }
+  .about__portrait {
+    max-width: 22rem;
+  }
+  .about__services a {
+    color: var(--link);
+    font-weight: 600;
+  }
+</style>

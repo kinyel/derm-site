@@ -1,0 +1,96 @@
+---
+/** Services hub: every category and every procedure page, grouped. Links to every child (§13.1). */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Band from '../../components/Band.astro';
+import Stage from '../../components/Stage.astro';
+import Icon from '../../components/Icon.astro';
+import VisitUs from '../../components/VisitUs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { clinic } from '../../data/clinic.ts';
+import { menuGroupList } from '../../data/taxonomy.ts';
+import { loadAll, paths, proceduresOf } from '../../lib/content.ts';
+import { pageSchema } from '../../lib/schema.ts';
+
+const all = await loadAll();
+const groups = menuGroupList.map((g) => ({ ...g, services: all.services.filter((s) => s.data.menuGroup === g.id) }));
+const path = '/services/';
+const crumbs = [{ label: 'Services', href: path }];
+const seoTitle = 'Dermatology Services in Lagos';
+const description = `Every service at ${clinic.name} in ${clinic.address.neighbourhood}, Lagos: medical dermatology, skin tests, hair and nails, aesthetics, laser, skin surgery and internal medicine.`;
+const motifs = all.services.map((s) => s.data.icon).join(',');
+---
+
+<BaseLayout seoTitle={seoTitle} description={description} path={path} section="services" crumbs={crumbs} schema={[pageSchema({ path, title: seoTitle, description }, 'CollectionPage')]} searchType="Service">
+  <PageHero h1="Skin, hair, nail and medical care in one clinic" lead={`${clinic.name} in ${clinic.address.neighbourhood}, Lagos, offers three areas of care: dermatology, aesthetics and laser, and internal medicine. Choose a service to see what it covers, who it is for and what happens at your consultation.`} crumbs={crumbs}>
+    <Stage slot="stage" priority scene="orbit" p="1 / 1" params={{ motifs }} />
+  </PageHero>
+
+  <Band tone="reading">
+    <div class="container stack" style="--stack: var(--space-2xl)">
+      {
+        groups.map((g) => (
+          <section aria-labelledby={`group-${g.id}`}>
+            <div class="section-head">
+              <h2 id={`group-${g.id}`}>{g.label}</h2>
+            </div>
+            <div class="hub-rows" data-orbit-rows>
+              {g.services.map((s) => {
+                const procs = proceduresOf(all, s.id);
+                return (
+                  <article class="hub-row" data-motif={s.data.icon}>
+                    <Icon name={s.data.icon} size="xl" />
+                    <div>
+                      <h3><a href={paths.service(s.id)}>{s.data.title}</a></h3>
+                      <p>{s.data.summary}</p>
+                      {procs.length > 0 && (
+                        <ul class="cluster" role="list">
+                          {procs.map((p) => (
+                            <li><a class="chip" href={paths.procedure(p)}>{p.data.navLabel ?? p.data.title}</a></li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        ))
+      }
+      <VisitUs />
+    </div>
+  </Band>
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .hub-rows {
+    display: grid;
+  }
+  .hub-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-m);
+    padding-block: var(--space-m);
+    border-block-start: 1px solid transparent;
+    border-image: var(--grad-hairline-strong) 1;
+  }
+  .hub-row h3 {
+    font-size: var(--step-2);
+  }
+  .hub-row h3 a {
+    text-decoration: none;
+    color: inherit;
+    background: var(--grad-hairline-strong) no-repeat 0 100% / 0% 2px;
+    transition: background-size var(--dur-ui) var(--ease-out);
+  }
+  .hub-row h3 a:hover,
+  .hub-row h3 a:focus-visible {
+    background-size: 100% 2px;
+  }
+  .hub-row p {
+    color: var(--ink-soft);
+    margin-block: var(--space-3xs) var(--space-xs);
+  }
+</style>

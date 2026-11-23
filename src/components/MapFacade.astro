@@ -1,0 +1,18 @@
+---
+/**
+ * Map of the clinic. The Google Maps embed is in the HTML and loads by itself as it nears the screen
+ * (owner, DECISIONS D74); it no longer waits for a click. The frame keeps its shape while the map
+ * loads, and the link under it works when the embed is blocked or slow.
+ */
+import Icon from './Icon.astro';
+import { clinic, mapEmbedSrc, mapsHref } from '../data/clinic.ts';
+---
+
+<figure class="map">
+  <div class="map__frame">
+    <iframe src={mapEmbedSrc} title={`Map showing ${clinic.name}, ${clinic.address.displayed}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+  </div>
+  <figcaption class="map__caption">
+    <a class="link link--arrow" href={mapsHref} data-event="directions_click">Open in Google Maps <Icon name="arrow" solid /></a>
+  </figcaption>
+</figure>

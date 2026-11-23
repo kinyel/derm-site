@@ -1,0 +1,19 @@
+---
+/** Analytics consent (NDPA 2023, §6/§16). Rendered only when analytics IDs are configured. */
+import Button from './Button.astro';
+---
+
+<div class="consent" data-consent hidden role="dialog" aria-label="Cookie choices" aria-describedby="consent-text">
+  <p id="consent-text">
+    We would like to use analytics cookies to see which pages help people most. They are off unless you accept.
+    <a href="/cookie-policy/">Cookie policy</a>
+  </p>
+  <div class="cluster">
+    <Button size="small" data-consent-accept>Accept analytics</Button>
+    <Button size="small" variant="secondary" data-consent-decline>Decline</Button>
+  </div>
+</div>
+
+<script>
+  import '../scripts/consent.ts';
+</script>

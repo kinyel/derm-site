@@ -1,0 +1,48 @@
+---
+/**
+ * Registry image or on-brand placeholder (Addendum A).
+ * The wrapper always has the registry aspect ratio, so swapping a placeholder
+ * for the real file never moves anything on the page.
+ */
+import { Picture } from 'astro:assets';
+import { specFor, fileFor } from '../lib/media.ts';
+
+interface Props {
+  id: string;
+  /** For pattern images (articles/…, illustrations/…). */
+  alt?: string;
+  title?: string;
+  /** Override the box ratio (e.g. "16 / 9"); the image is cropped to fit. */
+  ratio?: string;
+  sizes?: string;
+  priority?: boolean;
+  feature?: boolean;
+  class?: string;
+  /** Skip rendering entirely when the file is missing (optional images). */
+  hideIfMissing?: boolean;
+}
+const { id, alt, title, ratio, sizes = '(min-width: 64em) 40vw, 92vw', priority = false, feature = false, class: cls, hideIfMissing = false } = Astro.props;
+const spec = specFor(id, { alt, title });
+const file = fileFor(spec);
+const ar = ratio ?? `${spec.width} / ${spec.height}`;
+const finalAlt = alt ?? spec.alt;
+---
+
+{
+  file ? (
+    <span class:list={['media', feature && 'media--feature', cls]} style={`--media-ar:${ar}`}>
+      <Picture
+        src={file}
+        alt={finalAlt}
+        formats={['avif', 'webp']}
+        widths={[480, 800, 1200, 1600]}
+        sizes={sizes}
+        loading={priority ? 'eager' : 'lazy'}
+        fetchpriority={priority ? 'high' : undefined}
+        decoding={priority ? 'sync' : 'async'}
+      />
+    </span>
+  ) : hideIfMissing ? null : (
+    <span class:list={['media', 'media--ph', feature && 'media--feature', cls]} style={`--media-ar:${ar}`} role="img" aria-label={finalAlt} data-tone={spec.tone ?? 'rose'} data-missing={spec.path} />
+  )
+}

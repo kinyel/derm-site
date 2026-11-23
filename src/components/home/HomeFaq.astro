@@ -1,0 +1,53 @@
+---
+/** Home §8: six clinic questions (fees without figures, HMO, online, first visit, referral, children). */
+import Band from '../Band.astro';
+import Faq from '../Faq.astro';
+import SectionHead from '../SectionHead.astro';
+import Icon from '../Icon.astro';
+import { loadAll } from '../../lib/content.ts';
+
+const all = await loadAll();
+const ORDER = ['fees', 'hmo', 'online-consultation', 'first-visit', 'referral', 'children'];
+const faqs = all.faqs
+  .filter((f) => f.data.home)
+  .sort((a, b) => ORDER.indexOf(a.id) - ORDER.indexOf(b.id))
+  .slice(0, 6)
+  .map((f) => ({ q: f.data.homeQ ?? f.data.q, a: f.data.homeA ?? f.data.a }));
+---
+
+{
+  faqs.length > 0 && (
+    <Band tone="reading" labelledby="faq-heading">
+      <div class="container home-faq">
+        <div>
+          <SectionHead id="faq-heading" eyebrow="Questions" title="Questions about the clinic" lead="Booking, fees, health insurance, online consultations and what to bring." />
+          <p>
+            <a class="link link--arrow" href="/faq/">
+              More questions and answers <Icon name="arrow" solid />
+            </a>
+          </p>
+          <slot />
+        </div>
+        <Faq faqs={faqs} labelledby="faq-heading" />
+      </div>
+    </Band>
+  )
+}
+
+<style>
+  .home-faq {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-l);
+    align-items: start;
+  }
+  .home-faq :global(.section-head) {
+    margin-block-end: var(--space-s);
+  }
+  @media (min-width: 64em) {
+    .home-faq {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: var(--space-xl);
+    }
+  }
+</style>

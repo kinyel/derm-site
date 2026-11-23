@@ -1,0 +1,72 @@
+---
+/**
+ * Shared shell for medical content pages (conditions, procedures, tests, topics):
+ * Night hero with the page's 3D stage → reading band (article + sticky rail) → CTA band.
+ */
+import BaseLayout from './BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Band from '../components/Band.astro';
+import Trust from '../components/Trust.astro';
+import Toc from '../components/Toc.astro';
+import BookCard from '../components/BookCard.astro';
+import Faq from '../components/Faq.astro';
+import References from '../components/References.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import VisitUs from '../components/VisitUs.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+interface Props {
+  seoTitle: string;
+  description: string;
+  path: string;
+  section: string;
+  crumbs: { label: string; href: string }[];
+  h1: string;
+  answer: string;
+  updatedOn: Date;
+  reviewedBy?: string;
+  reviewedOn?: Date;
+  headings: { depth: number; slug: string; text: string }[];
+  faqs: { q: string; a: string }[];
+  references: { title: string; publisher: string; url?: string }[];
+  schema: (Record<string, unknown> | undefined)[];
+  searchType: string;
+  ctaHeading?: string;
+  ctaText?: string;
+  bookHeading?: string;
+}
+const { seoTitle, description, path, section, crumbs, h1, answer, updatedOn, reviewedBy, reviewedOn, headings, faqs, references, schema, searchType, ctaHeading, ctaText, bookHeading } = Astro.props;
+const extra = [
+  ...(faqs.length ? [{ slug: 'questions', text: 'Common questions' }] : []),
+  ...(references.length ? [{ slug: 'references', text: 'References' }] : []),
+];
+---
+
+<BaseLayout seoTitle={seoTitle} description={description} path={path} section={section} crumbs={crumbs} schema={schema} ogType="article" searchType={searchType}>
+  <PageHero h1={h1} lead={answer} crumbs={crumbs}>
+    <Trust slot="meta" updatedOn={updatedOn} reviewedBy={reviewedBy} reviewedOn={reviewedOn} />
+    <slot name="stage" slot="stage" />
+  </PageHero>
+
+  <Band tone="reading">
+    <div class="container reading">
+      <div class="reading__rail">
+        <Toc headings={headings} extra={extra} />
+        <BookCard heading={bookHeading} />
+      </div>
+      <article class="reading__main stack" style="--stack: var(--space-xl)">
+        <slot name="media" />
+        <div class="prose">
+          <slot />
+        </div>
+        <Faq faqs={faqs} />
+        <slot name="related" />
+        <References items={references} />
+        <Disclaimer />
+        <VisitUs />
+      </article>
+    </div>
+  </Band>
+
+  <CtaBand heading={ctaHeading} text={ctaText} />
+</BaseLayout>

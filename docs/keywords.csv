@@ -1,0 +1,939 @@
+keyword,cluster,intent,target_url,priority,monthly_volume,notes
+dermatologist in Lagos,local core,local,/,1,,Priority 50 #1
+dermatologist near me,local core,local,/,1,,"Priority 50 #2; matched through location signals and Google Business Profile; never written as ""near me"" in copy"
+dermatologist in Lekki,local core,local,/dermatologist-victoria-island-lekki/,1,,Priority 50 #3
+dermatologist in Victoria Island,local core,local,/dermatologist-victoria-island-lekki/,1,,Priority 50 #4
+dermatologist on the Island,local core,local,/dermatologist-victoria-island-lekki/,1,,Priority 50 #5; also: dermatologist in Lagos Island
+skin doctor on the Island,local core,local,/,1,,Priority 50 #6; also: skin doctor in Lagos | skin specialist in Lagos
+skin clinic in Lekki,local core,local,/dermatologist-victoria-island-lekki/,1,,Priority 50 #7; also: skin clinic Victoria Island
+female dermatologist in Lagos,local core,local,/about/lead-dermatologist/,1,,Priority 50 #8
+online dermatologist consultation Nigeria,consultations,commercial,/services/dermatology-consultations/online-consultation/,1,,Priority 50 #9
+paediatric dermatologist Lagos,categories,local,/services/childrens-skin-care/,1,,Priority 50 #10; also: pediatric dermatologist Lagos
+how to get rid of pimples,questions,informational,/blog/how-to-get-rid-of-pimples/,1,,Priority 50 #11
+acne treatment in Lagos,conditions,commercial,/conditions/acne/,1,,Priority 50 #12
+acne scar treatment,conditions,commercial,/conditions/acne-scars/,1,,Priority 50 #13
+how to get rid of dark spots on face,questions,informational,/blog/how-to-get-rid-of-dark-spots-on-your-face/,1,,Priority 50 #14; also: how do I get rid of dark spots on my face
+hyperpigmentation treatment,conditions,commercial,/conditions/hyperpigmentation/,1,,Priority 50 #15
+melasma treatment,conditions,commercial,/conditions/melasma/,1,,Priority 50 #16
+is skin lightening safe,questions,informational,/blog/is-skin-lightening-safe/,1,,Priority 50 #17; also: skin bleaching side effects
+keloid removal,conditions,commercial,/conditions/keloids/,1,,Priority 50 #18
+eczema treatment,conditions,commercial,/conditions/eczema/,1,,Priority 50 #19
+dandruff treatment,conditions,commercial,/conditions/seborrhoeic-dermatitis-and-dandruff/,1,,Priority 50 #20
+ringworm treatment,conditions,commercial,/conditions/ringworm-and-fungal-skin-infections/,1,,Priority 50 #21
+vitiligo treatment,conditions,commercial,/conditions/vitiligo/,1,,Priority 50 #22
+psoriasis treatment,conditions,commercial,/conditions/psoriasis/,1,,Priority 50 #23
+how to get rid of stretch marks,conditions,informational,/conditions/stretch-marks/,1,,Priority 50 #24
+skin tag removal,conditions,commercial,/conditions/skin-tags/,1,,Priority 50 #25
+DPN removal,conditions,commercial,/conditions/dermatosis-papulosa-nigra/,1,,Priority 50 #26; also: black spots on face
+razor bumps treatment,conditions,commercial,/conditions/razor-bumps/,1,,Priority 50 #27
+dark inner thighs and underarms treatment,conditions,commercial,/conditions/dark-underarms-inner-thighs-knees-and-neck/,1,,Priority 50 #28
+hair loss treatment for women,categories,commercial,/services/hair-and-scalp/,1,,Priority 50 #29
+PRP hair treatment,procedures,commercial,/services/hair-and-scalp/prp-for-hair-loss/,1,,Priority 50 #30
+mole removal,procedures,commercial,/services/skin-surgery/mole-removal/,1,,Priority 50 #31
+Botox in Lagos,procedures,local,/services/aesthetic-treatments/botox/,1,,Priority 50 #32
+lip filler Lagos,procedures,local,/services/aesthetic-treatments/dermal-fillers/,1,,Priority 50 #33
+butt filler,procedures,commercial,/services/aesthetic-treatments/butt-filler/,1,,Priority 50 #34; also: non-surgical BBL | hip dip filler
+labia puff,procedures,commercial,/services/aesthetic-treatments/labia-filler/,1,,Priority 50 #35; also: labia filler
+O-shot,procedures,commercial,/services/aesthetic-treatments/o-shot/,1,,Priority 50 #36
+chemical peel Lagos,procedures,local,/services/aesthetic-treatments/chemical-peels/,1,,Priority 50 #37
+PRP microneedling,procedures,commercial,/services/aesthetic-treatments/prp-microneedling/,1,,Priority 50 #38; also: vampire facial
+exosome facial,procedures,commercial,/services/aesthetic-treatments/exosome-therapy/,1,,Priority 50 #39; also: exosome treatment
+PDRN,procedures,commercial,/services/aesthetic-treatments/pdrn-treatment/,1,,Priority 50 #40; also: salmon DNA treatment
+laser hair removal Lagos,procedures,local,/services/laser-treatments/laser-hair-removal/,1,,"Priority 50 #41; also covers: Brazilian, underarm and full body laser hair removal"
+laser dark spot removal,procedures,commercial,/services/laser-treatments/laser-pigmentation-removal/,1,,Priority 50 #42
+laser tattoo removal,procedures,commercial,/services/laser-treatments/laser-tattoo-removal/,1,,Priority 50 #43
+pico laser,procedures,commercial,/services/laser-treatments/pico-laser/,1,,Priority 50 #44
+Q-switch laser,procedures,commercial,/services/laser-treatments/q-switch-laser/,1,,Priority 50 #45
+phototherapy for vitiligo,procedures,commercial,/services/clinical-dermatology/phototherapy/,1,,Priority 50 #46
+hypertension treatment,internal medicine,commercial,/services/internal-medicine/hypertension/,1,,Priority 50 #47; also: high blood pressure doctor Lagos
+diabetes clinic Lagos,internal medicine,local,/services/internal-medicine/diabetes/,1,,Priority 50 #48
+high cholesterol treatment,internal medicine,commercial,/services/internal-medicine/high-cholesterol/,1,,Priority 50 #49
+doctor in Victoria Island,internal medicine,local,/services/internal-medicine/general-medical-consultation/,1,,Priority 50 #50; also: general practitioner Lekki
+dermatologist in Lagos Island,local core,local,/dermatologist-victoria-island-lekki/,2,,variant of a Priority 50 keyword
+skin doctor in Lagos,local core,local,/,2,,variant of a Priority 50 keyword
+skin specialist in Lagos,local core,local,/,2,,variant of a Priority 50 keyword
+skin clinic Victoria Island,local core,local,/dermatologist-victoria-island-lekki/,2,,variant of a Priority 50 keyword
+pediatric dermatologist Lagos,categories,local,/services/childrens-skin-care/,2,,variant of a Priority 50 keyword
+how do I get rid of dark spots on my face,questions,informational,/blog/how-to-get-rid-of-dark-spots-on-your-face/,2,,variant of a Priority 50 keyword
+skin bleaching side effects,questions,informational,/blog/is-skin-lightening-safe/,2,,variant of a Priority 50 keyword
+black spots on face,conditions,informational,/conditions/dermatosis-papulosa-nigra/,2,,variant of a Priority 50 keyword
+non-surgical BBL,procedures,informational,/services/aesthetic-treatments/butt-filler/,2,,variant of a Priority 50 keyword
+hip dip filler,procedures,commercial,/services/aesthetic-treatments/butt-filler/,2,,variant of a Priority 50 keyword
+labia filler,procedures,commercial,/services/aesthetic-treatments/labia-filler/,2,,variant of a Priority 50 keyword
+vampire facial,procedures,informational,/services/aesthetic-treatments/prp-microneedling/,2,,variant of a Priority 50 keyword
+exosome treatment,procedures,commercial,/services/aesthetic-treatments/exosome-therapy/,2,,variant of a Priority 50 keyword
+salmon DNA treatment,procedures,commercial,/services/aesthetic-treatments/pdrn-treatment/,2,,variant of a Priority 50 keyword
+high blood pressure doctor Lagos,internal medicine,local,/services/internal-medicine/hypertension/,2,,variant of a Priority 50 keyword
+general practitioner Lekki,internal medicine,local,/services/internal-medicine/general-medical-consultation/,2,,variant of a Priority 50 keyword
+dermatologist in Oniru,local core,local,/,2,,
+dermatology clinic Lagos,local core,local,/,2,,
+consultant dermatologist Lagos,local core,local,/,2,,
+private dermatologist Lagos,local core,local,/,2,,
+dermatologist for Black skin Lagos,local core,local,/,2,,
+skin clinic Lagos,local core,local,/,2,,
+dermatologist Lagos,local core,local,/,2,,
+skin care clinic in Lagos,local core,local,/,2,,
+dermatologist in Ikoyi,local core,local,/dermatologist-victoria-island-lekki/,2,,
+skin doctor in Lekki,local core,local,/dermatologist-victoria-island-lekki/,2,,
+skin specialist in Lekki,local core,local,/dermatologist-victoria-island-lekki/,2,,
+dermatologist Lekki Phase 1,local core,local,/dermatologist-victoria-island-lekki/,2,,
+dermatologist in Ajah,local core,local,/dermatologist-victoria-island-lekki/,2,,
+dermatologist in Ikate,local core,local,/dermatologist-victoria-island-lekki/,2,,
+skin clinic in Oniru,local core,local,/dermatologist-victoria-island-lekki/,2,,
+dermatologist VI Lagos,local core,local,/dermatologist-victoria-island-lekki/,2,,
+skin doctor in Victoria Island,local core,local,/dermatologist-victoria-island-lekki/,2,,
+dermatologist near Lekki,local core,local,/dermatologist-victoria-island-lekki/,2,,
+skin clinic on the Island,local core,local,/dermatologist-victoria-island-lekki/,2,,
+dermatology clinic in Lagos Island,local core,local,/dermatologist-victoria-island-lekki/,2,,
+female dermatologist Lagos,local core,local,/about/lead-dermatologist/,2,,
+woman dermatologist Lagos,local core,local,/about/lead-dermatologist/,2,,
+lady dermatologist in Lagos,local core,local,/about/lead-dermatologist/,2,,
+skin cancer screening,categories,commercial,/services/skin-cancer-care/,2,,
+skin cancer screening Lagos,categories,local,/services/skin-cancer-care/,2,,
+full body skin check Lagos,categories,local,/services/skin-cancer-care/,2,,
+hair loss treatment Lagos,categories,local,/services/hair-and-scalp/,2,,
+alopecia treatment Lagos,categories,local,/services/hair-and-scalp/,2,,
+how to grow natural hair,categories,informational,/services/hair-and-scalp/,2,,
+hair loss clinic Lagos,categories,local,/services/hair-and-scalp/,2,,
+trichologist Lagos,categories,local,/services/hair-and-scalp/,2,,
+children skin doctor Lagos,categories,local,/services/childrens-skin-care/,2,,
+baby skin specialist Lagos,categories,local,/services/childrens-skin-care/,2,,
+cosmetic dermatologist Lagos,categories,local,/services/aesthetic-treatments/,2,,
+aesthetic clinic Lagos,categories,local,/services/aesthetic-treatments/,2,,
+aesthetic treatments Lekki,categories,local,/services/aesthetic-treatments/,2,,
+laser skin clinic Lagos,categories,local,/services/laser-treatments/,2,,
+laser clinic Lekki,categories,local,/services/laser-treatments/,2,,
+laser treatment for face Lagos,categories,local,/services/laser-treatments/,2,,
+wound care clinic Lagos,categories,local,/services/wound-care/,2,,
+wound dressing clinic Lagos,categories,local,/services/wound-care/,2,,
+skin allergy test Lagos,categories,local,/services/skin-tests-and-diagnostics/,2,,
+skin test Lagos,categories,local,/services/skin-tests-and-diagnostics/,2,,
+nail doctor Lagos,categories,local,/services/nail-care/,2,,
+nail specialist Lagos,categories,local,/services/nail-care/,2,,
+foot skin doctor Lagos,categories,local,/services/foot-skin-care/,2,,
+skin surgery Lagos,categories,local,/services/skin-surgery/,2,,
+minor skin surgery Lagos,categories,local,/services/skin-surgery/,2,,
+medical dermatology Lagos,categories,local,/services/clinical-dermatology/,2,,
+skin disease treatment Lagos,categories,local,/services/clinical-dermatology/,2,,
+dermatology pharmacy Lagos,categories,local,/services/dermatology-pharmacy/,2,,
+skin care pharmacy Lagos,categories,local,/services/dermatology-pharmacy/,2,,
+mens skin clinic Lagos,categories,local,/services/mens-and-womens-skin-health/,2,,
+womens skin health Lagos,categories,local,/services/mens-and-womens-skin-health/,2,,
+internal medicine doctor Lagos,categories,local,/services/internal-medicine/,2,,
+physician in Lekki,categories,local,/services/internal-medicine/,2,,
+dermatology consultation Lagos,categories,local,/services/dermatology-consultations/,2,,
+see a dermatologist Lagos,categories,local,/services/dermatology-consultations/,2,,
+book a dermatologist Lagos,categories,local,/services/dermatology-consultations/,2,,
+online dermatologist Nigeria,consultations,commercial,/services/dermatology-consultations/online-consultation/,2,,
+teledermatology Nigeria,consultations,informational,/services/dermatology-consultations/online-consultation/,2,,
+online skin doctor Nigeria,consultations,commercial,/services/dermatology-consultations/online-consultation/,2,,
+dermatologist video consultation,consultations,commercial,/services/dermatology-consultations/online-consultation/,2,,
+corporate skin screening Lagos,consultations,local,/services/dermatology-consultations/corporate-skin-screening/,2,,
+workplace skin check,consultations,informational,/services/dermatology-consultations/corporate-skin-screening/,2,,
+acne treatment Lagos,conditions,local,/conditions/acne/,2,,
+pimples treatment Lagos,conditions,local,/conditions/acne/,2,,
+acne scar treatment Lagos,conditions,local,/conditions/acne-scars/,2,,
+hyperpigmentation treatment Lagos,conditions,local,/conditions/hyperpigmentation/,2,,
+dark spot removal Lagos,conditions,local,/conditions/hyperpigmentation/,2,,
+melasma treatment Lagos,conditions,local,/conditions/melasma/,2,,
+keloid removal Lagos,conditions,local,/conditions/keloids/,2,,
+keloid treatment Lagos,conditions,local,/conditions/keloids/,2,,
+eczema treatment Lagos,conditions,local,/conditions/eczema/,2,,
+psoriasis treatment Lagos,conditions,local,/conditions/psoriasis/,2,,
+vitiligo treatment Nigeria,conditions,commercial,/conditions/vitiligo/,2,,
+fungal infection skin treatment,conditions,commercial,/conditions/ringworm-and-fungal-skin-infections/,2,,
+razor bumps treatment Lagos,conditions,local,/conditions/razor-bumps/,2,,
+hyperhidrosis treatment Lagos,conditions,local,/conditions/hyperhidrosis/,2,,
+stretch marks removal Lagos,conditions,local,/conditions/stretch-marks/,2,,
+wart removal Lagos,conditions,local,/conditions/warts/,2,,
+skin tag removal Lagos,conditions,local,/conditions/skin-tags/,2,,
+dark inner thighs treatment,conditions,commercial,/conditions/dark-underarms-inner-thighs-knees-and-neck/,2,,
+dark underarms treatment,conditions,commercial,/conditions/dark-underarms-inner-thighs-knees-and-neck/,2,,
+traction alopecia treatment,conditions,commercial,/conditions/traction-alopecia/,2,,
+nail fungus treatment,conditions,commercial,/conditions/fungal-nail-infection/,2,,
+ingrown toenail treatment Lagos,conditions,local,/conditions/ingrown-toenails/,2,,
+ingrown toenail,conditions,informational,/conditions/ingrown-toenails/,2,,
+diabetic foot ulcer treatment Lagos,conditions,local,/conditions/diabetic-foot-ulcers/,2,,
+diabetic foot ulcer,conditions,informational,/conditions/diabetic-foot-ulcers/,2,,
+baby eczema treatment,conditions,commercial,/conditions/baby-eczema/,2,,
+baby eczema,conditions,informational,/conditions/baby-eczema/,2,,
+scabies treatment,conditions,commercial,/conditions/scabies/,2,,
+scabies,conditions,informational,/conditions/scabies/,2,,
+hives treatment,conditions,commercial,/conditions/hives/,2,,
+hives,conditions,informational,/conditions/hives/,2,,
+heat rash,conditions,informational,/conditions/heat-rash/,2,,
+laser hair removal Lekki,procedures,local,/services/laser-treatments/laser-hair-removal/,2,,
+Brazilian laser hair removal Lagos,procedures,local,/services/laser-treatments/laser-hair-removal/,2,,
+underarm laser hair removal Lagos,procedures,local,/services/laser-treatments/laser-hair-removal/,2,,
+full body laser hair removal Lagos,procedures,local,/services/laser-treatments/laser-hair-removal/,2,,
+tattoo removal Lagos,procedures,local,/services/laser-treatments/laser-tattoo-removal/,2,,
+chemical peel Lekki,procedures,local,/services/aesthetic-treatments/chemical-peels/,2,,
+microneedling,procedures,informational,/services/aesthetic-treatments/microneedling/,2,,
+microneedling Lagos,procedures,local,/services/aesthetic-treatments/microneedling/,2,,
+PRP hair treatment Lagos,procedures,local,/services/hair-and-scalp/prp-for-hair-loss/,2,,
+hair transplant Lagos,procedures,local,/services/hair-and-scalp/hair-transplant/,2,,
+Botox Lagos,procedures,local,/services/aesthetic-treatments/botox/,2,,
+dermal fillers Lekki,procedures,local,/services/aesthetic-treatments/dermal-fillers/,2,,
+under-eye filler,procedures,commercial,/services/aesthetic-treatments/dermal-fillers/,2,,
+skin tightening Lagos,procedures,local,/services/aesthetic-treatments/skin-tightening/,2,,
+medical facial,procedures,informational,/services/aesthetic-treatments/medical-facials/,2,,
+medical facial Lagos,procedures,local,/services/aesthetic-treatments/medical-facials/,2,,
+laser skin resurfacing,procedures,commercial,/services/laser-treatments/laser-skin-resurfacing/,2,,
+CO2 laser Lagos,procedures,local,/services/laser-treatments/laser-skin-resurfacing/,2,,
+CO2 laser,procedures,commercial,/services/laser-treatments/laser-skin-resurfacing/,2,,
+mole check Lagos,procedures,local,/services/skin-cancer-care/mole-mapping-and-dermoscopy/,2,,
+mole removal Lagos,procedures,local,/services/skin-surgery/mole-removal/,2,,
+cyst removal Lagos,procedures,local,/services/skin-surgery/cyst-and-lipoma-removal/,2,,
+lipoma removal Lagos,procedures,local,/services/skin-surgery/cyst-and-lipoma-removal/,2,,
+skin biopsy Lagos,procedures,local,/services/skin-tests-and-diagnostics/skin-biopsy/,2,,
+patch test,procedures,commercial,/services/skin-tests-and-diagnostics/patch-testing/,2,,
+patch test Lagos,procedures,local,/services/skin-tests-and-diagnostics/patch-testing/,2,,
+Mohs surgery Nigeria,procedures,commercial,/services/skin-cancer-care/mohs-surgery/,2,,
+phototherapy for vitiligo Lagos,procedures,local,/services/clinical-dermatology/phototherapy/,2,,
+infectious disease doctor,internal medicine,commercial,/services/internal-medicine/infectious-diseases/,2,,malaria and typhoid pages only once clinic.ts confirms them (brief §1)
+how to exfoliate your skin,questions,informational,/blog/how-to-exfoliate-your-skin-safely/,2,,
+Erbium YAG laser,procedures,commercial,/services/laser-treatments/erbium-yag-laser/,2,,primary keyword of the page
+fungal test Lagos,procedures,local,/services/skin-tests-and-diagnostics/fungal-tests/,2,,primary keyword of the page
+infectious disease doctor Lagos,internal medicine,local,/services/internal-medicine/infectious-diseases/,2,,primary keyword of the page
+laser vascular treatment,procedures,commercial,/services/laser-treatments/laser-vascular-treatment/,2,,primary keyword of the page
+LED light therapy Lagos,procedures,local,/services/laser-treatments/led-and-ipl/,2,,primary keyword of the page
+scar revision Lagos,procedures,local,/services/skin-surgery/scar-revision/,2,,primary keyword of the page
+trichoscopy Lagos,procedures,local,/services/skin-tests-and-diagnostics/trichoscopy/,2,,primary keyword of the page
+alopecia areata treatment,conditions,commercial,/conditions/alopecia-areata/,2,,primary keyword of the page
+athlete's foot treatment,conditions,commercial,/conditions/athletes-foot/,2,,primary keyword of the page
+haemangioma treatment,conditions,commercial,/conditions/birthmarks-and-haemangiomas/,2,,primary keyword of the page
+boil treatment,conditions,commercial,/conditions/boils-and-abscesses/,2,,primary keyword of the page
+burn treatment,conditions,commercial,/conditions/burns/,2,,primary keyword of the page
+cellulitis treatment,conditions,commercial,/conditions/cellulitis/,2,,primary keyword of the page
+chronic itch treatment,conditions,commercial,/conditions/chronic-itch/,2,,primary keyword of the page
+cold sore treatment,conditions,commercial,/conditions/cold-sores/,2,,primary keyword of the page
+contact dermatitis treatment,conditions,commercial,/conditions/contact-dermatitis/,2,,primary keyword of the page
+corn removal,conditions,commercial,/conditions/corns-and-calluses/,2,,primary keyword of the page
+cracked heels treatment,conditions,commercial,/conditions/cracked-heels/,2,,primary keyword of the page
+cradle cap treatment,conditions,commercial,/conditions/cradle-cap/,2,,primary keyword of the page
+discoid lupus treatment,conditions,commercial,/conditions/cutaneous-lupus/,2,,primary keyword of the page
+diabetic foot ulcer treatment,conditions,commercial,/conditions/diabetic-foot-ulcers/,2,,primary keyword of the page
+diaper rash treatment,conditions,commercial,/conditions/diaper-rash/,2,,primary keyword of the page
+enlarged pores treatment,conditions,commercial,/conditions/enlarged-pores/,2,,primary keyword of the page
+female pattern hair loss treatment,conditions,commercial,/conditions/female-pattern-hair-loss/,2,,primary keyword of the page
+folliculitis treatment,conditions,commercial,/conditions/folliculitis/,2,,primary keyword of the page
+genital warts treatment,conditions,commercial,/conditions/genital-warts/,2,,primary keyword of the page
+hair breakage treatment,conditions,commercial,/conditions/hair-breakage/,2,,primary keyword of the page
+head lice treatment,conditions,commercial,/conditions/head-lice/,2,,primary keyword of the page
+heat rash treatment,conditions,commercial,/conditions/heat-rash/,2,,primary keyword of the page
+hirsutism treatment,conditions,commercial,/conditions/hirsutism/,2,,primary keyword of the page
+hyperhidrosis treatment,conditions,commercial,/conditions/hyperhidrosis/,2,,primary keyword of the page
+ichthyosis treatment,conditions,commercial,/conditions/ichthyosis/,2,,primary keyword of the page
+impetigo treatment,conditions,commercial,/conditions/impetigo/,2,,primary keyword of the page
+ingrown hair treatment,conditions,commercial,/conditions/ingrown-hairs/,2,,primary keyword of the page
+ingrown toenail treatment,conditions,commercial,/conditions/ingrown-toenails/,2,,primary keyword of the page
+keratosis pilaris treatment,conditions,commercial,/conditions/keratosis-pilaris/,2,,primary keyword of the page
+lichen planus treatment,conditions,commercial,/conditions/lichen-planus/,2,,primary keyword of the page
+lichen sclerosus treatment,conditions,commercial,/conditions/lichen-sclerosus/,2,,primary keyword of the page
+male pattern baldness treatment,conditions,commercial,/conditions/male-pattern-hair-loss/,2,,primary keyword of the page
+when to worry about a mole,conditions,informational,/conditions/moles/,2,,primary keyword of the page
+molluscum contagiosum treatment,conditions,commercial,/conditions/molluscum-contagiosum/,2,,primary keyword of the page
+nail psoriasis treatment,conditions,commercial,/conditions/nail-psoriasis/,2,,primary keyword of the page
+paronychia treatment,conditions,commercial,/conditions/paronychia/,2,,primary keyword of the page
+bullous pemphigoid treatment,conditions,commercial,/conditions/pemphigoid/,2,,primary keyword of the page
+pemphigus treatment,conditions,commercial,/conditions/pemphigus/,2,,primary keyword of the page
+sun allergy treatment,conditions,commercial,/conditions/photodermatoses/,2,,primary keyword of the page
+pityriasis rosea treatment,conditions,commercial,/conditions/pityriasis-rosea/,2,,primary keyword of the page
+pityriasis versicolor treatment,conditions,commercial,/conditions/pityriasis-versicolor/,2,,primary keyword of the page
+plantar wart treatment,conditions,commercial,/conditions/plantar-warts/,2,,primary keyword of the page
+post-inflammatory hypopigmentation,conditions,informational,/conditions/post-inflammatory-hypopigmentation/,2,,primary keyword of the page
+pregnancy skin changes,conditions,informational,/conditions/pregnancy-skin-changes/,2,,primary keyword of the page
+rosacea treatment,conditions,commercial,/conditions/rosacea/,2,,primary keyword of the page
+acne keloidalis nuchae treatment,conditions,commercial,/conditions/scalp-folliculitis/,2,,primary keyword of the page
+scarring alopecia treatment,conditions,commercial,/conditions/scarring-alopecia/,2,,primary keyword of the page
+shingles treatment,conditions,commercial,/conditions/shingles/,2,,primary keyword of the page
+skin allergy treatment,conditions,commercial,/conditions/skin-allergies/,2,,primary keyword of the page
+skin cancer on dark skin,conditions,informational,/conditions/skin-cancer-on-dark-skin/,2,,primary keyword of the page
+skin bleaching damage treatment,conditions,commercial,/conditions/skin-damage-from-bleaching-and-steroid-creams/,2,,primary keyword of the page
+skin tuberculosis,conditions,informational,/conditions/skin-tuberculosis/,2,,primary keyword of the page
+spider vein treatment,conditions,commercial,/conditions/spider-veins/,2,,primary keyword of the page
+telogen effluvium treatment,conditions,commercial,/conditions/telogen-effluvium/,2,,primary keyword of the page
+leg ulcer treatment,conditions,commercial,/conditions/venous-leg-ulcers/,2,,primary keyword of the page
+wart removal,conditions,commercial,/conditions/warts/,2,,primary keyword of the page
+wrinkle treatment,conditions,commercial,/conditions/wrinkles-and-sun-damage/,2,,primary keyword of the page
+paediatric dermatologist in Lagos,categories,local,/services/childrens-skin-care/,3,,close variant
+pediatric dermatologist in Lagos,categories,local,/services/childrens-skin-care/,3,,close variant
+hair loss treatment for women in Lagos,categories,local,/services/hair-and-scalp/,3,,close variant
+Botox injection Lagos,procedures,local,/services/aesthetic-treatments/botox/,3,,close variant
+Botox Lekki,procedures,local,/services/aesthetic-treatments/botox/,3,,close variant
+butt filler Lagos,procedures,local,/services/aesthetic-treatments/butt-filler/,3,,close variant
+buttock filler,procedures,commercial,/services/aesthetic-treatments/butt-filler/,3,,close variant
+non surgical BBL Lagos,procedures,local,/services/aesthetic-treatments/butt-filler/,3,,close variant
+chemical peel in Lagos,procedures,local,/services/aesthetic-treatments/chemical-peels/,3,,close variant
+chemical peel for dark skin,procedures,commercial,/services/aesthetic-treatments/chemical-peels/,3,,close variant
+occupational skin health screening,consultations,commercial,/services/dermatology-consultations/corporate-skin-screening/,3,,close variant
+workplace skin screening Lagos,consultations,local,/services/dermatology-consultations/corporate-skin-screening/,3,,close variant
+corporate wellness dermatology,consultations,informational,/services/dermatology-consultations/corporate-skin-screening/,3,,close variant
+cyst removal in Lagos,procedures,local,/services/skin-surgery/cyst-and-lipoma-removal/,3,,close variant
+sebaceous cyst removal Lagos,procedures,local,/services/skin-surgery/cyst-and-lipoma-removal/,3,,close variant
+lip filler in Lagos,procedures,local,/services/aesthetic-treatments/dermal-fillers/,3,,close variant
+under-eye filler Lagos,procedures,local,/services/aesthetic-treatments/dermal-fillers/,3,,close variant
+dermal fillers Lagos,procedures,local,/services/aesthetic-treatments/dermal-fillers/,3,,close variant
+diabetes clinic in Lagos,internal medicine,local,/services/internal-medicine/diabetes/,3,,close variant
+diabetes doctor Lagos,internal medicine,local,/services/internal-medicine/diabetes/,3,,close variant
+diabetes management Lagos,internal medicine,local,/services/internal-medicine/diabetes/,3,,close variant
+diabetes treatment Lagos,internal medicine,local,/services/internal-medicine/diabetes/,3,,close variant
+what is diabetes,internal medicine,informational,/services/internal-medicine/diabetes/,3,,close variant
+erbium laser Lagos,procedures,local,/services/laser-treatments/erbium-yag-laser/,3,,close variant
+Er:YAG laser,procedures,commercial,/services/laser-treatments/erbium-yag-laser/,3,,close variant
+erbium laser resurfacing,procedures,commercial,/services/laser-treatments/erbium-yag-laser/,3,,close variant
+exosome therapy,procedures,informational,/services/aesthetic-treatments/exosome-therapy/,3,,close variant
+exosome facial Lagos,procedures,local,/services/aesthetic-treatments/exosome-therapy/,3,,close variant
+exosome treatment Lagos,procedures,local,/services/aesthetic-treatments/exosome-therapy/,3,,close variant
+exosomes for skin,procedures,informational,/services/aesthetic-treatments/exosome-therapy/,3,,close variant
+skin scraping test,procedures,commercial,/services/skin-tests-and-diagnostics/fungal-tests/,3,,close variant
+KOH test,procedures,commercial,/services/skin-tests-and-diagnostics/fungal-tests/,3,,close variant
+fungal culture,procedures,informational,/services/skin-tests-and-diagnostics/fungal-tests/,3,,close variant
+nail fungus test Lagos,procedures,local,/services/skin-tests-and-diagnostics/fungal-tests/,3,,close variant
+general practitioner in Lekki,internal medicine,local,/services/internal-medicine/general-medical-consultation/,3,,close variant
+GP in Lekki,internal medicine,local,/services/internal-medicine/general-medical-consultation/,3,,close variant
+doctor in Lekki,internal medicine,local,/services/internal-medicine/general-medical-consultation/,3,,close variant
+medical consultation Victoria Island,internal medicine,local,/services/internal-medicine/general-medical-consultation/,3,,close variant
+hair transplant in Lagos,procedures,local,/services/hair-and-scalp/hair-transplant/,3,,close variant
+hair transplant Nigeria,procedures,commercial,/services/hair-and-scalp/hair-transplant/,3,,close variant
+FUE hair transplant Lagos,procedures,local,/services/hair-and-scalp/hair-transplant/,3,,close variant
+high cholesterol treatment Lagos,internal medicine,local,/services/internal-medicine/high-cholesterol/,3,,close variant
+cholesterol test Lagos,internal medicine,local,/services/internal-medicine/high-cholesterol/,3,,close variant
+cholesterol doctor Lagos,internal medicine,local,/services/internal-medicine/high-cholesterol/,3,,close variant
+how to lower cholesterol,internal medicine,informational,/services/internal-medicine/high-cholesterol/,3,,close variant
+what is high cholesterol,internal medicine,informational,/services/internal-medicine/high-cholesterol/,3,,close variant
+hypertension clinic Lagos,internal medicine,local,/services/internal-medicine/hypertension/,3,,close variant
+hypertension treatment in Lagos,internal medicine,local,/services/internal-medicine/hypertension/,3,,close variant
+high blood pressure treatment,internal medicine,commercial,/services/internal-medicine/hypertension/,3,,close variant
+what is hypertension,internal medicine,informational,/services/internal-medicine/hypertension/,3,,close variant
+infectious disease management Lagos,internal medicine,local,/services/internal-medicine/infectious-diseases/,3,,close variant
+infection doctor Lagos,internal medicine,local,/services/internal-medicine/infectious-diseases/,3,,close variant
+fever doctor Lagos,internal medicine,local,/services/internal-medicine/infectious-diseases/,3,,close variant
+labia puff Lagos,procedures,local,/services/aesthetic-treatments/labia-filler/,3,,close variant
+labia filler Lagos,procedures,local,/services/aesthetic-treatments/labia-filler/,3,,close variant
+labia majora filler,procedures,commercial,/services/aesthetic-treatments/labia-filler/,3,,close variant
+laser hair removal in Lagos,procedures,local,/services/laser-treatments/laser-hair-removal/,3,,close variant
+underarm laser hair removal,procedures,commercial,/services/laser-treatments/laser-hair-removal/,3,,close variant
+laser pigmentation removal,procedures,commercial,/services/laser-treatments/laser-pigmentation-removal/,3,,close variant
+laser for dark spots,procedures,commercial,/services/laser-treatments/laser-pigmentation-removal/,3,,close variant
+laser pigmentation removal Lagos,procedures,local,/services/laser-treatments/laser-pigmentation-removal/,3,,close variant
+dark spot removal Lagos laser,procedures,local,/services/laser-treatments/laser-pigmentation-removal/,3,,close variant
+laser for melasma,procedures,commercial,/services/laser-treatments/laser-pigmentation-removal/,3,,close variant
+fractional CO2 laser Lagos,procedures,local,/services/laser-treatments/laser-skin-resurfacing/,3,,close variant
+laser for acne scars Lagos,procedures,local,/services/laser-treatments/laser-skin-resurfacing/,3,,close variant
+laser skin resurfacing Lagos,procedures,local,/services/laser-treatments/laser-skin-resurfacing/,3,,close variant
+laser tattoo removal Lagos,procedures,local,/services/laser-treatments/laser-tattoo-removal/,3,,close variant
+tattoo removal in Lagos,procedures,local,/services/laser-treatments/laser-tattoo-removal/,3,,close variant
+remove tattoo Lagos,procedures,local,/services/laser-treatments/laser-tattoo-removal/,3,,close variant
+spider vein laser Lagos,procedures,local,/services/laser-treatments/laser-vascular-treatment/,3,,close variant
+laser for broken capillaries,procedures,commercial,/services/laser-treatments/laser-vascular-treatment/,3,,close variant
+laser for rosacea redness,procedures,commercial,/services/laser-treatments/laser-vascular-treatment/,3,,close variant
+LED light therapy,procedures,informational,/services/laser-treatments/led-and-ipl/,3,,close variant
+IPL Lagos,procedures,local,/services/laser-treatments/led-and-ipl/,3,,close variant
+blue light therapy for acne,procedures,informational,/services/laser-treatments/led-and-ipl/,3,,close variant
+photodynamic therapy,procedures,informational,/services/laser-treatments/led-and-ipl/,3,,close variant
+medical facial in Lagos,procedures,local,/services/aesthetic-treatments/medical-facials/,3,,close variant
+acne facial Lagos,procedures,local,/services/aesthetic-treatments/medical-facials/,3,,close variant
+dermatologist facial,procedures,commercial,/services/aesthetic-treatments/medical-facials/,3,,close variant
+microneedling in Lagos,procedures,local,/services/aesthetic-treatments/microneedling/,3,,close variant
+RF microneedling Lagos,procedures,local,/services/aesthetic-treatments/microneedling/,3,,close variant
+microneedling for acne scars,procedures,informational,/services/aesthetic-treatments/microneedling/,3,,close variant
+Mohs micrographic surgery,procedures,commercial,/services/skin-cancer-care/mohs-surgery/,3,,close variant
+Mohs surgery Lagos,procedures,local,/services/skin-cancer-care/mohs-surgery/,3,,close variant
+skin cancer surgery Lagos,procedures,local,/services/skin-cancer-care/mohs-surgery/,3,,close variant
+mole mapping Lagos,procedures,local,/services/skin-cancer-care/mole-mapping-and-dermoscopy/,3,,close variant
+dermoscopy Lagos,procedures,local,/services/skin-cancer-care/mole-mapping-and-dermoscopy/,3,,close variant
+mole removal in Lagos,procedures,local,/services/skin-surgery/mole-removal/,3,,close variant
+remove mole Lagos,procedures,local,/services/skin-surgery/mole-removal/,3,,close variant
+mole removal Lekki,procedures,local,/services/skin-surgery/mole-removal/,3,,close variant
+O-shot Lagos,procedures,local,/services/aesthetic-treatments/o-shot/,3,,close variant
+orgasm shot,procedures,informational,/services/aesthetic-treatments/o-shot/,3,,close variant
+PRP vaginal rejuvenation,procedures,informational,/services/aesthetic-treatments/o-shot/,3,,close variant
+online dermatologist consultation in Nigeria,consultations,commercial,/services/dermatology-consultations/online-consultation/,3,,close variant
+virtual dermatologist Nigeria,consultations,commercial,/services/dermatology-consultations/online-consultation/,3,,close variant
+patch testing Lagos,procedures,local,/services/skin-tests-and-diagnostics/patch-testing/,3,,close variant
+allergy patch test,procedures,commercial,/services/skin-tests-and-diagnostics/patch-testing/,3,,close variant
+contact allergy test,procedures,commercial,/services/skin-tests-and-diagnostics/patch-testing/,3,,close variant
+PDRN treatment,procedures,commercial,/services/aesthetic-treatments/pdrn-treatment/,3,,close variant
+salmon DNA facial,procedures,informational,/services/aesthetic-treatments/pdrn-treatment/,3,,close variant
+polynucleotides,procedures,informational,/services/aesthetic-treatments/pdrn-treatment/,3,,close variant
+PDRN Lagos,procedures,local,/services/aesthetic-treatments/pdrn-treatment/,3,,close variant
+phototherapy Lagos,procedures,local,/services/clinical-dermatology/phototherapy/,3,,close variant
+narrowband UVB Lagos,procedures,local,/services/clinical-dermatology/phototherapy/,3,,close variant
+UVB treatment for vitiligo,procedures,commercial,/services/clinical-dermatology/phototherapy/,3,,close variant
+light therapy for vitiligo,procedures,informational,/services/clinical-dermatology/phototherapy/,3,,close variant
+pico laser Lagos,procedures,local,/services/laser-treatments/pico-laser/,3,,close variant
+picosecond laser,procedures,commercial,/services/laser-treatments/pico-laser/,3,,close variant
+pico laser in Lagos,procedures,local,/services/laser-treatments/pico-laser/,3,,close variant
+pico laser treatment,procedures,commercial,/services/laser-treatments/pico-laser/,3,,close variant
+pico laser for dark spots,procedures,commercial,/services/laser-treatments/pico-laser/,3,,close variant
+PRP for hair loss,procedures,informational,/services/hair-and-scalp/prp-for-hair-loss/,3,,close variant
+PRP for hair loss Lagos,procedures,local,/services/hair-and-scalp/prp-for-hair-loss/,3,,close variant
+platelet-rich plasma hair,procedures,informational,/services/hair-and-scalp/prp-for-hair-loss/,3,,close variant
+PRP hair treatment in Lagos,procedures,local,/services/hair-and-scalp/prp-for-hair-loss/,3,,close variant
+vampire facial Lagos,procedures,local,/services/aesthetic-treatments/prp-microneedling/,3,,close variant
+PRP facial,procedures,informational,/services/aesthetic-treatments/prp-microneedling/,3,,close variant
+PRP microneedling Lagos,procedures,local,/services/aesthetic-treatments/prp-microneedling/,3,,close variant
+PRP facial rejuvenation,procedures,informational,/services/aesthetic-treatments/prp-microneedling/,3,,close variant
+Q-switched laser,procedures,commercial,/services/laser-treatments/q-switch-laser/,3,,close variant
+Q-switch laser Lagos,procedures,local,/services/laser-treatments/q-switch-laser/,3,,close variant
+Q-switched Nd:YAG laser,procedures,commercial,/services/laser-treatments/q-switch-laser/,3,,close variant
+laser toning,procedures,commercial,/services/laser-treatments/q-switch-laser/,3,,close variant
+scar removal Lagos,procedures,local,/services/skin-surgery/scar-revision/,3,,close variant
+scar treatment Lagos,procedures,local,/services/skin-surgery/scar-revision/,3,,close variant
+scar revision surgery,procedures,commercial,/services/skin-surgery/scar-revision/,3,,close variant
+skin biopsy in Lagos,procedures,local,/services/skin-tests-and-diagnostics/skin-biopsy/,3,,close variant
+punch biopsy,procedures,informational,/services/skin-tests-and-diagnostics/skin-biopsy/,3,,close variant
+scalp biopsy,procedures,informational,/services/skin-tests-and-diagnostics/skin-biopsy/,3,,close variant
+nail biopsy,procedures,informational,/services/skin-tests-and-diagnostics/skin-biopsy/,3,,close variant
+skin tightening in Lagos,procedures,local,/services/aesthetic-treatments/skin-tightening/,3,,close variant
+non-surgical facelift Lagos,procedures,local,/services/aesthetic-treatments/skin-tightening/,3,,close variant
+skin tightening treatment,procedures,commercial,/services/aesthetic-treatments/skin-tightening/,3,,close variant
+hair analysis Lagos,procedures,local,/services/skin-tests-and-diagnostics/trichoscopy/,3,,close variant
+scalp analysis Lagos,procedures,local,/services/skin-tests-and-diagnostics/trichoscopy/,3,,close variant
+hair loss test,procedures,commercial,/services/skin-tests-and-diagnostics/trichoscopy/,3,,close variant
+acne scar removal Lagos,conditions,local,/conditions/acne-scars/,3,,close variant
+how to remove acne scars,conditions,informational,/conditions/acne-scars/,3,,close variant
+hormonal acne treatment,conditions,commercial,/conditions/acne/,3,,close variant
+cystic acne treatment Lagos,conditions,local,/conditions/acne/,3,,close variant
+patchy hair loss,conditions,informational,/conditions/alopecia-areata/,3,,close variant
+bald patch on head,conditions,informational,/conditions/alopecia-areata/,3,,close variant
+bald spot in beard,conditions,informational,/conditions/alopecia-areata/,3,,close variant
+hair loss in patches child,conditions,informational,/conditions/alopecia-areata/,3,,close variant
+alopecia totalis,conditions,informational,/conditions/alopecia-areata/,3,,close variant
+itchy toes treatment,conditions,commercial,/conditions/athletes-foot/,3,,close variant
+peeling skin between toes,conditions,informational,/conditions/athletes-foot/,3,,close variant
+foot fungus treatment,conditions,commercial,/conditions/athletes-foot/,3,,close variant
+smelly feet fungus,conditions,informational,/conditions/athletes-foot/,3,,close variant
+tinea pedis,conditions,informational,/conditions/athletes-foot/,3,,close variant
+toe web infection,conditions,informational,/conditions/athletes-foot/,3,,close variant
+eczema in babies,conditions,informational,/conditions/baby-eczema/,3,,close variant
+baby rash on face,conditions,informational,/conditions/baby-eczema/,3,,close variant
+infant eczema cream,conditions,commercial,/conditions/baby-eczema/,3,,close variant
+baby dry skin patches,conditions,informational,/conditions/baby-eczema/,3,,close variant
+eczema in toddlers,conditions,informational,/conditions/baby-eczema/,3,,close variant
+baby skin doctor Lagos,conditions,local,/conditions/baby-eczema/,3,,close variant
+birthmark on baby,conditions,informational,/conditions/birthmarks-and-haemangiomas/,3,,close variant
+strawberry birthmark,conditions,informational,/conditions/birthmarks-and-haemangiomas/,3,,close variant
+Mongolian spot,conditions,informational,/conditions/birthmarks-and-haemangiomas/,3,,close variant
+port wine stain treatment,conditions,commercial,/conditions/birthmarks-and-haemangiomas/,3,,close variant
+cafe au lait spots,conditions,informational,/conditions/birthmarks-and-haemangiomas/,3,,close variant
+birthmark removal,conditions,commercial,/conditions/birthmarks-and-haemangiomas/,3,,close variant
+how to treat a boil,conditions,informational,/conditions/boils-and-abscesses/,3,,close variant
+abscess drainage,conditions,informational,/conditions/boils-and-abscesses/,3,,close variant
+recurring boils,conditions,informational,/conditions/boils-and-abscesses/,3,,close variant
+boil in armpit,conditions,informational,/conditions/boils-and-abscesses/,3,,close variant
+boil on buttocks,conditions,informational,/conditions/boils-and-abscesses/,3,,close variant
+skin abscess treatment Lagos,conditions,local,/conditions/boils-and-abscesses/,3,,close variant
+first aid for burns,conditions,informational,/conditions/burns/,3,,close variant
+hot water burn treatment,conditions,commercial,/conditions/burns/,3,,close variant
+burn wound dressing,conditions,informational,/conditions/burns/,3,,close variant
+burn scar treatment,conditions,commercial,/conditions/burns/,3,,close variant
+exhaust pipe burn,conditions,informational,/conditions/burns/,3,,close variant
+chemical burn on skin,conditions,informational,/conditions/burns/,3,,close variant
+swollen hot leg infection,conditions,informational,/conditions/cellulitis/,3,,close variant
+cellulitis symptoms,conditions,informational,/conditions/cellulitis/,3,,close variant
+cellulitis on dark skin,conditions,informational,/conditions/cellulitis/,3,,close variant
+leg infection treatment,conditions,commercial,/conditions/cellulitis/,3,,close variant
+erysipelas,conditions,informational,/conditions/cellulitis/,3,,close variant
+itching all over body no rash,conditions,informational,/conditions/chronic-itch/,3,,close variant
+constant itching causes,conditions,informational,/conditions/chronic-itch/,3,,close variant
+prurigo nodularis,conditions,informational,/conditions/chronic-itch/,3,,close variant
+body itching treatment,conditions,commercial,/conditions/chronic-itch/,3,,close variant
+itching for months,conditions,informational,/conditions/chronic-itch/,3,,close variant
+lichen simplex,conditions,informational,/conditions/chronic-itch/,3,,close variant
+fever blisters on lips,conditions,informational,/conditions/cold-sores/,3,,close variant
+herpes on lips treatment,conditions,commercial,/conditions/cold-sores/,3,,close variant
+how to get rid of a cold sore,conditions,informational,/conditions/cold-sores/,3,,close variant
+blisters on lip after malaria,conditions,informational,/conditions/cold-sores/,3,,close variant
+cold sore contagious,conditions,informational,/conditions/cold-sores/,3,,close variant
+recurrent cold sores,conditions,informational,/conditions/cold-sores/,3,,close variant
+skin allergy rash,conditions,informational,/conditions/contact-dermatitis/,3,,close variant
+hair dye allergy,conditions,informational,/conditions/contact-dermatitis/,3,,close variant
+nickel allergy rash,conditions,informational,/conditions/contact-dermatitis/,3,,close variant
+hand dermatitis treatment,conditions,commercial,/conditions/contact-dermatitis/,3,,close variant
+allergic reaction on face,conditions,informational,/conditions/contact-dermatitis/,3,,close variant
+detergent rash on hands,conditions,informational,/conditions/contact-dermatitis/,3,,close variant
+corn on toe treatment,conditions,commercial,/conditions/corns-and-calluses/,3,,close variant
+callus removal,conditions,commercial,/conditions/corns-and-calluses/,3,,close variant
+hard skin on feet,conditions,informational,/conditions/corns-and-calluses/,3,,close variant
+corn or wart,conditions,informational,/conditions/corns-and-calluses/,3,,close variant
+painful corn on foot,conditions,informational,/conditions/corns-and-calluses/,3,,close variant
+foot corn treatment Lagos,conditions,local,/conditions/corns-and-calluses/,3,,close variant
+how to heal cracked heels,conditions,informational,/conditions/cracked-heels/,3,,close variant
+deep heel cracks,conditions,informational,/conditions/cracked-heels/,3,,close variant
+dry cracked feet,conditions,informational,/conditions/cracked-heels/,3,,close variant
+heel fissures,conditions,informational,/conditions/cracked-heels/,3,,close variant
+cracked heels in harmattan,conditions,informational,/conditions/cracked-heels/,3,,close variant
+urea cream for heels,conditions,commercial,/conditions/cracked-heels/,3,,close variant
+cradle cap in babies,conditions,informational,/conditions/cradle-cap/,3,,close variant
+baby scalp flakes,conditions,informational,/conditions/cradle-cap/,3,,close variant
+yellow crust on baby head,conditions,informational,/conditions/cradle-cap/,3,,close variant
+how to remove cradle cap,conditions,informational,/conditions/cradle-cap/,3,,close variant
+infant seborrhoeic dermatitis,conditions,informational,/conditions/cradle-cap/,3,,close variant
+baby dandruff,conditions,informational,/conditions/cradle-cap/,3,,close variant
+lupus rash on face,conditions,informational,/conditions/cutaneous-lupus/,3,,close variant
+cutaneous lupus treatment,conditions,commercial,/conditions/cutaneous-lupus/,3,,close variant
+discoid lupus on dark skin,conditions,informational,/conditions/cutaneous-lupus/,3,,close variant
+scarring patches on scalp,conditions,informational,/conditions/cutaneous-lupus/,3,,close variant
+butterfly rash,conditions,informational,/conditions/cutaneous-lupus/,3,,close variant
+lupus skin symptoms,conditions,informational,/conditions/cutaneous-lupus/,3,,close variant
+dark neck treatment,conditions,commercial,/conditions/dark-underarms-inner-thighs-knees-and-neck/,3,,close variant
+acanthosis nigricans treatment,conditions,commercial,/conditions/dark-underarms-inner-thighs-knees-and-neck/,3,,close variant
+dark knuckles treatment,conditions,commercial,/conditions/dark-underarms-inner-thighs-knees-and-neck/,3,,close variant
+how to lighten dark underarms,conditions,informational,/conditions/dark-underarms-inner-thighs-knees-and-neck/,3,,close variant
+DPN removal Lagos,conditions,local,/conditions/dermatosis-papulosa-nigra/,3,,close variant
+dermatosis papulosa nigra removal,conditions,commercial,/conditions/dermatosis-papulosa-nigra/,3,,close variant
+small black spots on face,conditions,informational,/conditions/dermatosis-papulosa-nigra/,3,,close variant
+dermatosis papulosa nigra treatment,conditions,commercial,/conditions/dermatosis-papulosa-nigra/,3,,close variant
+diabetic foot care,conditions,informational,/conditions/diabetic-foot-ulcers/,3,,close variant
+sore on foot not healing diabetes,conditions,informational,/conditions/diabetic-foot-ulcers/,3,,close variant
+diabetic wound care,conditions,informational,/conditions/diabetic-foot-ulcers/,3,,close variant
+foot ulcer signs,conditions,informational,/conditions/diabetic-foot-ulcers/,3,,close variant
+numb feet diabetes,conditions,informational,/conditions/diabetic-foot-ulcers/,3,,close variant
+nappy rash treatment,conditions,commercial,/conditions/diaper-rash/,3,,close variant
+baby bum rash,conditions,informational,/conditions/diaper-rash/,3,,close variant
+diaper rash that will not go away,conditions,informational,/conditions/diaper-rash/,3,,close variant
+yeast diaper rash,conditions,informational,/conditions/diaper-rash/,3,,close variant
+nappy rash cream,conditions,commercial,/conditions/diaper-rash/,3,,close variant
+rash in baby groin folds,conditions,informational,/conditions/diaper-rash/,3,,close variant
+eczema treatment in Lagos,conditions,local,/conditions/eczema/,3,,close variant
+atopic eczema treatment,conditions,commercial,/conditions/eczema/,3,,close variant
+how to treat eczema,conditions,informational,/conditions/eczema/,3,,close variant
+eczema cream,conditions,commercial,/conditions/eczema/,3,,close variant
+how to shrink pores,conditions,informational,/conditions/enlarged-pores/,3,,close variant
+large pores on face,conditions,informational,/conditions/enlarged-pores/,3,,close variant
+open pores treatment,conditions,commercial,/conditions/enlarged-pores/,3,,close variant
+pores on nose,conditions,informational,/conditions/enlarged-pores/,3,,close variant
+oily skin treatment,conditions,commercial,/conditions/enlarged-pores/,3,,close variant
+thinning hair on crown women,conditions,informational,/conditions/female-pattern-hair-loss/,3,,close variant
+widening hair parting,conditions,informational,/conditions/female-pattern-hair-loss/,3,,close variant
+androgenetic alopecia women,conditions,informational,/conditions/female-pattern-hair-loss/,3,,close variant
+hair thinning in women causes,conditions,informational,/conditions/female-pattern-hair-loss/,3,,close variant
+minoxidil for women,conditions,informational,/conditions/female-pattern-hair-loss/,3,,close variant
+hair loss in menopause,conditions,informational,/conditions/female-pattern-hair-loss/,3,,close variant
+bumps on buttocks treatment,conditions,commercial,/conditions/folliculitis/,3,,close variant
+fungal acne treatment,conditions,commercial,/conditions/folliculitis/,3,,close variant
+itchy bumps on back and chest,conditions,informational,/conditions/folliculitis/,3,,close variant
+pimples on thighs,conditions,informational,/conditions/folliculitis/,3,,close variant
+Malassezia folliculitis,conditions,informational,/conditions/folliculitis/,3,,close variant
+hot tub folliculitis,conditions,informational,/conditions/folliculitis/,3,,close variant
+fungal nail infection treatment,conditions,commercial,/conditions/fungal-nail-infection/,3,,close variant
+toenail fungus treatment,conditions,commercial,/conditions/fungal-nail-infection/,3,,close variant
+thick yellow toenails,conditions,informational,/conditions/fungal-nail-infection/,3,,close variant
+nail fungus treatment Lagos,conditions,local,/conditions/fungal-nail-infection/,3,,close variant
+fingernail fungus,conditions,informational,/conditions/fungal-nail-infection/,3,,close variant
+white patches on toenails,conditions,informational,/conditions/fungal-nail-infection/,3,,close variant
+genital warts removal,conditions,commercial,/conditions/genital-warts/,3,,close variant
+warts on private part,conditions,informational,/conditions/genital-warts/,3,,close variant
+HPV warts treatment,conditions,commercial,/conditions/genital-warts/,3,,close variant
+bumps on genital area,conditions,informational,/conditions/genital-warts/,3,,close variant
+anal warts treatment,conditions,commercial,/conditions/genital-warts/,3,,close variant
+why is my hair breaking,conditions,informational,/conditions/hair-breakage/,3,,close variant
+hair not growing past shoulder,conditions,informational,/conditions/hair-breakage/,3,,close variant
+relaxer damage,conditions,informational,/conditions/hair-breakage/,3,,close variant
+how to stop hair breakage,conditions,informational,/conditions/hair-breakage/,3,,close variant
+natural hair breakage,conditions,informational,/conditions/hair-breakage/,3,,close variant
+hair breaking at the back,conditions,informational,/conditions/hair-breakage/,3,,close variant
+how to get rid of lice,conditions,informational,/conditions/head-lice/,3,,close variant
+nits in hair,conditions,informational,/conditions/head-lice/,3,,close variant
+lice in African hair,conditions,informational,/conditions/head-lice/,3,,close variant
+itchy scalp in child,conditions,informational,/conditions/head-lice/,3,,close variant
+lice or dandruff,conditions,informational,/conditions/head-lice/,3,,close variant
+prickly heat treatment,conditions,commercial,/conditions/heat-rash/,3,,close variant
+heat rash in babies,conditions,informational,/conditions/heat-rash/,3,,close variant
+heat rash on neck,conditions,informational,/conditions/heat-rash/,3,,close variant
+sweat rash,conditions,informational,/conditions/heat-rash/,3,,close variant
+miliaria,conditions,informational,/conditions/heat-rash/,3,,close variant
+small itchy bumps in hot weather,conditions,informational,/conditions/heat-rash/,3,,close variant
+excess facial hair in women,conditions,informational,/conditions/hirsutism/,3,,close variant
+chin hair in women causes,conditions,informational,/conditions/hirsutism/,3,,close variant
+PCOS facial hair treatment,conditions,commercial,/conditions/hirsutism/,3,,close variant
+how to remove facial hair permanently,conditions,informational,/conditions/hirsutism/,3,,close variant
+hair on chest women,conditions,informational,/conditions/hirsutism/,3,,close variant
+beard growth in women,conditions,informational,/conditions/hirsutism/,3,,close variant
+urticaria treatment,conditions,commercial,/conditions/hives/,3,,close variant
+itchy bumps that come and go,conditions,informational,/conditions/hives/,3,,close variant
+skin swelling allergy,conditions,informational,/conditions/hives/,3,,close variant
+chronic hives,conditions,informational,/conditions/hives/,3,,close variant
+heat rash or hives,conditions,informational,/conditions/hives/,3,,close variant
+body itching with swelling,conditions,informational,/conditions/hives/,3,,close variant
+excessive sweating treatment,conditions,commercial,/conditions/hyperhidrosis/,3,,close variant
+sweaty palms treatment,conditions,commercial,/conditions/hyperhidrosis/,3,,close variant
+underarm sweating Botox,conditions,commercial,/conditions/hyperhidrosis/,3,,close variant
+how to stop sweating so much,conditions,informational,/conditions/hyperhidrosis/,3,,close variant
+sweaty feet treatment,conditions,commercial,/conditions/hyperhidrosis/,3,,close variant
+dark spots treatment,conditions,commercial,/conditions/hyperpigmentation/,3,,close variant
+how to treat hyperpigmentation,conditions,informational,/conditions/hyperpigmentation/,3,,close variant
+hyperpigmentation treatment in Lagos,conditions,local,/conditions/hyperpigmentation/,3,,close variant
+fish scale skin,conditions,informational,/conditions/ichthyosis/,3,,close variant
+very dry scaly legs,conditions,informational,/conditions/ichthyosis/,3,,close variant
+ichthyosis vulgaris,conditions,informational,/conditions/ichthyosis/,3,,close variant
+scaly skin on legs treatment,conditions,commercial,/conditions/ichthyosis/,3,,close variant
+extremely dry skin in child,conditions,informational,/conditions/ichthyosis/,3,,close variant
+impetigo in children,conditions,informational,/conditions/impetigo/,3,,close variant
+honey coloured crust sores,conditions,informational,/conditions/impetigo/,3,,close variant
+school sores,conditions,informational,/conditions/impetigo/,3,,close variant
+blisters on child skin infection,conditions,informational,/conditions/impetigo/,3,,close variant
+is impetigo contagious,conditions,informational,/conditions/impetigo/,3,,close variant
+ingrown hair bikini line,conditions,informational,/conditions/ingrown-hairs/,3,,close variant
+bumps after waxing,conditions,informational,/conditions/ingrown-hairs/,3,,close variant
+ingrown hair cyst,conditions,informational,/conditions/ingrown-hairs/,3,,close variant
+ingrown hairs on legs,conditions,informational,/conditions/ingrown-hairs/,3,,close variant
+chin hair bumps women,conditions,informational,/conditions/ingrown-hairs/,3,,close variant
+how to stop ingrown hairs,conditions,informational,/conditions/ingrown-hairs/,3,,close variant
+ingrown toenail removal,conditions,commercial,/conditions/ingrown-toenails/,3,,close variant
+infected toenail,conditions,informational,/conditions/ingrown-toenails/,3,,close variant
+big toe pain at side of nail,conditions,informational,/conditions/ingrown-toenails/,3,,close variant
+ingrown toenail surgery,conditions,commercial,/conditions/ingrown-toenails/,3,,close variant
+how to fix an ingrown toenail,conditions,informational,/conditions/ingrown-toenails/,3,,close variant
+keloid removal in Lagos,conditions,local,/conditions/keloids/,3,,close variant
+ear keloid removal,conditions,commercial,/conditions/keloids/,3,,close variant
+keloid treatment,conditions,commercial,/conditions/keloids/,3,,close variant
+chicken skin on arms,conditions,informational,/conditions/keratosis-pilaris/,3,,close variant
+rough bumps on upper arms,conditions,informational,/conditions/keratosis-pilaris/,3,,close variant
+bumps on back of arms,conditions,informational,/conditions/keratosis-pilaris/,3,,close variant
+strawberry legs treatment,conditions,commercial,/conditions/keratosis-pilaris/,3,,close variant
+KP treatment dark skin,conditions,commercial,/conditions/keratosis-pilaris/,3,,close variant
+lichen planus on dark skin,conditions,informational,/conditions/lichen-planus/,3,,close variant
+itchy purple bumps on wrists,conditions,informational,/conditions/lichen-planus/,3,,close variant
+lichen planus mouth,conditions,informational,/conditions/lichen-planus/,3,,close variant
+lichen planus pigmentosus,conditions,informational,/conditions/lichen-planus/,3,,close variant
+dark itchy rash on legs,conditions,informational,/conditions/lichen-planus/,3,,close variant
+white patches on vulva,conditions,informational,/conditions/lichen-sclerosus/,3,,close variant
+itchy vulva treatment,conditions,commercial,/conditions/lichen-sclerosus/,3,,close variant
+tight foreskin white skin,conditions,informational,/conditions/lichen-sclerosus/,3,,close variant
+vulval itching causes,conditions,informational,/conditions/lichen-sclerosus/,3,,close variant
+lichen sclerosus in men,conditions,informational,/conditions/lichen-sclerosus/,3,,close variant
+receding hairline treatment,conditions,commercial,/conditions/male-pattern-hair-loss/,3,,close variant
+balding at the crown,conditions,informational,/conditions/male-pattern-hair-loss/,3,,close variant
+hair loss treatment for men,conditions,commercial,/conditions/male-pattern-hair-loss/,3,,close variant
+finasteride and minoxidil,conditions,informational,/conditions/male-pattern-hair-loss/,3,,close variant
+going bald in 20s,conditions,informational,/conditions/male-pattern-hair-loss/,3,,close variant
+hair transplant for men Lagos,conditions,local,/conditions/male-pattern-hair-loss/,3,,close variant
+melasma treatment in Lagos,conditions,local,/conditions/melasma/,3,,close variant
+how to treat melasma,conditions,informational,/conditions/melasma/,3,,close variant
+melasma on dark skin,conditions,informational,/conditions/melasma/,3,,close variant
+changing mole,conditions,informational,/conditions/moles/,3,,close variant
+mole on sole of foot,conditions,informational,/conditions/moles/,3,,close variant
+dark line on nail,conditions,informational,/conditions/moles/,3,,close variant
+are moles dangerous,conditions,informational,/conditions/moles/,3,,close variant
+new mole in adult,conditions,informational,/conditions/moles/,3,,close variant
+molluscum in children,conditions,informational,/conditions/molluscum-contagiosum/,3,,close variant
+small pearly bumps on child,conditions,informational,/conditions/molluscum-contagiosum/,3,,close variant
+water warts,conditions,informational,/conditions/molluscum-contagiosum/,3,,close variant
+molluscum in adults,conditions,informational,/conditions/molluscum-contagiosum/,3,,close variant
+how long does molluscum last,conditions,informational,/conditions/molluscum-contagiosum/,3,,close variant
+bumps with dimple in centre,conditions,informational,/conditions/molluscum-contagiosum/,3,,close variant
+pitted nails causes,conditions,informational,/conditions/nail-psoriasis/,3,,close variant
+nail lifting from nail bed,conditions,informational,/conditions/nail-psoriasis/,3,,close variant
+psoriasis nails or fungus,conditions,informational,/conditions/nail-psoriasis/,3,,close variant
+thick crumbly nails not fungus,conditions,informational,/conditions/nail-psoriasis/,3,,close variant
+psoriatic nails,conditions,informational,/conditions/nail-psoriasis/,3,,close variant
+swollen finger near nail,conditions,informational,/conditions/paronychia/,3,,close variant
+whitlow treatment,conditions,commercial,/conditions/paronychia/,3,,close variant
+nail fold infection,conditions,informational,/conditions/paronychia/,3,,close variant
+pus beside fingernail,conditions,informational,/conditions/paronychia/,3,,close variant
+chronic paronychia,conditions,informational,/conditions/paronychia/,3,,close variant
+blisters in elderly,conditions,informational,/conditions/pemphigoid/,3,,close variant
+large blisters on legs and arms,conditions,informational,/conditions/pemphigoid/,3,,close variant
+itchy blisters on skin,conditions,informational,/conditions/pemphigoid/,3,,close variant
+pemphigoid symptoms,conditions,informational,/conditions/pemphigoid/,3,,close variant
+autoimmune blistering disease,conditions,informational,/conditions/pemphigoid/,3,,close variant
+pemphigus vulgaris,conditions,informational,/conditions/pemphigus/,3,,close variant
+mouth sores that will not heal,conditions,informational,/conditions/pemphigus/,3,,close variant
+blistering skin disease,conditions,informational,/conditions/pemphigus/,3,,close variant
+skin peeling off blisters,conditions,informational,/conditions/pemphigus/,3,,close variant
+autoimmune blisters,conditions,informational,/conditions/pemphigus/,3,,close variant
+sun rash,conditions,informational,/conditions/photodermatoses/,3,,close variant
+rash after sun exposure,conditions,informational,/conditions/photodermatoses/,3,,close variant
+photosensitivity rash,conditions,informational,/conditions/photodermatoses/,3,,close variant
+polymorphic light eruption,conditions,informational,/conditions/photodermatoses/,3,,close variant
+itchy rash on arms after sun,conditions,informational,/conditions/photodermatoses/,3,,close variant
+drug sun reaction,conditions,informational,/conditions/photodermatoses/,3,,close variant
+herald patch rash,conditions,informational,/conditions/pityriasis-rosea/,3,,close variant
+oval scaly patches on trunk,conditions,informational,/conditions/pityriasis-rosea/,3,,close variant
+pityriasis rosea on dark skin,conditions,informational,/conditions/pityriasis-rosea/,3,,close variant
+rash on chest and back,conditions,informational,/conditions/pityriasis-rosea/,3,,close variant
+how long does pityriasis rosea last,conditions,informational,/conditions/pityriasis-rosea/,3,,close variant
+tinea versicolor treatment,conditions,commercial,/conditions/pityriasis-versicolor/,3,,close variant
+white patches on back and chest,conditions,informational,/conditions/pityriasis-versicolor/,3,,close variant
+skin fungus white spots,conditions,informational,/conditions/pityriasis-versicolor/,3,,close variant
+eczema on neck and chest,conditions,informational,/conditions/pityriasis-versicolor/,3,,close variant
+light patches on skin from sweat,conditions,informational,/conditions/pityriasis-versicolor/,3,,close variant
+verruca treatment,conditions,commercial,/conditions/plantar-warts/,3,,close variant
+wart on sole of foot,conditions,informational,/conditions/plantar-warts/,3,,close variant
+foot wart removal,conditions,commercial,/conditions/plantar-warts/,3,,close variant
+mosaic warts,conditions,informational,/conditions/plantar-warts/,3,,close variant
+painful wart under foot,conditions,informational,/conditions/plantar-warts/,3,,close variant
+light patches after eczema,conditions,informational,/conditions/post-inflammatory-hypopigmentation/,3,,close variant
+skin lighter after wound healed,conditions,informational,/conditions/post-inflammatory-hypopigmentation/,3,,close variant
+white marks after rash,conditions,informational,/conditions/post-inflammatory-hypopigmentation/,3,,close variant
+hypopigmentation treatment,conditions,commercial,/conditions/post-inflammatory-hypopigmentation/,3,,close variant
+pale patch after burn,conditions,informational,/conditions/post-inflammatory-hypopigmentation/,3,,close variant
+skin darkening in pregnancy,conditions,informational,/conditions/pregnancy-skin-changes/,3,,close variant
+itching in pregnancy,conditions,informational,/conditions/pregnancy-skin-changes/,3,,close variant
+pregnancy acne safe treatment,conditions,commercial,/conditions/pregnancy-skin-changes/,3,,close variant
+pregnancy rash,conditions,informational,/conditions/pregnancy-skin-changes/,3,,close variant
+dark neck in pregnancy,conditions,informational,/conditions/pregnancy-skin-changes/,3,,close variant
+safe skincare in pregnancy,conditions,informational,/conditions/pregnancy-skin-changes/,3,,close variant
+psoriasis treatment in Lagos,conditions,local,/conditions/psoriasis/,3,,close variant
+scalp psoriasis treatment,conditions,commercial,/conditions/psoriasis/,3,,close variant
+how to treat psoriasis,conditions,informational,/conditions/psoriasis/,3,,close variant
+how to get rid of razor bumps,conditions,informational,/conditions/razor-bumps/,3,,close variant
+shaving bumps treatment,conditions,commercial,/conditions/razor-bumps/,3,,close variant
+pseudofolliculitis barbae treatment,conditions,commercial,/conditions/razor-bumps/,3,,close variant
+ingrown beard hair treatment,conditions,commercial,/conditions/razor-bumps/,3,,close variant
+ringworm treatment Lagos,conditions,local,/conditions/ringworm-and-fungal-skin-infections/,3,,close variant
+fungal skin infection treatment,conditions,commercial,/conditions/ringworm-and-fungal-skin-infections/,3,,close variant
+how to treat ringworm,conditions,informational,/conditions/ringworm-and-fungal-skin-infections/,3,,close variant
+jock itch treatment,conditions,commercial,/conditions/ringworm-and-fungal-skin-infections/,3,,close variant
+scalp ringworm treatment,conditions,commercial,/conditions/ringworm-and-fungal-skin-infections/,3,,close variant
+rosacea on dark skin,conditions,informational,/conditions/rosacea/,3,,close variant
+face burning and bumps,conditions,informational,/conditions/rosacea/,3,,close variant
+acne or rosacea,conditions,informational,/conditions/rosacea/,3,,close variant
+red face treatment,conditions,commercial,/conditions/rosacea/,3,,close variant
+rosacea in Black skin,conditions,informational,/conditions/rosacea/,3,,close variant
+sensitive face that stings,conditions,informational,/conditions/rosacea/,3,,close variant
+scabies symptoms,conditions,informational,/conditions/scabies/,3,,close variant
+how to get rid of scabies,conditions,informational,/conditions/scabies/,3,,close variant
+itching at night all over body,conditions,informational,/conditions/scabies/,3,,close variant
+craw craw treatment,conditions,commercial,/conditions/scabies/,3,,close variant
+scabies in babies,conditions,informational,/conditions/scabies/,3,,close variant
+scabies rash between fingers,conditions,informational,/conditions/scabies/,3,,close variant
+bumps on back of head after haircut,conditions,informational,/conditions/scalp-folliculitis/,3,,close variant
+barber bumps on head,conditions,informational,/conditions/scalp-folliculitis/,3,,close variant
+scalp folliculitis treatment,conditions,commercial,/conditions/scalp-folliculitis/,3,,close variant
+keloid at back of head,conditions,informational,/conditions/scalp-folliculitis/,3,,close variant
+pimples on scalp,conditions,informational,/conditions/scalp-folliculitis/,3,,close variant
+CCCA treatment,conditions,commercial,/conditions/scarring-alopecia/,3,,close variant
+central centrifugal cicatricial alopecia,conditions,informational,/conditions/scarring-alopecia/,3,,close variant
+hair loss at crown Black women,conditions,informational,/conditions/scarring-alopecia/,3,,close variant
+permanent hair loss,conditions,informational,/conditions/scarring-alopecia/,3,,close variant
+frontal fibrosing alopecia,conditions,informational,/conditions/scarring-alopecia/,3,,close variant
+dandruff treatment Lagos,conditions,local,/conditions/seborrhoeic-dermatitis-and-dandruff/,3,,close variant
+seborrhoeic dermatitis treatment,conditions,commercial,/conditions/seborrhoeic-dermatitis-and-dandruff/,3,,close variant
+itchy scalp treatment,conditions,commercial,/conditions/seborrhoeic-dermatitis-and-dandruff/,3,,close variant
+how to get rid of dandruff,conditions,informational,/conditions/seborrhoeic-dermatitis-and-dandruff/,3,,close variant
+seborrheic dermatitis treatment,conditions,commercial,/conditions/seborrhoeic-dermatitis-and-dandruff/,3,,close variant
+herpes zoster treatment,conditions,commercial,/conditions/shingles/,3,,close variant
+shingles symptoms,conditions,informational,/conditions/shingles/,3,,close variant
+painful rash on one side of body,conditions,informational,/conditions/shingles/,3,,close variant
+shingles on face,conditions,informational,/conditions/shingles/,3,,close variant
+is shingles contagious,conditions,informational,/conditions/shingles/,3,,close variant
+nerve pain after shingles,conditions,informational,/conditions/shingles/,3,,close variant
+allergic reaction on skin,conditions,informational,/conditions/skin-allergies/,3,,close variant
+drug rash,conditions,informational,/conditions/skin-allergies/,3,,close variant
+allergy rash treatment,conditions,commercial,/conditions/skin-allergies/,3,,close variant
+what am I allergic to,conditions,informational,/conditions/skin-allergies/,3,,close variant
+skin reaction to medicine,conditions,informational,/conditions/skin-allergies/,3,,close variant
+skin cancer in Black people,conditions,informational,/conditions/skin-cancer-on-dark-skin/,3,,close variant
+melanoma on foot,conditions,informational,/conditions/skin-cancer-on-dark-skin/,3,,close variant
+albinism skin cancer,conditions,informational,/conditions/skin-cancer-on-dark-skin/,3,,close variant
+sore that will not heal,conditions,informational,/conditions/skin-cancer-on-dark-skin/,3,,close variant
+acral melanoma signs,conditions,informational,/conditions/skin-cancer-on-dark-skin/,3,,close variant
+steroid cream damage,conditions,commercial,/conditions/skin-damage-from-bleaching-and-steroid-creams/,3,,close variant
+how to repair bleached skin,conditions,informational,/conditions/skin-damage-from-bleaching-and-steroid-creams/,3,,close variant
+ochronosis treatment,conditions,commercial,/conditions/skin-damage-from-bleaching-and-steroid-creams/,3,,close variant
+topical steroid withdrawal,conditions,informational,/conditions/skin-damage-from-bleaching-and-steroid-creams/,3,,close variant
+how to stop bleaching safely,conditions,informational,/conditions/skin-damage-from-bleaching-and-steroid-creams/,3,,close variant
+thin skin from steroid cream,conditions,commercial,/conditions/skin-damage-from-bleaching-and-steroid-creams/,3,,close variant
+remove skin tags Lagos,conditions,local,/conditions/skin-tags/,3,,close variant
+how to remove skin tags,conditions,informational,/conditions/skin-tags/,3,,close variant
+cutaneous tuberculosis,conditions,informational,/conditions/skin-tuberculosis/,3,,close variant
+lupus vulgaris,conditions,informational,/conditions/skin-tuberculosis/,3,,close variant
+scrofuloderma,conditions,informational,/conditions/skin-tuberculosis/,3,,close variant
+TB of the skin symptoms,conditions,informational,/conditions/skin-tuberculosis/,3,,close variant
+skin lesion that will not heal,conditions,informational,/conditions/skin-tuberculosis/,3,,close variant
+spider veins on legs,conditions,informational,/conditions/spider-veins/,3,,close variant
+thread veins treatment,conditions,commercial,/conditions/spider-veins/,3,,close variant
+broken capillaries on face,conditions,informational,/conditions/spider-veins/,3,,close variant
+visible veins on face,conditions,informational,/conditions/spider-veins/,3,,close variant
+laser for spider veins,conditions,commercial,/conditions/spider-veins/,3,,close variant
+stretch mark treatment,conditions,commercial,/conditions/stretch-marks/,3,,close variant
+stretch marks treatment Lagos,conditions,local,/conditions/stretch-marks/,3,,close variant
+how to remove stretch marks,conditions,informational,/conditions/stretch-marks/,3,,close variant
+stretch mark removal,conditions,commercial,/conditions/stretch-marks/,3,,close variant
+sudden hair shedding,conditions,informational,/conditions/telogen-effluvium/,3,,close variant
+hair falling out after malaria,conditions,informational,/conditions/telogen-effluvium/,3,,close variant
+hair loss after typhoid,conditions,informational,/conditions/telogen-effluvium/,3,,close variant
+hair loss after weight loss,conditions,informational,/conditions/telogen-effluvium/,3,,close variant
+hair falling out in clumps,conditions,informational,/conditions/telogen-effluvium/,3,,close variant
+stress hair loss,conditions,informational,/conditions/telogen-effluvium/,3,,close variant
+how to regrow edges,conditions,informational,/conditions/traction-alopecia/,3,,close variant
+receding hairline from braids,conditions,informational,/conditions/traction-alopecia/,3,,close variant
+hair loss from tight braids,conditions,informational,/conditions/traction-alopecia/,3,,close variant
+thinning edges treatment,conditions,commercial,/conditions/traction-alopecia/,3,,close variant
+hairline loss from wigs,conditions,informational,/conditions/traction-alopecia/,3,,close variant
+traction alopecia Lagos,conditions,local,/conditions/traction-alopecia/,3,,close variant
+venous ulcer treatment,conditions,commercial,/conditions/venous-leg-ulcers/,3,,close variant
+sore on leg not healing,conditions,informational,/conditions/venous-leg-ulcers/,3,,close variant
+ulcer near ankle,conditions,informational,/conditions/venous-leg-ulcers/,3,,close variant
+leg wound dressing,conditions,informational,/conditions/venous-leg-ulcers/,3,,close variant
+varicose ulcer,conditions,informational,/conditions/venous-leg-ulcers/,3,,close variant
+vitiligo treatment Lagos,conditions,local,/conditions/vitiligo/,3,,close variant
+vitiligo treatment in Nigeria,conditions,commercial,/conditions/vitiligo/,3,,close variant
+how to treat vitiligo,conditions,informational,/conditions/vitiligo/,3,,close variant
+white patches on skin treatment,conditions,commercial,/conditions/vitiligo/,3,,close variant
+how to get rid of warts,conditions,informational,/conditions/warts/,3,,close variant
+warts on fingers,conditions,informational,/conditions/warts/,3,,close variant
+warts on face,conditions,informational,/conditions/warts/,3,,close variant
+wart treatment for children,conditions,commercial,/conditions/warts/,3,,close variant
+are warts contagious,conditions,informational,/conditions/warts/,3,,close variant
+anti-ageing treatment Lagos,conditions,local,/conditions/wrinkles-and-sun-damage/,3,,close variant
+fine lines treatment,conditions,commercial,/conditions/wrinkles-and-sun-damage/,3,,close variant
+sun damage on dark skin,conditions,informational,/conditions/wrinkles-and-sun-damage/,3,,close variant
+how to prevent wrinkles,conditions,informational,/conditions/wrinkles-and-sun-damage/,3,,close variant
+sagging skin treatment,conditions,commercial,/conditions/wrinkles-and-sun-damage/,3,,close variant
+skin rejuvenation,conditions,informational,/conditions/wrinkles-and-sun-damage/,3,,close variant
+Botox vs fillers,questions,informational,/blog/botox-or-fillers/,3,,close variant
+difference between Botox and fillers,questions,commercial,/blog/botox-or-fillers/,3,,close variant
+which is better Botox or filler,questions,informational,/blog/botox-or-fillers/,3,,close variant
+Botox or filler for smile lines,questions,informational,/blog/botox-or-fillers/,3,,close variant
+do I need Botox or fillers,questions,informational,/blog/botox-or-fillers/,3,,close variant
+dermatologist vs aesthetician,questions,informational,/blog/dermatologist-or-aesthetician/,3,,close variant
+dermatologist vs esthetician,questions,informational,/blog/dermatologist-or-aesthetician/,3,,close variant
+aesthetician or skin doctor,questions,informational,/blog/dermatologist-or-aesthetician/,3,,close variant
+who should treat acne,questions,informational,/blog/dermatologist-or-aesthetician/,3,,close variant
+is a facialist a doctor,questions,informational,/blog/dermatologist-or-aesthetician/,3,,close variant
+difference between dermatologist and beautician,questions,commercial,/blog/dermatologist-or-aesthetician/,3,,close variant
+dermatologist or pharmacist,questions,informational,/blog/dermatologist-or-pharmacist/,3,,close variant
+when to see a dermatologist,questions,informational,/blog/dermatologist-or-pharmacist/,3,,close variant
+do I need a dermatologist,questions,informational,/blog/dermatologist-or-pharmacist/,3,,close variant
+should I see a skin doctor,questions,informational,/blog/dermatologist-or-pharmacist/,3,,close variant
+pharmacy cream not working,questions,commercial,/blog/dermatologist-or-pharmacist/,3,,close variant
+when to see a skin specialist,questions,informational,/blog/dermatologist-or-pharmacist/,3,,close variant
+diabetes skin signs,questions,informational,/blog/diabetes-and-your-skin/,3,,close variant
+skin symptoms of diabetes,questions,informational,/blog/diabetes-and-your-skin/,3,,close variant
+dark neck diabetes,questions,informational,/blog/diabetes-and-your-skin/,3,,close variant
+diabetic skin problems,questions,informational,/blog/diabetes-and-your-skin/,3,,close variant
+itching and diabetes,questions,informational,/blog/diabetes-and-your-skin/,3,,close variant
+early signs of diabetes on skin,questions,informational,/blog/diabetes-and-your-skin/,3,,close variant
+sunscreen for Black skin,questions,informational,/blog/do-black-people-need-sunscreen/,3,,close variant
+sunscreen for dark skin no white cast,questions,informational,/blog/do-black-people-need-sunscreen/,3,,close variant
+does dark skin need SPF,questions,informational,/blog/do-black-people-need-sunscreen/,3,,close variant
+sunscreen in Nigeria,questions,informational,/blog/do-black-people-need-sunscreen/,3,,close variant
+tinted sunscreen for hyperpigmentation,questions,informational,/blog/do-black-people-need-sunscreen/,3,,close variant
+what SPF for dark skin,questions,informational,/blog/do-black-people-need-sunscreen/,3,,close variant
+is chemical peel safe for Black skin,questions,informational,/blog/do-chemical-peels-darken-black-skin/,3,,close variant
+chemical peel gone wrong dark skin,questions,commercial,/blog/do-chemical-peels-darken-black-skin/,3,,close variant
+best peel for hyperpigmentation dark skin,questions,commercial,/blog/do-chemical-peels-darken-black-skin/,3,,close variant
+peel burn on dark skin,questions,commercial,/blog/do-chemical-peels-darken-black-skin/,3,,close variant
+superficial peel Black skin,questions,commercial,/blog/do-chemical-peels-darken-black-skin/,3,,close variant
+foods that cause acne,questions,informational,/blog/does-food-cause-acne/,3,,close variant
+does oily food cause pimples,questions,informational,/blog/does-food-cause-acne/,3,,close variant
+does milk cause acne,questions,informational,/blog/does-food-cause-acne/,3,,close variant
+does sugar cause pimples,questions,informational,/blog/does-food-cause-acne/,3,,close variant
+do groundnuts cause pimples,questions,informational,/blog/does-food-cause-acne/,3,,close variant
+acne diet,questions,informational,/blog/does-food-cause-acne/,3,,close variant
+exosomes vs PRP,questions,informational,/blog/exosomes-prp-or-pdrn/,3,,close variant
+PRP vs PDRN,questions,informational,/blog/exosomes-prp-or-pdrn/,3,,close variant
+salmon DNA vs PRP,questions,informational,/blog/exosomes-prp-or-pdrn/,3,,close variant
+exosome vs vampire facial,questions,informational,/blog/exosomes-prp-or-pdrn/,3,,close variant
+which is better exosomes or PRP,questions,informational,/blog/exosomes-prp-or-pdrn/,3,,close variant
+polynucleotides vs PRP,questions,informational,/blog/exosomes-prp-or-pdrn/,3,,close variant
+how long for acne to clear,questions,informational,/blog/how-long-does-acne-treatment-take-to-work/,3,,close variant
+acne purging how long,questions,informational,/blog/how-long-does-acne-treatment-take-to-work/,3,,close variant
+how long does adapalene take to work,questions,informational,/blog/how-long-does-acne-treatment-take-to-work/,3,,close variant
+how long does benzoyl peroxide take,questions,informational,/blog/how-long-does-acne-treatment-take-to-work/,3,,close variant
+acne treatment not working,questions,commercial,/blog/how-long-does-acne-treatment-take-to-work/,3,,close variant
+how long does isotretinoin take,questions,informational,/blog/how-long-does-acne-treatment-take-to-work/,3,,close variant
+harmattan skin care,questions,informational,/blog/how-to-care-for-your-skin-during-harmattan/,3,,close variant
+dry skin in harmattan,questions,informational,/blog/how-to-care-for-your-skin-during-harmattan/,3,,close variant
+cracked lips harmattan,questions,informational,/blog/how-to-care-for-your-skin-during-harmattan/,3,,close variant
+harmattan skin care routine,questions,informational,/blog/how-to-care-for-your-skin-during-harmattan/,3,,close variant
+ashy skin remedy,questions,informational,/blog/how-to-care-for-your-skin-during-harmattan/,3,,close variant
+eczema in harmattan,questions,informational,/blog/how-to-care-for-your-skin-during-harmattan/,3,,close variant
+how to find a good dermatologist in Lagos,questions,informational,/blog/how-to-choose-a-dermatologist-in-lagos/,3,,close variant
+how to choose a skin doctor,questions,informational,/blog/how-to-choose-a-dermatologist-in-lagos/,3,,close variant
+what to look for in a dermatologist,questions,informational,/blog/how-to-choose-a-dermatologist-in-lagos/,3,,close variant
+questions to ask a dermatologist,questions,commercial,/blog/how-to-choose-a-dermatologist-in-lagos/,3,,close variant
+qualified dermatologist Nigeria,questions,commercial,/blog/how-to-choose-a-dermatologist-in-lagos/,3,,close variant
+how to verify a dermatologist in Nigeria,questions,informational,/blog/how-to-choose-a-dermatologist-in-lagos/,3,,close variant
+how to exfoliate face,questions,informational,/blog/how-to-exfoliate-your-skin-safely/,3,,close variant
+how often should I exfoliate,questions,informational,/blog/how-to-exfoliate-your-skin-safely/,3,,close variant
+chemical exfoliant for dark skin,questions,informational,/blog/how-to-exfoliate-your-skin-safely/,3,,close variant
+AHA or BHA,questions,informational,/blog/how-to-exfoliate-your-skin-safely/,3,,close variant
+is scrubbing bad for your face,questions,informational,/blog/how-to-exfoliate-your-skin-safely/,3,,close variant
+over-exfoliated skin,questions,informational,/blog/how-to-exfoliate-your-skin-safely/,3,,close variant
+how to get rid of dark spots on your face,questions,informational,/blog/how-to-get-rid-of-dark-spots-on-your-face/,3,,close variant
+how to remove dark spots on face fast,questions,informational,/blog/how-to-get-rid-of-dark-spots-on-your-face/,3,,close variant
+dark spots on face treatment at home,questions,commercial,/blog/how-to-get-rid-of-dark-spots-on-your-face/,3,,close variant
+how to fade dark marks,questions,informational,/blog/how-to-get-rid-of-dark-spots-on-your-face/,3,,close variant
+black spots on face removal cream,questions,commercial,/blog/how-to-get-rid-of-dark-spots-on-your-face/,3,,close variant
+how to get rid of pimples fast,questions,informational,/blog/how-to-get-rid-of-pimples/,3,,close variant
+how to stop pimples on face,questions,informational,/blog/how-to-get-rid-of-pimples/,3,,close variant
+how to clear pimples,questions,informational,/blog/how-to-get-rid-of-pimples/,3,,close variant
+pimple treatment at home,questions,commercial,/blog/how-to-get-rid-of-pimples/,3,,close variant
+how to remove pimples naturally,questions,informational,/blog/how-to-get-rid-of-pimples/,3,,close variant
+how to get rid of pimples overnight,questions,informational,/blog/how-to-get-rid-of-pimples/,3,,close variant
+postpartum hair loss,questions,informational,/blog/is-hair-loss-after-childbirth-normal/,3,,close variant
+hair falling out after pregnancy,questions,informational,/blog/is-hair-loss-after-childbirth-normal/,3,,close variant
+how long does postpartum hair loss last,questions,informational,/blog/is-hair-loss-after-childbirth-normal/,3,,close variant
+hair loss while breastfeeding,questions,informational,/blog/is-hair-loss-after-childbirth-normal/,3,,close variant
+postpartum edges thinning,questions,informational,/blog/is-hair-loss-after-childbirth-normal/,3,,close variant
+hair shedding after delivery,questions,informational,/blog/is-hair-loss-after-childbirth-normal/,3,,close variant
+laser hair removal for Black skin,questions,commercial,/blog/is-laser-hair-removal-safe-on-dark-skin/,3,,close variant
+best laser for dark skin hair removal,questions,commercial,/blog/is-laser-hair-removal-safe-on-dark-skin/,3,,close variant
+Nd:YAG laser hair removal,questions,commercial,/blog/is-laser-hair-removal-safe-on-dark-skin/,3,,close variant
+laser hair removal burns dark skin,questions,commercial,/blog/is-laser-hair-removal-safe-on-dark-skin/,3,,close variant
+can Black people get laser hair removal,questions,informational,/blog/is-laser-hair-removal-safe-on-dark-skin/,3,,close variant
+IPL on dark skin,questions,informational,/blog/is-laser-hair-removal-safe-on-dark-skin/,3,,close variant
+is skin bleaching safe,questions,informational,/blog/is-skin-lightening-safe/,3,,close variant
+side effects of bleaching cream,questions,commercial,/blog/is-skin-lightening-safe/,3,,close variant
+is glutathione injection safe,questions,informational,/blog/is-skin-lightening-safe/,3,,close variant
+skin whitening pills side effects,questions,informational,/blog/is-skin-lightening-safe/,3,,close variant
+is toning cream safe,questions,informational,/blog/is-skin-lightening-safe/,3,,close variant
+pico vs Q-switch,questions,informational,/blog/pico-laser-or-q-switch-laser-for-dark-spots/,3,,close variant
+picosecond vs nanosecond laser,questions,informational,/blog/pico-laser-or-q-switch-laser-for-dark-spots/,3,,close variant
+which laser removes dark spots on Black skin,questions,informational,/blog/pico-laser-or-q-switch-laser-for-dark-spots/,3,,close variant
+is pico laser better than Q-switch,questions,informational,/blog/pico-laser-or-q-switch-laser-for-dark-spots/,3,,close variant
+laser for hyperpigmentation dark skin,questions,commercial,/blog/pico-laser-or-q-switch-laser-for-dark-spots/,3,,close variant
+ringworm vs eczema,questions,informational,/blog/ringworm-or-eczema/,3,,close variant
+difference between ringworm and eczema,questions,informational,/blog/ringworm-or-eczema/,3,,close variant
+is it ringworm or eczema,questions,informational,/blog/ringworm-or-eczema/,3,,close variant
+round itchy patch on skin,questions,informational,/blog/ringworm-or-eczema/,3,,close variant
+nummular eczema or ringworm,questions,informational,/blog/ringworm-or-eczema/,3,,close variant
+eczema that looks like ringworm,questions,informational,/blog/ringworm-or-eczema/,3,,close variant
+is shea butter good for skin,questions,informational,/blog/shea-butter-black-soap-and-home-remedies/,3,,close variant
+is black soap good for face,questions,informational,/blog/shea-butter-black-soap-and-home-remedies/,3,,close variant
+home remedies for skin,questions,informational,/blog/shea-butter-black-soap-and-home-remedies/,3,,close variant
+does lime remove dark spots,questions,informational,/blog/shea-butter-black-soap-and-home-remedies/,3,,close variant
+coconut oil on face,questions,informational,/blog/shea-butter-black-soap-and-home-remedies/,3,,close variant
+turmeric for skin,questions,informational,/blog/shea-butter-black-soap-and-home-remedies/,3,,close variant
+white patches on skin causes,questions,informational,/blog/what-is-this-white-patch-on-my-skin/,3,,close variant
+white spots on face child,questions,informational,/blog/what-is-this-white-patch-on-my-skin/,3,,close variant
+pale patch on skin,questions,informational,/blog/what-is-this-white-patch-on-my-skin/,3,,close variant
+white patch not vitiligo,questions,informational,/blog/what-is-this-white-patch-on-my-skin/,3,,close variant
+light patches on skin,questions,informational,/blog/what-is-this-white-patch-on-my-skin/,3,,close variant
+is my white patch vitiligo,questions,informational,/blog/what-is-this-white-patch-on-my-skin/,3,,close variant
+body odour after shower,questions,informational,/blog/why-does-my-body-smell-even-after-bathing/,3,,close variant
+how to stop body odour permanently,questions,informational,/blog/why-does-my-body-smell-even-after-bathing/,3,,close variant
+smelly armpits after bathing,questions,informational,/blog/why-does-my-body-smell-even-after-bathing/,3,,close variant
+causes of body odour,questions,informational,/blog/why-does-my-body-smell-even-after-bathing/,3,,close variant
+bromhidrosis treatment,questions,commercial,/blog/why-does-my-body-smell-even-after-bathing/,3,,close variant
+why do my armpits smell,questions,informational,/blog/why-does-my-body-smell-even-after-bathing/,3,,close variant
+itchy scalp after braids,questions,informational,/blog/why-does-my-scalp-itch-after-braiding/,3,,close variant
+itchy braids relief,questions,informational,/blog/why-does-my-scalp-itch-after-braiding/,3,,close variant
+scalp bumps after braiding,questions,informational,/blog/why-does-my-scalp-itch-after-braiding/,3,,close variant
+synthetic hair itch,questions,informational,/blog/why-does-my-scalp-itch-after-braiding/,3,,close variant
+how to stop braids from itching,questions,informational,/blog/why-does-my-scalp-itch-after-braiding/,3,,close variant
+itchy scalp under wig,questions,informational,/blog/why-does-my-scalp-itch-after-braiding/,3,,close variant
+itching at night,questions,informational,/blog/why-does-my-skin-itch-at-night/,3,,close variant
+body itching at night without rash,questions,informational,/blog/why-does-my-skin-itch-at-night/,3,,close variant
+itchy skin at night causes,questions,informational,/blog/why-does-my-skin-itch-at-night/,3,,close variant
+night itching all over body,questions,informational,/blog/why-does-my-skin-itch-at-night/,3,,close variant
+itching worse at night,questions,informational,/blog/why-does-my-skin-itch-at-night/,3,,close variant
+how to stop itching at night,questions,informational,/blog/why-does-my-skin-itch-at-night/,3,,close variant
+face darker than neck,questions,informational,/blog/why-is-my-face-darker-than-my-body/,3,,close variant
+face getting darker,questions,informational,/blog/why-is-my-face-darker-than-my-body/,3,,close variant
+forehead darker than face,questions,informational,/blog/why-is-my-face-darker-than-my-body/,3,,close variant
+face darker than body treatment,questions,commercial,/blog/why-is-my-face-darker-than-my-body/,3,,close variant
+sudden darkening of face,questions,informational,/blog/why-is-my-face-darker-than-my-body/,3,,close variant
+dark forehead causes,questions,informational,/blog/why-is-my-face-darker-than-my-body/,3,,close variant
+does hair grow back after hair loss,questions,informational,/blog/will-my-hair-grow-back/,3,,close variant
+will my edges grow back,questions,informational,/blog/will-my-hair-grow-back/,3,,close variant
+how long does hair take to grow back,questions,informational,/blog/will-my-hair-grow-back/,3,,close variant
+can hair follicles grow back,questions,informational,/blog/will-my-hair-grow-back/,3,,close variant
+signs of hair regrowth,questions,informational,/blog/will-my-hair-grow-back/,3,,close variant
+permanent hair loss signs,questions,informational,/blog/will-my-hair-grow-back/,3,,close variant

@@ -1,0 +1,599 @@
+---
+/**
+ * The spiral staircase (owner request, D64): a helix of circular steps in CSS 3D that turns as the
+ * page scrolls, beside a numbered index of the same items.
+ *
+ * HOW IT WORKS (same mechanic as the owner's reference sites, with round steps):
+ *   .spiral__item  places each disc once from its own --i: rotate about the Y axis by --i × --angle,
+ *                  push out by --radius, rise by --i × --rise.
+ *   .spiral__ring  counter-rotates and descends by --k, the fractional step index, so scrolling
+ *                  walks the staircase past the camera.
+ *   --k            the single value the script writes (from scroll progress).
+ *   --facing       cos() of each disc's angle from the camera: fades the discs that face away and
+ *                  lights the ring of the one being read. Pure CSS, no per-disc script.
+ *
+ * PROGRESSIVE ENHANCEMENT. Every word and link is in the numbered index, which is plain HTML. The
+ * discs repeat the names only (aria-hidden). Without JavaScript, with reduced motion, or on a very
+ * short screen, the section is the index as a readable list and nothing is missing.
+ */
+import Icon from './Icon.astro';
+
+interface Item {
+  title: string;
+  text: string;
+  icon: string;
+  href: string;
+  links: { href: string; label: string }[];
+}
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  menuTitle: string;
+  items: Item[];
+  hub?: { href: string; label: string };
+}
+const { id, eyebrow, title, lead, menuTitle, items, hub } = Astro.props;
+const nn = (i: number) => String(i + 1).padStart(2, '0');
+---
+
+<section class="band band--mist spiral" data-spiral aria-labelledby={id} style={`--count:${items.length}`}>
+  <div class="spiral__track" data-spiral-track>
+    <div class="spiral__viewport">
+      <div class="container spiral__layout">
+        <div class="spiral__intro">
+          <div class="section-head" data-fade="text">
+            <p class="eyebrow">{eyebrow}</p>
+            <h2 id={id}>{title}</h2>
+            {lead && <p class="spiral__lead">{lead}</p>}
+          </div>
+          <p class="spiral__menu-title" data-fade="text">{menuTitle}</p>
+          <ol class="spiral__menu" role="list" data-fade="text">
+            {
+              items.map((it, i) => (
+                <li class="spiral__entry" data-spiral-link>
+                  <h3 class="spiral__entry-title">
+                    <a class="spiral__entry-head" href={it.href}>
+                      <span class="spiral__num">{nn(i)}</span>
+                      <span class="spiral__name">{it.title}</span>
+                    </a>
+                  </h3>
+                  <div class="spiral__entry-body">
+                    <p>{it.text}</p>
+                    <ul class="cluster" role="list" style="--cluster: var(--space-2xs)">
+                      {it.links.map((l) => (
+                        <li>
+                          <a class="chip chip--small" href={l.href}>{l.label}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+          {
+            hub && (
+              <p class="spiral__hub" data-fade="text">
+                <a class="link link--arrow" href={hub.href}>
+                  {hub.label} <Icon name="arrow" solid />
+                </a>
+              </p>
+            )
+          }
+        </div>
+
+        <div class="spiral__stage" aria-hidden="true" data-fade="visual">
+          <span class="spiral__floor"></span>
+          <span class="spiral__spine"></span>
+          <ul class="spiral__ring" role="list" data-spiral-ring>
+            {
+              items.map((it, i) => (
+                <li class="spiral__item" data-spiral-item style={`--i:${i}`}>
+                  <a class="disc" href={it.href} tabindex="-1">
+                    <span class="disc__icon"><Icon name={it.icon} /></span>
+                    <span class="disc__num">{nn(i)}</span>
+                    <span class="disc__title">{it.title}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .spiral {
+    --k: 0;
+    --angle: 58deg;
+    --disc: 11rem;
+    --radius: 6.75rem;
+    --rise: 6.25rem;
+    --perspective: 780px;
+    --stage-h: min(40svh, 20rem);
+    padding-block: 0;
+  }
+  .spiral__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-l);
+    padding-block: var(--space-2xl);
+  }
+  .spiral__menu-title {
+    margin-block-end: var(--space-xs);
+    font-size: var(--step--2);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .spiral__menu {
+    display: grid;
+    max-width: 36rem;
+  }
+  .spiral__entry {
+    position: relative;
+    padding-block: var(--space-s);
+    border-block-start: 1px solid var(--rule);
+  }
+  .spiral__entry:last-child {
+    border-block-end: 1px solid var(--rule);
+  }
+  .spiral__entry-title {
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+  }
+  .spiral__entry-head {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    align-items: baseline;
+    min-height: 2rem;
+    font-size: var(--step-2);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color var(--dur-micro) var(--ease-out);
+  }
+  .spiral__entry-head:hover .spiral__name {
+    color: var(--blush-700);
+  }
+  .spiral__num {
+    font-size: var(--step--2);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--label);
+  }
+  .spiral__entry-body {
+    display: grid;
+    gap: var(--space-xs);
+    margin-block-start: var(--space-2xs);
+    padding-inline-start: 2.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .spiral__hub {
+    margin-block-start: var(--space-m);
+  }
+  .spiral__stage {
+    display: none;
+  }
+
+  /* ---------- The helix (only when the script has switched it on) ---------- */
+  /* --spiral-lead: scroll that passes before the staircase starts to turn (the home page's fade
+     sequence uses it so the section can finish fading in first, D82) */
+  .spiral[data-on] .spiral__track {
+    min-height: calc(100svh + (var(--count) - 1) * 52svh + var(--spiral-lead, 0px));
+  }
+  .spiral[data-on] .spiral__viewport {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: clip;
+  }
+  .spiral[data-on] .spiral__layout {
+    height: 100%;
+    align-content: center;
+    gap: var(--space-s);
+    padding-block: calc(var(--nav-h) + var(--space-xs)) var(--space-s);
+  }
+  .spiral[data-on] .section-head {
+    margin-block-end: var(--space-xs);
+  }
+  .spiral[data-on] .spiral__lead {
+    display: none;
+  }
+  .spiral[data-on] .spiral__stage {
+    display: block;
+    position: relative;
+    height: var(--stage-h);
+    perspective: var(--perspective);
+    perspective-origin: 50% 40%;
+  }
+  .spiral__ring {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transform: translateY(calc(var(--k) * var(--rise))) rotateY(calc(var(--k) * var(--angle) * -1));
+    will-change: transform;
+  }
+  .spiral__item {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--disc);
+    height: var(--disc);
+    margin: calc(var(--disc) / -2) 0 0 calc(var(--disc) / -2);
+    --face: cos(calc((var(--i) - var(--k)) * var(--angle)));
+    --facing: max(0, var(--face));
+    --lit: calc(var(--facing) * var(--facing) * var(--facing));
+    transform: rotateY(calc(var(--i) * var(--angle))) translateZ(var(--radius)) translateY(calc(var(--i) * var(--rise) * -1));
+    opacity: min(1, calc(1.5 * var(--facing)));
+    pointer-events: none;
+  }
+  /* Only the step being read can be clicked */
+  .spiral__item[data-near] {
+    pointer-events: auto;
+  }
+  .disc {
+    position: relative;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 0.4rem;
+    width: 100%;
+    height: 100%;
+    padding: 15%;
+    border-radius: 50%;
+    border: 1px solid var(--glacier-200);
+    background: radial-gradient(120% 120% at 28% 18%, var(--white) 0%, var(--white) 38%, var(--glacier-50) 72%, var(--blush-100) 100%);
+    box-shadow: 0 34px 60px -32px rgb(23 60 110 / 0.55), inset 0 1px 0 rgb(255 255 255 / 0.9);
+    color: var(--ink);
+    text-align: center;
+    text-decoration: none;
+  }
+  /* The lit ring: brightest on the step that faces the reader */
+  .disc::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    padding: 3px;
+    border-radius: 50%;
+    background: var(--grad-aurora);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    opacity: var(--lit);
+  }
+  .disc__icon {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--glacier-200);
+    background: var(--glacier-50);
+    color: var(--glacier-700);
+  }
+  .disc__icon :global(.icon) {
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke: currentColor;
+  }
+  .disc__num {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--label);
+  }
+  .disc__title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .spiral__spine {
+    position: absolute;
+    left: 50%;
+    inset-block: 0;
+    width: 2px;
+    translate: -50% 0;
+    background: linear-gradient(180deg, transparent, var(--glacier-400) 22%, var(--blush-400) 78%, transparent);
+    opacity: 0.7;
+  }
+  .spiral__spine::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0.75rem;
+    height: 0.75rem;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: var(--grad-aurora);
+    box-shadow: 0 0 0 0.4rem rgb(255 122 182 / 0.14), 0 0 1.5rem rgb(108 196 245 / 0.7);
+  }
+  .spiral__floor {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: calc(var(--radius) * 2.6);
+    aspect-ratio: 1;
+    translate: -50% 46%;
+    border-radius: 50%;
+    border: 1px solid var(--glacier-200);
+    transform: rotateX(74deg);
+    box-shadow: 0 0 0 1.25rem rgb(108 196 245 / 0.07), 0 0 0 3rem rgb(255 122 182 / 0.05);
+  }
+
+  /* Helix on phones and tablets: heading, staircase, then the step being read as its caption */
+  @media (max-width: 63.99em) {
+    .spiral[data-on] .spiral__menu-title,
+    .spiral[data-on] .spiral__hub {
+      display: none;
+    }
+    .spiral[data-on] .spiral__layout {
+      align-content: start;
+      grid-template-rows: auto auto 1fr;
+    }
+    .spiral[data-on] .spiral__stage {
+      grid-row: 2;
+    }
+    .spiral[data-on] .spiral__intro {
+      display: contents;
+    }
+    .spiral[data-on] .section-head {
+      grid-row: 1;
+    }
+    .spiral[data-on] .spiral__menu {
+      grid-row: 3;
+      align-self: start;
+      /* the caption sits in front of the staircase, so a lower step passes behind it */
+      position: relative;
+      z-index: 2;
+      margin-inline: calc(-1 * var(--page-pad));
+      padding: var(--space-s) var(--page-pad) 0;
+      max-width: none;
+      background: linear-gradient(180deg, rgb(243 249 254 / 0), var(--mist) 1.25rem);
+    }
+    /* Every caption sits in the same cell, so the block keeps one height (that of the longest) and
+       the step being read fades in over the one that fades out: nothing jumps (D76). */
+    .spiral[data-on] .spiral__entry {
+      grid-area: 1 / 1;
+      border: 0;
+      padding-block: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity 160ms var(--ease-out),
+        visibility 0s linear 160ms;
+    }
+    .spiral[data-on] .spiral__entry[data-current] {
+      opacity: 1;
+      visibility: visible;
+      transition:
+        opacity var(--dur-ui) var(--ease-out) 100ms,
+        visibility 0s;
+    }
+    .spiral[data-on] .spiral__entry-head {
+      font-size: var(--step-1);
+    }
+  }
+  @media (pointer: coarse) {
+    .spiral__entry-head {
+      min-height: var(--tap);
+      align-items: center;
+    }
+  }
+  @media (min-width: 48em) {
+    .spiral {
+      --disc: 13.5rem;
+      --radius: 9rem;
+      --rise: 7.5rem;
+      --perspective: 1000px;
+      --stage-h: min(44svh, 26rem);
+    }
+    .disc__title {
+      font-size: 1.0625rem;
+    }
+  }
+  @media (min-width: 64em) {
+    .spiral {
+      --disc: 16.5rem;
+      --radius: 12.5rem;
+      --rise: 9.25rem;
+      --perspective: 1300px;
+      --stage-h: min(80svh, 42rem);
+    }
+    .spiral__layout {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: var(--space-xl);
+      align-items: start;
+    }
+    .spiral[data-on] .spiral__layout {
+      align-items: center;
+    }
+    .disc {
+      gap: 0.55rem;
+    }
+    .disc__icon {
+      width: 3rem;
+      height: 3rem;
+    }
+    .disc__icon :global(.icon) {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    .disc__title {
+      font-size: var(--step-1);
+    }
+    /* The index (D76). Every title keeps its place: nothing in the list moves as the staircase turns.
+       One marker slides down the left edge to the step being read, and that step's text and links
+       fade into a slot kept open under the list (as tall as the longest one; the script measures it). */
+    .spiral[data-on] .spiral__menu {
+      position: relative;
+      padding-block-end: calc(var(--detail-h, 10rem) + var(--space-s));
+    }
+    .spiral[data-on] .spiral__menu::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: var(--marker-h, 3rem);
+      border-radius: 3px;
+      background: var(--grad-aurora);
+      translate: 0 var(--marker-y, 0px);
+      transition:
+        translate var(--dur-ui) var(--ease-out),
+        height var(--dur-ui) var(--ease-out);
+    }
+    .spiral[data-on] .spiral__entry {
+      position: static;
+      padding-block: 0.6rem;
+      padding-inline-start: var(--space-s);
+    }
+    .spiral[data-on] .spiral__entry-head {
+      font-size: var(--step-1);
+      color: var(--ink-soft);
+      transition: color var(--dur-ui) var(--ease-out);
+    }
+    .spiral[data-on] .spiral__entry[data-current] .spiral__entry-head {
+      color: var(--ink);
+    }
+    .spiral[data-on] .spiral__entry-body {
+      position: absolute;
+      inset-inline: 0;
+      top: calc(100% - var(--detail-h, 10rem));
+      margin: 0;
+      padding-inline-start: calc(var(--space-s) + 2.5rem);
+      opacity: 0;
+      visibility: hidden;
+      translate: 0 0.5rem;
+      transition:
+        opacity 160ms var(--ease-out),
+        translate 160ms var(--ease-out),
+        visibility 0s linear 160ms;
+    }
+    .spiral[data-on] .spiral__entry[data-current] .spiral__entry-body {
+      opacity: 1;
+      visibility: visible;
+      translate: 0 0;
+      transition:
+        opacity var(--dur-ui) var(--ease-out) 110ms,
+        translate var(--dur-ui) var(--ease-out) 110ms,
+        visibility 0s;
+    }
+  }
+</style>
+
+<script>
+  /**
+   * Drives the staircase: writes --k (which step faces the reader) and marks the matching entry in
+   * the index. All geometry is CSS. For the index it also measures two things the stylesheet cannot
+   * know: how tall the longest step's text is (the slot kept open for it) and where the marker goes.
+   */
+  function initSpiral(root: HTMLElement) {
+    const track = root.querySelector<HTMLElement>('[data-spiral-track]');
+    const entries = [...root.querySelectorAll<HTMLElement>('[data-spiral-link]')];
+    const items = [...root.querySelectorAll<HTMLElement>('[data-spiral-item]')];
+    const menu = root.querySelector<HTMLElement>('.spiral__menu');
+    const bodies = entries.map((el) => el.querySelector<HTMLElement>('.spiral__entry-body'));
+    if (!track || entries.length < 2) return;
+
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const tall = window.matchMedia('(min-height: 37.5em)');
+    const hold = window.matchMedia('(max-width: 63.99em)');
+    const trig = typeof CSS !== 'undefined' && CSS.supports('opacity', 'calc(cos(0deg) * 1)');
+    let frame = 0;
+    let enabled = false;
+    let current = -1;
+    let lead = 0;
+    const readLead = () => {
+      lead = parseFloat(getComputedStyle(root).getPropertyValue('--spiral-lead')) || 0;
+    };
+
+    const placeMarker = () => {
+      const el = entries[current];
+      if (!menu || !el) return;
+      menu.style.setProperty('--marker-y', `${el.offsetTop}px`);
+      menu.style.setProperty('--marker-h', `${el.offsetHeight}px`);
+    };
+    const measure = () => {
+      if (!menu || !enabled) return;
+      menu.style.setProperty('--detail-h', `${Math.max(0, ...bodies.map((b) => b?.offsetHeight ?? 0))}px`);
+      placeMarker();
+    };
+    const setCurrent = (index: number) => {
+      if (index === current) return;
+      current = index;
+      entries.forEach((el, i) => el.toggleAttribute('data-current', i === index));
+      items.forEach((el, i) => el.toggleAttribute('data-near', i === index));
+      placeMarker();
+    };
+    const update = () => {
+      frame = 0;
+      if (!enabled) return;
+      const rect = track.getBoundingClientRect();
+      const travel = rect.height - window.innerHeight;
+      if (travel <= 0 || rect.bottom < -200 || rect.top > window.innerHeight * 2) return;
+      const p = Math.min(1, Math.max(0, (-rect.top - lead) / Math.max(1, travel - lead)));
+      const steps = entries.length - 1;
+      let k = p * steps;
+      // On phones each step is held square-on while it is read, then eased to the next
+      if (hold.matches) {
+        const base = Math.min(Math.floor(k), steps - 1);
+        const t = Math.min(1, Math.max(0, (k - base - 0.26) / 0.48));
+        k = base + t * t * (3 - 2 * t);
+      }
+      root.style.setProperty('--k', k.toFixed(4));
+      setCurrent(Math.round(k));
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    const onResize = () => {
+      readLead();
+      measure();
+      onScroll();
+    };
+    window.addEventListener('fadeseq:measure', onResize);
+    const apply = () => {
+      enabled = trig && !still.matches && tall.matches;
+      root.toggleAttribute('data-on', enabled);
+      if (enabled) {
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onResize, { passive: true });
+        current = -1;
+        readLead();
+        update();
+        if (current < 0) setCurrent(0);
+        measure();
+      } else {
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onResize);
+        root.style.removeProperty('--k');
+        ['--detail-h', '--marker-y', '--marker-h'].forEach((v) => menu?.style.removeProperty(v));
+        entries.forEach((el) => el.removeAttribute('data-current'));
+        items.forEach((el) => el.removeAttribute('data-near'));
+        current = -1;
+      }
+    };
+    still.addEventListener('change', apply);
+    tall.addEventListener('change', apply);
+    apply();
+    // text is measured again once the web font is in, since it changes line lengths
+    document.fonts?.ready.then(measure);
+  }
+  document.querySelectorAll<HTMLElement>('[data-spiral]').forEach((el) => initSpiral(el));
+</script>

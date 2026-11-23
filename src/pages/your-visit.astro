@@ -1,0 +1,124 @@
+---
+/** Your visit (§9.6, service group 15): steps, what to bring, online, aftercare, follow-up, photography, referrals. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Band from '../components/Band.astro';
+import Stage from '../components/Stage.astro';
+import Media from '../components/Media.astro';
+import Faq from '../components/Faq.astro';
+import VisitUs from '../components/VisitUs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Trust from '../components/Trust.astro';
+import { clinic } from '../data/clinic.ts';
+import { pageSchema, faqSchema } from '../lib/schema.ts';
+
+const path = '/your-visit/';
+const crumbs = [{ label: 'Your visit', href: path }];
+const seoTitle = 'Your Visit: What to Expect at the Clinic';
+const description = `What happens at a consultation at ${clinic.name}, Lagos: how to prepare, what to bring, tests, aftercare, follow-up, progress photographs and referrals.`;
+const updatedOn = new Date('2026-11-22');
+const steps = [
+  { t: 'Book', x: 'Message us on WhatsApp, call, or send the form. Tell us briefly what the consultation is about and whether you would like to come in or be seen online. We confirm a time with you.' },
+  { t: 'Consultation', x: 'The doctor asks about your symptoms, your health, your medicines and the products you use, then examines the area. A full skin check means undressing to your underwear; you can ask for a chaperone.' },
+  { t: 'Tests if needed', x: 'Many conditions are diagnosed by looking. Others need a skin scraping, a swab, a small biopsy under local anaesthetic, patch testing or blood tests. The doctor explains why a test is needed before it is done.' },
+  { t: 'Treatment plan', x: 'You are told the diagnosis, the options and what each involves. The plan covers how to use each medicine, what to stop using, how long improvement usually takes and what side effects to watch for.' },
+  { t: 'Follow-up', x: 'Skin heals slowly. A review lets the doctor check that treatment is working, adjust it and deal with side effects early. Many follow-ups can be done by online consultation.' },
+];
+const faqs = [
+  { q: 'How long does a first consultation take?', a: 'It depends on the concern: a single mole takes less time than a full skin check or a long-standing rash. Ask when you book, allow extra time if a test or procedure may be done the same day, and arrive a little early so that completing your details does not cut into your time with the doctor.' },
+  { q: 'Should I stop my creams before I come?', a: 'Do not stop a medicine that a doctor prescribed without asking. It helps to avoid applying creams, make-up or nail polish to the affected area on the day, so the skin can be seen clearly. Bring everything you use so the doctor can read the ingredients.' },
+  { q: 'Can someone come with me?', a: 'Yes. You are welcome to bring a relative or friend. A parent or guardian must come with anyone under 18. If you would like part of the consultation to be private, tell the doctor.' },
+  { q: 'Will I have a procedure on the same day?', a: 'Sometimes. Simple tests, such as a skin scraping or swab, are usually done during the consultation. Biopsies and minor procedures can often be done the same day if time allows; otherwise we arrange a separate appointment.' },
+  { q: 'What if my skin is clear on the day of my appointment?', a: 'Many rashes come and go. Take clear photographs in daylight when the condition is at its worst and bring them with you. Photographs, together with your description, are often enough for the doctor to work out what is happening.' },
+];
+---
+
+<BaseLayout seoTitle={seoTitle} description={description} path={path} section="about" crumbs={crumbs} schema={[pageSchema({ path, title: seoTitle, description, updatedOn }, 'MedicalWebPage'), faqSchema(faqs)]} searchType="Clinic">
+  <PageHero h1="What to expect at your visit" lead={`A consultation at ${clinic.name} follows five steps: you book, the doctor examines you, tests are done if they are needed, you agree a treatment plan, and we follow up. This page explains each step, what to bring, and how aftercare, progress photographs and referrals work.`} crumbs={crumbs}>
+    <Trust slot="meta" updatedOn={updatedOn} />
+    <Stage slot="stage" priority scene="rings" p="1 / 1" />
+  </PageHero>
+
+  <Band tone="reading">
+    <div class="container stack" style="--stack: var(--space-2xl)">
+      <section aria-labelledby="steps">
+        <div class="section-head"><h2 id="steps">The five steps</h2></div>
+        <ol class="steps" data-steps>
+          {steps.map((s) => (
+            <li data-step>
+              <div>
+                <h3>{s.t}</h3>
+                <p>{s.x}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <div class="split split--7-5 split--top">
+        <div class="prose">
+          <h2 id="bring">What to bring</h2>
+          <ul>
+            <li>Every cream, soap, tablet and supplement you are using, or clear photographs of the packaging.</li>
+            <li>A list of your medical conditions and allergies.</li>
+            <li>Any referral letter, previous test results or biopsy reports.</li>
+            <li>Photographs of the condition at its worst, if it comes and goes.</li>
+            <li>For children: the child health record, if you have it.</li>
+          </ul>
+          <p>For a hair or scalp consultation, come with your hair loose if you can, so the scalp can be examined. For a nail consultation, remove nail polish and artificial nails first.</p>
+
+          <h2 id="online">Online consultations</h2>
+          <p>
+            An <a href="/services/dermatology-consultations/online-consultation/">online consultation</a> is a video call with the doctor, supported by photographs you send beforehand.
+            It suits follow-up, medication reviews, acne, many rashes and first assessments for people outside Lagos. It does not suit anything that needs to be felt, tested or treated
+            on the day, such as a changing mole. If the doctor needs to see you in person, you will be told at the end of the call.
+          </p>
+
+          <h2 id="aftercare">Aftercare after a procedure</h2>
+          <p>
+            After a biopsy, minor surgery, peel, laser or injectable treatment you are given written aftercare instructions for that procedure: how to clean the area,
+            what to avoid, what is normal and what is not. Follow the sheet you are given rather than general advice online, because instructions differ between treatments and skin types.
+          </p>
+          <aside class="callout callout--derm" role="note">
+            <p class="callout__title">Contact the clinic after a procedure if</p>
+            <ul>
+              <li>bleeding does not stop after 15 minutes of firm pressure</li>
+              <li>the area becomes more painful, hot or swollen after the first two days</li>
+              <li>you see pus, a spreading redness or darkening, or you develop a fever</li>
+              <li>a blister, crust or dark patch appears after a laser or peel</li>
+            </ul>
+          </aside>
+
+          <h2 id="follow-up">Follow-up and maintenance programmes</h2>
+          <p>
+            Long-term conditions such as acne, eczema, psoriasis, vitiligo, melasma and hair loss are controlled rather than cured in a single consultation.
+            A maintenance programme sets out how often you are reviewed, which treatments continue and which are stepped down, so that the condition stays quiet with the least medicine.
+            Treatments given as a course, such as phototherapy, peels or laser, are planned as a series with a review at set points.
+          </p>
+
+          <h2 id="photography">Progress photographs</h2>
+          <p>
+            Skin changes slowly, and memory is unreliable. With your written consent, the clinic takes standardised photographs so that you and the doctor can compare like with like.
+            They are kept in your clinical record and are not shared or published without your permission. You can decline, and you can withdraw consent later.
+            See the <a href="/privacy-policy/">privacy policy</a> for how records are kept.
+          </p>
+
+          <h2 id="referrals">Referrals</h2>
+          <p>
+            You do not need a referral to book. If another doctor has referred you, we can write back to them with the diagnosis and plan if you agree.
+            When a condition needs another specialist, a hospital test or an operation we do not provide, the doctor refers you with a letter explaining what has been found.
+            Skin signs sometimes point to a general health condition such as diabetes or a thyroid disorder; in that case the clinic’s <a href="/services/internal-medicine/">internal medicine service</a> can see you.
+          </p>
+        </div>
+        <div class="stack">
+          <Media id="real/reception" feature sizes="(min-width: 64em) 36vw, 92vw" />
+          <Media id="real/treatment-room" feature sizes="(min-width: 64em) 36vw, 92vw" />
+        </div>
+      </div>
+
+      <Faq faqs={faqs} heading="Questions about your visit" />
+      <VisitUs />
+    </div>
+  </Band>
+  <CtaBand />
+</BaseLayout>

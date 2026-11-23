@@ -1,0 +1,28 @@
+{
+  "name": "O.C Clinics",
+  "short_name": "O.C Clinics",
+  "description": "O.C Clinics: dermatology clinic in Oniru, Lagos",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#140a10",
+  "theme_color": "#140a10",
+  "lang": "en-NG",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+---
+/** Condition page (§9.4): the educational core. One file in src/content/conditions = one page. */
+import { render } from 'astro:content';
+import ReadingPage from '../../layouts/ReadingPage.astro';
+import Stage from '../../components/Stage.astro';
+import Media from '../../components/Media.astro';
+import Related from '../../components/Related.astro';
+import { loadAll, paths, conditionLinks, procedureLinks, serviceLinks, articleLinks, articlesAbout, seedOf, type Condition } from '../../lib/content.ts';
+import { conditionSchema, faqSchema } from '../../lib/schema.ts';
+
+export async function getStaticPaths() {
+  const all = await loadAll();
+  return all.conditions.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props as { entry: Condition };
+const d = entry.data;
+const all = await loadAll();
+const { Content, headings } = await render(entry);
+const path = paths.condition(entry.id);
+const crumbs = [
+  { label: 'Conditions', href: '/conditions/' },
+  { label: d.shortTitle, href: path },
+];
+const articleIds = [...new Set([...d.articles, ...articlesAbout(all, 'conditions', entry.id).map((a) => a.id)])].slice(0, 4);
+const self = `conditions/${entry.id}`;
+const treatments = [...procedureLinks(all, d.procedures, self), ...serviceLinks(all, d.categories, self)];
+const meta = { path, title: d.seoTitle, description: d.description, updatedOn: d.updatedOn, reviewedBy: d.reviewedBy, reviewedOn: d.reviewedOn };
+---
+
+<ReadingPage
+  seoTitle={d.seoTitle}
+  description={d.description}
+  path={path}
+  section="conditions"
+  crumbs={crumbs}
+  h1={d.h1}
+  answer={d.answer}
+  updatedOn={d.updatedOn}
+  reviewedBy={d.reviewedBy}
+  reviewedOn={d.reviewedOn}
+  headings={headings}
+  faqs={d.faqs}
+  references={d.references}
+  schema={[conditionSchema(meta, { name: d.shortTitle, alternateName: d.medicalName, signs: d.signs, treatments: d.treatments, riskFactors: d.riskFactors }), faqSchema(d.faqs)]}
+  searchType="Condition"
+  ctaHeading="Get it checked"
+  ctaText={`A dermatologist can confirm what this is and plan treatment that suits your skin. Book an appointment at the clinic in Oniru, Lagos, or start with an online consultation.`}
+  bookHeading="Get it checked"
+>
+  <Stage slot="stage" priority scene="specimen" poster={`specimen--${entry.id}`} p="1 / 1" params={{ ...d.specimen, seed: seedOf(entry.id) }} />
+  <Media slot="media" id={`illustrations/${entry.id}`} title={d.shortTitle} ratio="16 / 10" hideIfMissing />
+  <Content />
+  <Related slot="related" conditions={conditionLinks(all, d.related, self)} treatments={treatments} articles={articleLinks(all, articleIds, self)} treatmentsHeading="Treatment and services at the clinic" />
+</ReadingPage>

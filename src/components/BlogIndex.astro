@@ -1,0 +1,154 @@
+---
+/** Learn hub page body, shared by /blog/ and /blog/page/{n}/. Plain links, each page self-canonical. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Band from './Band.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import Media from './Media.astro';
+import Search from './Search.astro';
+import CtaBand from './CtaBand.astro';
+import { clinic } from '../data/clinic.ts';
+import { articleTopics } from '../data/taxonomy.ts';
+import { paths, formatDate, isoDate, type Article } from '../lib/content.ts';
+import { pageSchema } from '../lib/schema.ts';
+
+interface Props {
+  articles: Article[];
+  page: number;
+  pages: number;
+  stack: Article[];
+}
+const { articles, page, pages, stack } = Astro.props;
+const path = page === 1 ? '/blog/' : `/blog/page/${page}/`;
+const crumbs = page === 1 ? [{ label: 'Learn', href: '/blog/' }] : [{ label: 'Learn', href: '/blog/' }, { label: `Page ${page}`, href: path }];
+const seoTitle = page === 1 ? 'Skin, Hair & Nail Advice from Lagos' : `Skin, Hair & Nail Advice: Page ${page}`;
+const description =
+  page === 1
+    ? `Answers to common skin, hair and nail questions from the ${clinic.editorialByline}: dark spots, acne, hair loss, sunscreen and more.`
+    : `More answers to skin, hair and nail questions from the ${clinic.editorialByline} in Lagos. Page ${page} of ${pages}: guides, comparisons and myths explained.`;
+const href = (n: number) => (n === 1 ? '/blog/' : `/blog/page/${n}/`);
+---
+
+<BaseLayout ogImage="/og/blog.png" seoTitle={seoTitle} description={description} path={path} section="learn" crumbs={crumbs} schema={[pageSchema({ path, title: seoTitle, description }, 'CollectionPage')]} searchType="Article">
+  <Band tone="reading" first as="header" class="learn-hero">
+    <div class="container split split--7-5">
+      <div class="page-hero__text">
+        <Breadcrumbs crumbs={crumbs} />
+        <h1>{page === 1 ? 'Learn: straight answers about skin, hair and nails' : `Learn: more answers about skin, hair and nails (page ${page})`}</h1>
+        <p class="lead">
+          Written by the {clinic.editorialByline} for people in Lagos. Each article answers one question, says when to see a dermatologist and lists its sources.
+        </p>
+      </div>
+      <div class="library" data-library aria-hidden="true">
+        {
+          stack.map((a, i) => (
+            <div class="library__card" style={`--i:${i}`} data-tint={articleTopics[a.data.topic].tint}>
+              <span>{articleTopics[a.data.topic].label}</span>
+              <strong>{a.data.title}</strong>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Band>
+
+  <Band tone="mist">
+    <div class="container stack" style="--stack: var(--space-xl)">
+      {page === 1 && <Search label="Search articles, conditions and treatments" />}
+      <section aria-label="Articles">
+        <div class="card-grid">
+          {
+            articles.map((a) => (
+              <article class="card">
+                <Media id={`articles/${a.id}`} alt={a.data.imageAlt} sizes="(min-width: 64em) 26vw, 90vw" />
+                <div class="card__body">
+                  <p class="meta">
+                    {articleTopics[a.data.topic].label} · Updated <time datetime={isoDate(a.data.updatedOn)}>{formatDate(a.data.updatedOn)}</time>
+                  </p>
+                  <h2 class="card__title"><a href={paths.article(a.id)}>{a.data.h1}</a></h2>
+                  <p>{a.data.summary}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+        {
+          pages > 1 && (
+            <nav class="pagination" aria-label="Pages">
+              {page > 1 && <a href={href(page - 1)} rel="prev">Previous</a>}
+              {Array.from({ length: pages }, (_, i) => i + 1).map((n) => (n === page ? <span aria-current="page">{n}</span> : <a href={href(n)}>Page {n}</a>))}
+              {page < pages && <a href={href(page + 1)} rel="next">Next</a>}
+            </nav>
+          )
+        }
+      </section>
+    </div>
+  </Band>
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  /* the fanned cards are decoration: they may poke past the column but never widen the page */
+  .learn-hero {
+    overflow-x: clip;
+    padding-block-end: calc(var(--space-xl) + var(--seam-h));
+  }
+  /* Library: cards stacked in depth (CSS 3D) that fan out as you scroll (--fan 0 → 1) */
+  .library {
+    --fan: 0.25;
+    position: relative;
+    height: 17rem;
+    perspective: 60rem;
+    max-width: 26rem;
+    width: 100%;
+    justify-self: center;
+  }
+  .library__card {
+    position: absolute;
+    inset: 0 0 auto 0;
+    margin-inline: auto;
+    width: min(100%, 19rem);
+    min-height: 10.5rem;
+    padding: var(--space-m);
+    display: grid;
+    align-content: space-between;
+    gap: var(--space-s);
+    border-radius: var(--r-card);
+    border: 1px solid transparent;
+    background: var(--grad-rose-soft) padding-box, var(--grad-hairline-strong) border-box;
+    box-shadow: var(--shadow-panel);
+    color: var(--night);
+    font-size: var(--step--1);
+    transform-origin: 50% 120%;
+    transform: translate3d(calc(var(--i) * var(--fan) * 1.6rem - 2.4rem * var(--fan)), calc(var(--i) * 1.1rem), calc(var(--i) * -2.2rem)) rotateZ(calc((var(--i) - 2) * var(--fan) * 7deg)) rotateX(calc(var(--fan) * 6deg));
+    z-index: calc(10 - var(--i));
+    will-change: transform;
+  }
+  .library__card[data-tint='blush'] {
+    background: var(--grad-blush-soft) padding-box, var(--grad-hairline-strong) border-box;
+  }
+  .library__card[data-tint='leaf'] {
+    background: var(--grad-leaf-soft) padding-box, var(--grad-hairline-strong) border-box;
+  }
+  .library__card strong {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100, 'WONK' 0;
+    font-size: var(--step-1);
+    font-weight: 420;
+    line-height: 1.2;
+  }
+  @media (max-width: 63.99em) {
+    .library {
+      height: 13rem;
+      max-width: 19rem;
+      justify-self: start;
+    }
+    .library__card:nth-child(n + 4) {
+      display: none;
+    }
+  }
+  @media (orientation: landscape) and (max-height: 30em) {
+    .library {
+      height: 11rem;
+    }
+  }
+</style>

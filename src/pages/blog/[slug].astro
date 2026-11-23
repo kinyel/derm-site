@@ -1,0 +1,151 @@
+---
+/** Article page (§9.5): question as H1, direct answer, follow-up H2s, callout, related links, author box. */
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Band from '../../components/Band.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Trust from '../../components/Trust.astro';
+import Media from '../../components/Media.astro';
+import Toc from '../../components/Toc.astro';
+import BookCard from '../../components/BookCard.astro';
+import Faq from '../../components/Faq.astro';
+import Related from '../../components/Related.astro';
+import References from '../../components/References.astro';
+import Disclaimer from '../../components/Disclaimer.astro';
+import VisitUs from '../../components/VisitUs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { clinic } from '../../data/clinic.ts';
+import { articleTopics } from '../../data/taxonomy.ts';
+import { loadAll, paths, conditionLinks, procedureLinks, serviceLinks, articleLinks, type Article } from '../../lib/content.ts';
+import { articleSchema, faqSchema } from '../../lib/schema.ts';
+
+export async function getStaticPaths() {
+  const all = await loadAll();
+  return all.articles.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props as { entry: Article };
+const d = entry.data;
+const all = await loadAll();
+const { Content, headings } = await render(entry);
+const path = paths.article(entry.id);
+const crumbs = [
+  { label: 'Learn', href: '/blog/' },
+  { label: d.title, href: path },
+];
+const topic = articleTopics[d.topic];
+const meta = { path, title: d.seoTitle, description: d.description, updatedOn: d.updatedOn, publishedOn: d.publishedOn, reviewedBy: d.reviewedBy, reviewedOn: d.reviewedOn };
+const more = all.articles.filter((a) => a.id !== entry.id && a.data.topic === d.topic).slice(0, 3);
+const extra = [...(d.faqs.length ? [{ slug: 'questions', text: 'Common questions' }] : []), ...(d.references.length ? [{ slug: 'references', text: 'References' }] : [])];
+---
+
+<BaseLayout seoTitle={d.seoTitle} description={d.description} path={path} section="learn" crumbs={crumbs} schema={[articleSchema(meta, d.h1), faqSchema(d.faqs)]} ogType="article" searchType="Article">
+  <div class="progress" data-progress aria-hidden="true"></div>
+
+  <Band tone="reading" first as="div" class="article-band">
+   <header class="article-hero" data-tint={topic.tint}>
+    <!-- Category-tinted ribbon header (SVG, no WebGL) -->
+    <svg class="article-hero__ribbon" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <path d="M-20 210C220 300 430 60 760 120c300 54 470 150 700 40v180H-20z" class="r1"></path>
+      <path d="M-20 250C260 330 520 150 820 200c280 46 430 60 640-40" class="r2"></path>
+      <path d="M-20 170C240 250 470 40 800 96c270 46 440 110 660 20" class="r3"></path>
+    </svg>
+    <div class="container container--narrow article-hero__text">
+      <Breadcrumbs crumbs={crumbs} />
+      <p class="chip chip--static" data-tint={topic.tint}>{topic.label}</p>
+      <h1>{d.h1}</h1>
+      <Trust updatedOn={d.updatedOn} publishedOn={d.publishedOn} reviewedBy={d.reviewedBy} reviewedOn={d.reviewedOn} />
+    </div>
+   </header>
+    <div class="container reading article-body">
+      <div class="reading__rail">
+        <Toc headings={headings} extra={extra} />
+        <BookCard />
+      </div>
+      <article class="reading__main stack" style="--stack: var(--space-xl)" data-progress-target>
+        <div class="stack" style="--stack: var(--space-l)">
+          <p class="lead" data-answer>{d.answer}</p>
+          <Media id={`articles/${entry.id}`} alt={d.imageAlt} feature priority sizes="(min-width: 64em) 52vw, 92vw" />
+        </div>
+        <div class="prose"><Content /></div>
+        <Faq faqs={d.faqs} />
+        <Related conditions={conditionLinks(all, d.conditions, `articles/${entry.id}`)} treatments={[...procedureLinks(all, d.procedures, `articles/${entry.id}`), ...serviceLinks(all, d.categories, `articles/${entry.id}`)]} articles={articleLinks(all, more.map((a) => a.id), `articles/${entry.id}`)} conditionsHeading="Conditions mentioned in this article" />
+        <aside class="panel panel--light author" aria-label="About the author">
+          <p class="author__name">{clinic.editorialByline}</p>
+          <p class="meta">
+            Articles are researched from clinical guidance (such as the NHS, the American Academy of Dermatology, the British Association of Dermatologists, the
+            World Health Organization and DermNet) and peer-reviewed studies, then checked against how conditions present on brown and Black skin.
+            <a href="/editorial-policy/">How we write and update our content</a>.
+          </p>
+        </aside>
+        <References items={d.references} />
+        <Disclaimer />
+        <VisitUs />
+      </article>
+    </div>
+  </Band>
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .article-hero {
+    position: relative;
+    overflow: clip;
+    padding-block-end: var(--space-xl);
+    margin-block-end: var(--space-l);
+  }
+  .article-hero__ribbon {
+    position: absolute;
+    inset: auto 0 0 0;
+    width: 100%;
+    height: clamp(7rem, 22vw, 16rem);
+    opacity: 0.55;
+  }
+  .article-hero__ribbon .r1 {
+    fill: var(--blush-100);
+  }
+  .article-hero__ribbon .r2,
+  .article-hero__ribbon .r3 {
+    fill: none;
+    stroke: var(--blush-400);
+    stroke-width: 2;
+    vector-effect: non-scaling-stroke;
+  }
+  .article-hero__ribbon .r3 {
+    stroke: var(--blush-200);
+    stroke-width: 1;
+  }
+  .article-hero[data-tint='rose'] .r1 {
+    fill: var(--blush-200);
+  }
+  .article-hero[data-tint='rose'] .r2 {
+    stroke: var(--blush-200);
+  }
+  .article-hero[data-tint='rose'] .r3 {
+    stroke: var(--blush-400);
+  }
+  .article-hero[data-tint='leaf'] .r1 {
+    fill: var(--leaf-100);
+  }
+  .article-hero[data-tint='leaf'] .r2 {
+    stroke: var(--leaf-400);
+  }
+  .article-hero__text {
+    position: relative;
+    display: grid;
+    gap: var(--space-s);
+    justify-items: start;
+    margin-inline: auto;
+  }
+  .article-hero__text h1 {
+    font-size: var(--step-4);
+  }
+  .author__name {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100, 'WONK' 0;
+    font-size: var(--step-1);
+  }
+  .author a {
+    color: var(--link);
+    font-weight: 600;
+  }
+</style>

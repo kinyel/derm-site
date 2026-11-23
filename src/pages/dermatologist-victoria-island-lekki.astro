@@ -1,0 +1,183 @@
+---
+/**
+ * Location page (§9.6). Owner page for: dermatologist in Lekki, dermatologist in Victoria Island,
+ * dermatologist on the Island, skin clinic in Lekki / Victoria Island. The clinic is in Victoria Island
+ * (Oniru, its eastern end, next to Lekki Phase 1); never place it on Lagos Island (D71). One real clinic, one page:
+ * no thin "dermatologist in {area}" pages.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Band from '../components/Band.astro';
+import Stage from '../components/Stage.astro';
+import Media from '../components/Media.astro';
+import MapFacade from '../components/MapFacade.astro';
+import Button from '../components/Button.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Trust from '../components/Trust.astro';
+import { clinic, extras, experienceStatement, knownList, known, telHref, whatsappHref, directionsHref, leadPath } from '../data/clinic.ts';
+import { loadAll, paths, topConditions } from '../lib/content.ts';
+import { pageSchema, faqSchema, clinicSchema } from '../lib/schema.ts';
+
+const all = await loadAll();
+const path = '/dermatologist-victoria-island-lekki/';
+const crumbs = [{ label: 'Find the clinic', href: path }];
+const seoTitle = 'Dermatologist in Lekki & Victoria Island';
+const description = `Dermatologist in Lekki and Victoria Island: ${clinic.name} is a skin clinic for Lekki, Ikoyi and Lagos Island, in ${clinic.address.neighbourhood}. Address, hours and directions.`;
+const updatedOn = new Date('2026-11-22');
+const landmarks = knownList(clinic.landmarks);
+const parking = known(extras.parking);
+const street = clinic.address.streetAddress.replace(/^\d+\s*/, '');
+const routes = [
+  {
+    id: 'lekki',
+    from: 'From Lekki Phase 1',
+    text: `Oniru is the next neighbourhood west of Lekki Phase 1. Join the Lekki–Epe Expressway towards Victoria Island and stay on it past the Admiralty toll plaza. ${clinic.address.neighbourhood} lies on the ocean side of the expressway; turn in towards ${street} and follow it to number ${clinic.address.streetAddress.match(/^\d+/)?.[0] ?? ''}. It is a short trip, and it avoids both bridges.`,
+  },
+  {
+    id: 'victoria-island',
+    from: 'From central Victoria Island',
+    text: `Head east along Ozumba Mbadiwe Avenue as if you were going to Lekki. ${clinic.address.neighbourhood} is the eastern end of Victoria Island, before the Admiralty toll plaza, so you turn off towards ${street} before you reach the plaza.`,
+  },
+  {
+    id: 'ikoyi',
+    from: 'From Ikoyi',
+    text: `You have two ways across. The Lekki–Ikoyi Link Bridge takes you from Ikoyi to Admiralty Way in Lekki Phase 1; from there join the Lekki–Epe Expressway towards Victoria Island and turn into ${clinic.address.neighbourhood}. Or cross Falomo Bridge into Victoria Island and drive east along Ozumba Mbadiwe Avenue. Pick whichever bridge is nearer to you; both are busy at rush hour.`,
+  },
+  {
+    id: 'ikate',
+    from: 'From Ikate',
+    text: `Ikate sits east of Lekki Phase 1 on the Lekki–Epe Expressway. Drive west on the expressway towards Victoria Island, pass Lekki Phase 1 and the Admiralty toll plaza, then turn into ${clinic.address.neighbourhood} on the ocean side. Morning traffic towards Victoria Island builds early on this stretch, so a late-morning or early-afternoon appointment is usually easier.`,
+  },
+  {
+    id: 'ajah',
+    from: 'From Ajah',
+    text: `From Ajah the whole trip is along the Lekki–Epe Expressway, heading west past VGC, Chevron, Jakande, Ikate and Lekki Phase 1 before you reach ${clinic.address.neighbourhood}. It is the longest of these routes and the most affected by traffic. If the drive is difficult, ask about an online consultation for follow-up, so that you only travel when you need to be examined or treated.`,
+  },
+  {
+    id: 'lagos-island',
+    from: 'From Lagos Island',
+    text: `From Marina or Onikan, cross into Victoria Island at Bonny Camp, then drive east through Victoria Island towards Lekki. ${clinic.address.neighbourhood} is the eastern end, before the Admiralty toll plaza. The clinic itself is in Victoria Island, across the water from Lagos Island.`,
+  },
+];
+const faqs = [
+  { q: 'Is there a dermatologist in Lekki?', a: `${clinic.name} is in ${clinic.address.neighbourhood}, the part of Victoria Island that sits next to Lekki Phase 1, on ${street}. From Lekki Phase 1 you reach it along the Lekki–Epe Expressway without crossing a bridge. It is led by a consultant dermatologist and is open ${clinic.hours[0].label} ${clinic.hours[0].display} and ${clinic.hours[1].label} ${clinic.hours[1].display}.` },
+  { q: 'Where can I see a dermatologist in Victoria Island?', a: `The clinic’s postal address is ${clinic.address.displayed}. ${clinic.address.neighbourhood} is at the eastern end of Victoria Island, reached along Ozumba Mbadiwe Avenue. You can book directly without a referral, by WhatsApp, phone or the booking form.` },
+  { q: 'Do I need a referral to see a dermatologist on the Island?', a: 'No. You can book an appointment yourself. If your GP, pharmacist or another specialist has referred you, bring the letter and any test results, and bring the creams and medicines you have already tried. You can book by phone, WhatsApp or online.' },
+  { q: 'Can I see the dermatologist on a Saturday?', a: `Yes. The clinic opens on ${clinic.hours[1].label} from ${clinic.hours[1].display}. It is closed on Sunday. Saturday appointments fill quickly, so book ahead if that is the only day you can come. Weekday appointments usually offer a wider choice of times, so check those too if your week allows.` },
+  { q: 'Is there a dermatologist in Lagos Island?', a: `${clinic.name} is across the bridge from Lagos Island, in ${clinic.address.neighbourhood}, ${clinic.address.addressLocality}. From Marina or Onikan you cross into Victoria Island at Bonny Camp and drive east towards Lekki. The clinic is led by a consultant dermatologist and sees adults and children with skin, hair and nail conditions. You can book by phone, WhatsApp or the booking form, without a referral.` },
+  { q: 'What if I live on the mainland or outside Lagos?', a: 'People travel to the clinic from Ajah, the mainland and other states. If the trip is long, the first assessment or the follow-up can often be done by online consultation, and you come in only when an examination, test or procedure is needed.' },
+];
+const top = topConditions(all).slice(0, 8);
+---
+
+<BaseLayout seoTitle={seoTitle} description={description} path={path} section="contact" crumbs={crumbs} schema={[pageSchema({ path, title: seoTitle, description, updatedOn }, 'WebPage'), clinicSchema(), faqSchema(faqs)]} searchType="Clinic">
+  <PageHero h1={`A dermatologist in Victoria Island, next to Lekki Phase 1`} lead={`${clinic.name} is a skin clinic in ${clinic.address.neighbourhood}, ${clinic.address.addressLocality}, Lagos, for anyone looking for a dermatologist in Victoria Island, a dermatologist in Lekki or a dermatologist on the Island in Ikoyi, Ikate or Ajah. You will find us at ${clinic.address.displayed}.`} crumbs={crumbs}>
+    <Trust slot="meta" updatedOn={updatedOn} />
+    <Stage slot="stage" priority scene="island" p="16 / 9" />
+  </PageHero>
+
+  <Band tone="reading">
+    <div class="container stack" style="--stack: var(--space-2xl)">
+      <section class="split split--6-6 split--top" aria-labelledby="address" data-visit-us>
+        <div class="stack">
+          <h2 id="address">Address and opening hours</h2>
+          <address class="loc__address">{clinic.name}<br />{clinic.address.displayed}</address>
+          <table class="hours">
+            <caption class="visually-hidden">Opening hours</caption>
+            <tbody>
+              {clinic.hours.map((h) => (
+                <tr><th scope="row">{h.label}</th><td>{h.display}</td></tr>
+              ))}
+            </tbody>
+          </table>
+          <div class="cluster">
+            <Button href="/book-appointment/" icon="calendar" event="book_click">Book an appointment</Button>
+            <Button href={directionsHref} variant="secondary" icon="directions" event="directions_click">Get directions</Button>
+            <Button href={whatsappHref} variant="whatsapp" event="whatsapp_click">WhatsApp</Button>
+            <Button href={telHref} variant="secondary" icon="phone" event="call_click">Call</Button>
+          </div>
+        </div>
+        <MapFacade />
+      </section>
+
+      <section class="split split--7-5 split--top" aria-labelledby="who">
+        <div class="prose">
+          <h2 id="who">Looking for a dermatologist in Victoria Island or a skin clinic in Lekki?</h2>
+          <p>
+            {clinic.address.neighbourhood} is the eastern end of Victoria Island, on the ocean side of the Lekki–Epe Expressway, with Lekki Phase 1 next to it. That puts the clinic within reach of both,
+            and of Ikoyi across the lagoon, without the drive to the mainland teaching hospitals.
+          </p>
+          <p>
+            {experienceStatement()} The clinic treats medical skin conditions, hair and nail disease and children’s skin, and offers aesthetic, laser and
+            minor surgical treatment. You can read more <a href="/about/">about the clinic</a> and about <a href={leadPath}>the dermatologist who leads it</a>.
+          </p>
+          <h2 id="lagos-island">Looking for a dermatologist in Lagos Island or Ikoyi?</h2>
+          <p>
+            Many people say “Lagos Island” or “the Island” for this whole side of the city. The clinic’s address is in {clinic.address.addressLocality}, one bridge
+            from Lagos Island and one from Ikoyi, and people who live or work in Marina, Onikan and Ikoyi come to the same clinic as those in Lekki. The routes
+            from each area are set out under <a href="#directions">directions to the clinic</a>.
+          </p>
+          <h2 id="treat">What a dermatologist in Lekki or on the Island can treat</h2>
+          <p>These are the concerns people most often bring to the clinic. Each link opens a plain-language guide.</p>
+          <ul>
+            {top.map((c) => (
+              <li><a href={paths.condition(c.id)}>{c.data.shortTitle}</a></li>
+            ))}
+            <li><a href="/services/">All services at the clinic</a></li>
+          </ul>
+
+          <h2 id="finding">Finding the clinic</h2>
+          {landmarks.length > 0 ? (
+            <>
+              <p>Landmarks close to the clinic:</p>
+              <ul>{landmarks.map((l) => <li>{l}</li>)}</ul>
+            </>
+          ) : (
+            <p>
+              The clinic is at number {clinic.address.streetAddress.match(/^\d+/)?.[0]} on {street}. Ride-hailing drivers find it most reliably when you paste the full
+              address, “{clinic.address.displayed}”, rather than typing the clinic name. If you are unsure where to stop, call or message us when you are close and we will guide you in.
+            </p>
+          )}
+          <h3>Parking</h3>
+          <p>{parking ?? 'Ask about parking when you book, and we will tell you where to stop when you arrive by car or by ride-hailing.'}</p>
+        </div>
+        <Media id="real/exterior" feature sizes="(min-width: 64em) 36vw, 92vw" />
+      </section>
+
+      <section aria-labelledby="directions">
+        <div class="section-head">
+          <h2 id="directions">Directions to the clinic</h2>
+          <p>Lagos traffic changes by the hour. These routes describe the usual way in from each area; check a live map before you set off.</p>
+        </div>
+        <div class="routes">
+          {routes.map((r) => (
+            <article class="panel panel--light" data-route={r.id}>
+              <h3>{r.from}</h3>
+              <p>{r.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <Faq faqs={faqs} heading="Questions about finding a dermatologist on the Island" />
+    </div>
+  </Band>
+  <CtaBand heading="See a dermatologist close to home" />
+</BaseLayout>
+
+<style>
+  .loc__address {
+    font-style: normal;
+    font-size: var(--step-1);
+    line-height: 1.4;
+  }
+  .routes {
+    display: grid;
+    gap: var(--gutter);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+  }
+  .routes p {
+    color: var(--ink-soft);
+  }
+</style>

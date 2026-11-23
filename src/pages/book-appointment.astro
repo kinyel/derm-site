@@ -1,0 +1,104 @@
+---
+/** Book appointment (§9.6): WhatsApp most prominent, phone, the contact form, what happens next. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Band from '../components/Band.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Stage from '../components/Stage.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import ContactForm from '../components/ContactForm.astro';
+import VisitUs from '../components/VisitUs.astro';
+import { clinic, telHref, whatsappHref, hoursSummary } from '../data/clinic.ts';
+import { pageSchema } from '../lib/schema.ts';
+
+const path = '/book-appointment/';
+const crumbs = [{ label: 'Book an appointment', href: path }];
+const seoTitle = 'Book an Appointment with a Dermatologist';
+const description = `Book an appointment at ${clinic.name} in ${clinic.address.neighbourhood}, Lagos, by WhatsApp, phone or form. In-person and online consultations. ${clinic.hours[0].label} and ${clinic.hours[1].label}.`;
+const next = [
+  { t: 'We reply', x: 'A member of the team calls or messages you during opening hours to agree a date and time.' },
+  { t: 'We confirm', x: 'You receive the appointment details and anything you need to prepare or bring.' },
+  { t: 'You are seen', x: 'Come to the clinic, or join your online consultation from your phone or computer.' },
+];
+---
+
+<BaseLayout seoTitle={seoTitle} description={description} path={path} section="contact" crumbs={crumbs} schema={[pageSchema({ path, title: seoTitle, description }, 'ContactPage')]} searchType="Clinic">
+  <Band tone="reading" first as="div" data-hero>
+    <div class="container stack" style="--stack: var(--space-xl)">
+      <header class="book__head">
+        <div class="page-hero__text">
+          <Breadcrumbs crumbs={crumbs} />
+          <h1>Book an appointment</h1>
+          <p class="lead">
+            The quickest way to book is a WhatsApp message. You can also call, or send the form and we will get back to you. Opening hours: {hoursSummary}.
+          </p>
+        </div>
+        <div class="book__orb"><Stage scene="orb" p="1 / 1" small /></div>
+      </header>
+
+      <div class="split split--5-7 split--top">
+        <div class="stack">
+          <section class="panel panel--feature book__wa on-night" aria-labelledby="wa">
+            <h2 id="wa">Message us on WhatsApp</h2>
+            <p>Tell us your name, what the appointment is about and the days that suit you. Your message opens already started.</p>
+            <Button href={whatsappHref} variant="whatsapp" block event="whatsapp_click">Chat on WhatsApp: {clinic.whatsapp.display}</Button>
+          </section>
+          <section class="panel panel--light panel--feature" aria-labelledby="call">
+            <h2 id="call" class="book__h">Call the clinic</h2>
+            <p class="meta">Lines are answered during opening hours.</p>
+            <Button href={telHref} variant="secondary" icon="phone" block event="call_click">Call {clinic.phone.display}</Button>
+          </section>
+          <section aria-labelledby="next">
+            <h2 id="next" class="book__h">What happens next</h2>
+            <ol class="steps" style="margin-block-start: var(--space-s)">
+              {next.map((s) => (
+                <li>
+                  <div>
+                    <h3>{s.t}</h3>
+                    <p>{s.x}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <p class="meta" style="margin-block-start: var(--space-s)">
+              A request is not a confirmed appointment until you hear from us. For a medical emergency, go to the nearest hospital emergency department.
+            </p>
+          </section>
+        </div>
+        <div class="panel panel--light panel--feature">
+          <ContactForm />
+        </div>
+      </div>
+
+      <p><Icon name="video" /> Prefer not to travel? Read how an <a class="link" href="/services/dermatology-consultations/online-consultation/">online consultation</a> works, or see <a class="link" href="/your-visit/">what to expect at your visit</a>.</p>
+      <VisitUs />
+    </div>
+  </Band>
+</BaseLayout>
+
+<style>
+  .book__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-m);
+    align-items: center;
+  }
+  .book__orb {
+    width: clamp(4.5rem, 18vw, 12.5rem);
+  }
+  .book__wa {
+    background: var(--grad-night);
+    color: var(--white);
+    box-shadow: var(--glow-rose);
+  }
+  .book__wa h2 {
+    font-size: var(--step-2);
+  }
+  .book__wa p {
+    color: var(--on-night-soft);
+  }
+  .book__h {
+    font-size: var(--step-1);
+    font-weight: 450;
+  }
+</style>

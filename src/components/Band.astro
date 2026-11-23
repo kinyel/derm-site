@@ -1,0 +1,31 @@
+---
+/**
+ * Band = a full-width section surface. The ONLY place vertical section spacing is set (§10.3).
+ * tone: night (immersive) | reading | mist. Curved ribbon seam on top unless `first`/`flat`.
+ */
+interface Props {
+  tone?: 'night' | 'reading' | 'mist';
+  first?: boolean;
+  flat?: boolean;
+  mirror?: boolean;
+  hero?: boolean | 'home';
+  tight?: boolean;
+  id?: string;
+  labelledby?: string;
+  class?: string;
+  as?: 'section' | 'div' | 'header';
+  [key: string]: unknown;
+}
+const { tone = 'reading', first = false, flat = false, mirror = false, hero = false, tight = false, id, labelledby, class: cls, as: Tag = 'section', ...rest } = Astro.props;
+---
+
+<Tag
+  id={id}
+  aria-labelledby={labelledby}
+  class:list={['band', `band--${tone}`, tone === 'night' && 'on-night', first && 'band--first', flat && 'band--flat', mirror && 'band--mirror', hero === true && 'band--hero', hero === 'home' && 'band--hero-home', tight && 'band--tight', cls]}
+  data-hero={hero ? '' : undefined}
+  {...rest}
+>
+  {!first && !flat && <span class="band__ribbon" aria-hidden="true" />}
+  <slot />
+</Tag>

@@ -1,0 +1,92 @@
+---
+/**
+ * Lead dermatologist profile (§9.6). URL is /about/dr-{name-slug}/ once her name is in clinic.ts;
+ * until then /about/lead-dermatologist/ (DECISIONS D3). Owner page for "female dermatologist in Lagos".
+ */
+import { getCollection, render } from 'astro:content';
+import { getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Band from '../../components/Band.astro';
+import Stage from '../../components/Stage.astro';
+import Media from '../../components/Media.astro';
+import Faq from '../../components/Faq.astro';
+import VisitUs from '../../components/VisitUs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Trust from '../../components/Trust.astro';
+import { clinic, leadSlug, leadPath, leadName, leadNameKnown, experienceStatement, knownList } from '../../data/clinic.ts';
+import { fillDeep } from '../../lib/facts.ts';
+import { profileAssets } from '../../lib/hero.ts';
+import { pageSchema, personSchema, faqSchema } from '../../lib/schema.ts';
+
+export function getStaticPaths() {
+  return [{ params: { lead: leadSlug } }];
+}
+const [entry] = await getCollection('team');
+if (!entry) throw new Error('src/content/team/lead-dermatologist.md is missing');
+const d = fillDeep(entry.data);
+const { Content } = await render(entry);
+const crumbs = [
+  { label: 'About', href: '/about/' },
+  { label: leadNameKnown ? leadName() : 'Lead dermatologist', href: leadPath },
+];
+const quals = knownList(clinic.lead.qualifications);
+const members = [...knownList(clinic.lead.memberships), ...knownList(clinic.lead.affiliations)];
+const assets = await profileAssets(getImage);
+const real = assets.glass === 0;
+---
+
+<BaseLayout seoTitle={d.seoTitle} description={d.description} path={leadPath} section="about" crumbs={crumbs} schema={[pageSchema({ path: leadPath, title: d.seoTitle, description: d.description, updatedOn: d.updatedOn }, 'ProfilePage'), personSchema(d.focusAreas.map((f) => f.label)), faqSchema(d.faqs)]} ogType="article" searchType="Clinic">
+  <PageHero h1={d.h1} lead={d.answer} crumbs={crumbs}>
+    <Trust slot="meta" updatedOn={d.updatedOn} />
+    {real ? <Stage slot="stage" scene="hero" poster="hero--profile" p="4 / 5" params={{ ...assets, mode: 'profile' }} /> : <Media slot="stage" id="real/specialist-portrait" feature priority sizes="(min-width: 64em) 30vw, 60vw" />}
+  </PageHero>
+
+  <Band tone="reading">
+    <div class="container stack" style="--stack: var(--space-xl)">
+      <div class="split split--7-5 split--top">
+        <div class="prose"><Content /></div>
+        <aside class="panel panel--light panel--feature stack" style="--stack: var(--space-s)" aria-label="At a glance">
+          <h2 class="profile__h">At a glance</h2>
+          <dl class="profile__facts">
+            <div><dt>Role</dt><dd>{clinic.lead.title}, {clinic.name}</dd></div>
+            <div><dt>Experience</dt><dd>{experienceStatement()}</dd></div>
+            <div><dt>Qualifications</dt><dd>{quals.length ? quals.join(', ') : 'To be confirmed by the clinic'}</dd></div>
+            <div><dt>Memberships and affiliations</dt><dd>{members.length ? members.join(', ') : 'To be confirmed by the clinic'}</dd></div>
+            <div><dt>Sees patients at</dt><dd>{clinic.address.displayed}, and by online consultation</dd></div>
+          </dl>
+        </aside>
+      </div>
+
+      <section aria-labelledby="focus">
+        <div class="section-head"><h2 id="focus">Areas of focus</h2></div>
+        <ul class="cluster" role="list">
+          {d.focusAreas.map((f) => <li><a class="chip" href={f.href}>{f.label}</a></li>)}
+        </ul>
+      </section>
+
+      <Media id="real/specialist-at-work" ratio="16 / 9" feature sizes="(min-width: 64em) 60vw, 92vw" />
+      <Faq faqs={d.faqs} />
+      <VisitUs />
+    </div>
+  </Band>
+  <CtaBand heading="Book an appointment with the dermatologist" />
+</BaseLayout>
+
+<style>
+  .profile__h {
+    font-size: var(--step-1);
+  }
+  .profile__facts {
+    display: grid;
+    gap: var(--space-s);
+  }
+  .profile__facts dt {
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .profile__facts dd {
+    margin: 0;
+  }
+</style>

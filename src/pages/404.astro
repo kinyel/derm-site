@@ -1,0 +1,65 @@
+---
+/** 404 (§9.6): popular conditions, services, booking link, search. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Band from '../components/Band.astro';
+import Stage from '../components/Stage.astro';
+import Button from '../components/Button.astro';
+import Search from '../components/Search.astro';
+import { loadAll, paths, topConditions } from '../lib/content.ts';
+
+const all = await loadAll();
+const top = topConditions(all).slice(0, 8);
+---
+
+<BaseLayout seoTitle="Page not found" description="This page could not be found. Search the site, browse conditions and services, or book an appointment with the dermatology clinic in Oniru, Lagos." path="/404/" noindex searchable={false}>
+  <Band tone="mist" first hero as="div">
+    <div class="container split split--7-5">
+      <div class="stack">
+        <h1>We could not find that page</h1>
+        <p class="lead">The address may have changed, or the link may be out of date. Try a search, or pick up from one of the pages below.</p>
+        <div class="nf__search"><Search label="Search the site" /></div>
+        <div class="cluster">
+          <Button href="/book-appointment/" icon="calendar" event="book_click">Book an appointment</Button>
+          <Button href="/" variant="secondary">Go to the home page</Button>
+        </div>
+      </div>
+      <div class="page-hero__stage"><Stage scene="petal" p="1 / 1" /></div>
+    </div>
+  </Band>
+  <Band tone="reading">
+    <div class="container grid">
+      <nav aria-labelledby="nf-conditions" class="nf__col">
+        <h2 id="nf-conditions">Popular conditions</h2>
+        <ul class="link-list" role="list">
+          {top.map((c) => <li><a href={paths.condition(c.id)}><span>{c.data.shortTitle}</span></a></li>)}
+          <li><a href="/conditions/"><span>All conditions A–Z</span></a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="nf-services" class="nf__col">
+        <h2 id="nf-services">Services</h2>
+        <ul class="link-list" role="list">
+          {all.services.map((s) => <li><a href={paths.service(s.id)}><span>{s.data.navLabel}</span></a></li>)}
+        </ul>
+      </nav>
+    </div>
+  </Band>
+</BaseLayout>
+
+<style>
+  .nf__col {
+    grid-column: span 4;
+  }
+  .nf__col h2 {
+    font-size: var(--step-2);
+    margin-block-end: var(--space-xs);
+  }
+  .nf__col a {
+    color: var(--link);
+    font-weight: 600;
+  }
+  @media (min-width: 64em) {
+    .nf__col {
+      grid-column: span 6;
+    }
+  }
+</style>

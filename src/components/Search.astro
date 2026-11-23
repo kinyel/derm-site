@@ -1,0 +1,68 @@
+---
+/** Site search (Pagefind). The index is built after `astro build`; without JS the box is hidden. */
+interface Props {
+  label?: string;
+}
+const { label = 'Search the site' } = Astro.props;
+---
+
+<div class="search" data-search hidden>
+  <div class="field">
+    <label for="site-search">{label}</label>
+    <input class="input" id="site-search" type="search" autocomplete="off" placeholder="For example: dark spots, keloid, hair loss" data-search-input />
+  </div>
+  <p class="meta" aria-live="polite" data-search-status></p>
+  <ul class="search__results" role="list" data-search-results></ul>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-search]');
+  if (root) {
+    root.hidden = false;
+    const input = root.querySelector<HTMLInputElement>('[data-search-input]')!;
+    const status = root.querySelector<HTMLElement>('[data-search-status]')!;
+    const list = root.querySelector<HTMLElement>('[data-search-results]')!;
+    type Pagefind = { search: (q: string) => Promise<{ results: { data: () => Promise<{ url: string; excerpt: string; meta: { title?: string } }> }[] }> };
+    let pf: Pagefind | undefined;
+    let timer = 0;
+    const load = async () => {
+      if (pf) return pf;
+      try {
+        const path = '/pagefind/pagefind.js';
+        pf = (await import(/* @vite-ignore */ path)) as Pagefind;
+      } catch {
+        status.textContent = 'Search is available on the published site.';
+      }
+      return pf;
+    };
+    input.addEventListener('focus', load, { once: true });
+    input.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = window.setTimeout(async () => {
+        const q = input.value.trim();
+        list.replaceChildren();
+        if (q.length < 2) {
+          status.textContent = '';
+          return;
+        }
+        const engine = await load();
+        if (!engine) return;
+        const found = await engine.search(q);
+        const top = await Promise.all(found.results.slice(0, 8).map((r) => r.data()));
+        status.textContent = top.length ? `${found.results.length} result${found.results.length === 1 ? '' : 's'}` : 'No results. Try a simpler word, such as “rash” or “acne”.';
+        for (const r of top) {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = r.url;
+          const strong = document.createElement('strong');
+          strong.textContent = (r.meta.title ?? r.url).replace(/\s*\|.*$/, '');
+          const span = document.createElement('span');
+          span.innerHTML = r.excerpt; // Pagefind excerpts are escaped text with <mark> only
+          a.append(strong, span);
+          li.append(a);
+          list.append(li);
+        }
+      }, 180);
+    });
+  }
+</script>

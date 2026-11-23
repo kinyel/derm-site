@@ -1,0 +1,70 @@
+---
+/**
+ * A 3D stage (§11.1): a DOM box with a per-breakpoint aspect ratio and a poster image.
+ * The shared engine renders the scene into this rectangle. Decorative: aria-hidden, and any
+ * hotspot inside the scene mirrors a real HTML link elsewhere in the section.
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Props {
+  scene: string;
+  /** Poster key; defaults to the scene name. Per-page variations use "scene--slug". */
+  poster?: string;
+  /** Aspect ratios: portrait phone/tablet, landscape phone, desktop. */
+  p?: string;
+  l?: string;
+  d?: string;
+  params?: Record<string, string | number | boolean>;
+  interactive?: boolean;
+  bleed?: 'start' | 'end';
+  small?: boolean;
+  behind?: boolean;
+  priority?: boolean;
+  /** Set to "light" when the stage sits on a light band, so its poster is rendered in the light-surface colours. */
+  surface?: 'light';
+  class?: string;
+}
+const { scene, poster, p = '4 / 3', l, d, params = {}, interactive = false, bleed, small = false, behind = false, priority = false, surface, class: cls } = Astro.props;
+
+type Manifest = Record<string, { variants: string[]; sizes: Record<string, [number, number]> }>;
+let manifest: Manifest = {};
+try {
+  manifest = JSON.parse(fs.readFileSync(path.resolve('public/posters/manifest.json'), 'utf8'));
+} catch {
+  manifest = {};
+}
+const key = poster && manifest[poster] ? poster : scene;
+const entry = manifest[key];
+const has = (v: string) => entry?.variants.includes(v);
+const set = (v: string, ext: string) => `/posters/${key}-${v}@1x.${ext} 1x, /posters/${key}-${v}@2x.${ext} 2x`;
+const base = has('p') ? 'p' : entry?.variants[0];
+const size = base ? entry!.sizes[base] : [800, 600];
+---
+
+<div
+  class:list={['stage', bleed && `stage--bleed-${bleed}`, small && 'stage--small', behind && 'stage--behind', cls]}
+  data-scene={scene}
+  data-poster-key={poster ?? scene}
+  data-params={JSON.stringify(params)}
+  data-interactive={interactive ? '' : undefined}
+  data-surface={surface}
+  style={`--ar-p:${p};${l ? `--ar-l:${l};` : ''}${d ? `--ar-d:${d};` : ''}`}
+  aria-hidden="true"
+>
+  {
+    entry && base ? (
+      <picture class="stage__poster">
+        {has('d') && <source media="(min-width: 64em)" type="image/avif" srcset={set('d', 'avif')} />}
+        {has('d') && <source media="(min-width: 64em)" type="image/webp" srcset={set('d', 'webp')} />}
+        {has('l') && <source media="(orientation: landscape) and (max-height: 30em)" type="image/avif" srcset={set('l', 'avif')} />}
+        {has('l') && <source media="(orientation: landscape) and (max-height: 30em)" type="image/webp" srcset={set('l', 'webp')} />}
+        <source type="image/avif" srcset={set(base, 'avif')} />
+        <source type="image/webp" srcset={set(base, 'webp')} />
+        <img src={`/posters/${key}-${base}@1x.webp`} alt="" width={size[0]} height={size[1]} loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : undefined} decoding="async" />
+      </picture>
+    ) : (
+      <span class="stage__poster stage__poster--fallback" />
+    )
+  }
+</div>

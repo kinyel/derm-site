@@ -1,0 +1,28 @@
+---
+/** Home §3 "What we treat": the pillars (§8.3) as a spiral staircase of circular steps, with every category link in the index. */
+import Spiral from '../Spiral.astro';
+import { pillars } from '../../data/taxonomy.ts';
+import { loadAll, serviceLinks, paths } from '../../lib/content.ts';
+
+const all = await loadAll();
+const items = pillars.map((p) => {
+  const first = all.services.find((s) => s.id === p.categories[0]);
+  return {
+    title: p.title,
+    text: p.blurb,
+    icon: first?.data.icon ?? 'spark',
+    href: first ? paths.service(first.id) : '/services/',
+    links: serviceLinks(all, [...p.categories]),
+  };
+});
+---
+
+<Spiral
+  id="treat-heading"
+  eyebrow="Services"
+  title="What we treat"
+  lead="Skin, hair and nails, from a first diagnosis to procedures and long-term care, with internal medicine in the same clinic."
+  menuTitle="What are you looking for?"
+  items={items}
+  hub={{ href: '/services/', label: 'See every service' }}
+/>

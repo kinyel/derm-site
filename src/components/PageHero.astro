@@ -1,0 +1,35 @@
+---
+/** Inner-page hero: breadcrumb, H1, answer-first lead, optional meta row, and the page's 3D stage. */
+import Band from './Band.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+
+interface Props {
+  h1: string;
+  lead?: string;
+  crumbs: { label: string; href: string }[];
+  tone?: 'night' | 'reading' | 'mist';
+  hasStage?: boolean;
+  /** Small label above the heading; defaults to the section the page belongs to. */
+  eyebrow?: string;
+}
+const { h1, lead, crumbs, tone = 'mist', hasStage = true, eyebrow } = Astro.props;
+const label = eyebrow ?? (crumbs.length > 1 ? crumbs[0].label : undefined);
+---
+
+<Band tone={tone} first hero as="header">
+  <div class:list={['container', 'split', hasStage && 'split--7-5']}>
+    <div class="page-hero__text">
+      <Breadcrumbs crumbs={crumbs} />
+      {label && <p class="eyebrow">{label}</p>}
+      <h1>{h1}</h1>
+      {lead && <p class="lead" data-answer>{lead}</p>}
+      <slot name="meta" />
+      <slot />
+    </div>
+    {hasStage && (
+      <div class="page-hero__stage">
+        <slot name="stage" />
+      </div>
+    )}
+  </div>
+</Band>

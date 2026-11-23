@@ -1,0 +1,38 @@
+---
+/** Closing call to action on a Night band. The band continues into the footer (one Night surface). */
+import Band from './Band.astro';
+import Button from './Button.astro';
+import Stage from './Stage.astro';
+import { whatsappHref, telHref, clinic } from '../data/clinic.ts';
+
+interface Props {
+  heading?: string;
+  text?: string;
+  label?: string;
+  /** Continue the Night band above (no seam). */
+  flat?: boolean;
+}
+const { flat = false, heading = 'Ready to have your skin looked at?', text = `Book an appointment at ${clinic.name} in ${clinic.address.neighbourhood}, or start with an online consultation.`, label = 'Book an appointment' } = Astro.props;
+---
+
+<Band tone="night" flat={flat} labelledby="cta-heading" class="cta-band">
+  <Stage scene="cta" behind p="1 / 1" />
+  <div class="container">
+    <div class="cta">
+      <h2 id="cta-heading">{heading}</h2>
+      <p>{text}</p>
+      <div class="cluster">
+        <Button href="/book-appointment/" icon="calendar" event="book_click">{label}</Button>
+        <Button href={whatsappHref} variant="whatsapp" event="whatsapp_click">Chat on WhatsApp</Button>
+        <a class="link" href={telHref} data-event="call_click">Call {clinic.phone.display}</a>
+      </div>
+    </div>
+  </div>
+</Band>
+
+<style>
+  .cta-band {
+    padding-block-end: var(--space-xl);
+    overflow-x: clip;
+  }
+</style>

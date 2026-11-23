@@ -1,0 +1,128 @@
+---
+/**
+ * The one contact form (§16), used on /book-appointment/ and /contact/.
+ * Collects the minimum (NDPA 2023), states the purpose, links the privacy policy, requires consent.
+ * Posts to the Cloudflare Pages Function /api/contact. Works without JS (plain form post).
+ */
+import Button from './Button.astro';
+import { clinic, whatsappHref, telHref } from '../data/clinic.ts';
+import { loadAll } from '../lib/content.ts';
+
+interface Props {
+  heading?: string;
+  id?: string;
+}
+const { heading = 'Send a booking request', id = 'contact-form' } = Astro.props;
+const all = await loadAll();
+const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+
+<form class="form-grid contact-form" id={id} method="post" action="/api/contact" data-contact-form novalidate>
+  <h2 class="contact-form__title">{heading}</h2>
+  <p class="meta">
+    We use these details only to arrange your appointment and reply to you. Please do not include detailed medical information here; you can
+    discuss that privately at your consultation. See our <a href="/privacy-policy/">privacy policy</a>.
+  </p>
+
+  <div class="form-row" data-group>
+    <div class="field">
+      <label for={`${id}-name`}>Your name</label>
+      <input class="input" id={`${id}-name`} name="name" type="text" autocomplete="name" required minlength="2" maxlength="80" />
+      <p class="field__error" data-error-for="name" hidden>Please enter your name.</p>
+    </div>
+    <div class="field">
+      <label for={`${id}-phone`}>Phone or WhatsApp number</label>
+      <input class="input" id={`${id}-phone`} name="phone" type="tel" inputmode="tel" autocomplete="tel" required pattern="[0-9+ ()\\-]{7,20}" aria-describedby={`${id}-phone-hint`} />
+      <p class="field__hint" id={`${id}-phone-hint`}>We will call or message you on this number.</p>
+      <p class="field__error" data-error-for="phone" hidden>Please enter a phone number we can reach you on.</p>
+    </div>
+  </div>
+
+  <div class="form-row" data-group>
+    <div class="field">
+      <label for={`${id}-date`}>Preferred date</label>
+      <input class="input" id={`${id}-date`} name="date" type="date" />
+    </div>
+    <div class="field">
+      <label for={`${id}-time`}>Preferred time</label>
+      <select class="select" id={`${id}-time`} name="time">
+        <option value="">No preference</option>
+        <option>Morning</option>
+        <option>Midday</option>
+        <option>Afternoon</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field" data-group>
+    <label for={`${id}-category`}>What is it about?</label>
+    <select class="select" id={`${id}-category`} name="category" required>
+      <option value="">Choose one</option>
+      {all.services.map((s) => <option value={s.data.navLabel}>{s.data.navLabel}</option>)}
+      <option value="Corporate enquiry">Corporate or workplace enquiry</option>
+      <option value="Not sure">Not sure yet</option>
+    </select>
+    <p class="field__error" data-error-for="category" hidden>Please choose the closest option.</p>
+  </div>
+
+  <div class="form-row" data-group>
+    <fieldset class="fieldset">
+      <legend>Have you been to the clinic before?</legend>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="patient" value="New" checked /> New patient</label>
+        <label class="choice"><input type="radio" name="patient" value="Returning" /> Returning patient</label>
+      </div>
+    </fieldset>
+    <fieldset class="fieldset">
+      <legend>How would you like to be seen?</legend>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="mode" value="In person" checked /> In person</label>
+        <label class="choice"><input type="radio" name="mode" value="Online consultation" /> Online consultation</label>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="field">
+    <label for={`${id}-message`}>Message <span class="meta">(optional)</span></label>
+    <textarea class="textarea" id={`${id}-message`} name="message" maxlength="1000" aria-describedby={`${id}-message-hint`}></textarea>
+    <p class="field__hint" id={`${id}-message-hint`}>A short note is enough, for example “rash on arms for two weeks”.</p>
+  </div>
+
+  <!-- Honeypot: hidden from people, tempting for bots -->
+  <div class="visually-hidden" aria-hidden="true">
+    <label for={`${id}-website`}>Leave this field empty</label>
+    <input id={`${id}-website`} name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <label class="check" data-group>
+    <input type="checkbox" name="consent" value="yes" required />
+    <span>
+      I agree that {clinic.name} may use these details to contact me about this request, as described in the
+      <a href="/privacy-policy/">privacy policy</a>.
+    </span>
+  </label>
+  <p class="field__error" data-error-for="consent" hidden>Please tick the box so we can contact you.</p>
+
+  {turnstileKey && <div class="cf-turnstile" data-sitekey={turnstileKey} data-theme="light" data-turnstile />}
+
+  <div class="cluster">
+    <Button type="submit" icon="calendar" data-submit>Send request</Button>
+    <p class="meta">Prefer to talk? <a href={whatsappHref} data-event="whatsapp_click">WhatsApp</a> or <a href={telHref} data-event="call_click">call {clinic.phone.display}</a>.</p>
+  </div>
+
+  <div class="form-status" role="status" aria-live="polite" data-status hidden></div>
+</form>
+
+<style>
+  .contact-form__title {
+    font-size: var(--step-2);
+  }
+  .contact-form a {
+    color: var(--link);
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  import '../scripts/contact-form.ts';
+</script>

@@ -1,0 +1,264 @@
+---
+/** /_styleguide/ (noindex, disallowed in robots.txt): every component and state on light and on Night, plus every 3D scene. */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Band from '../../components/Band.astro';
+import Button from '../../components/Button.astro';
+import Icon, { icons } from '../../components/Icon.astro';
+import Media from '../../components/Media.astro';
+import Stage from '../../components/Stage.astro';
+import Faq from '../../components/Faq.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Disclaimer from '../../components/Disclaimer.astro';
+import { whatsappHref } from '../../data/clinic.ts';
+import { heroPlaceholder } from '../../lib/hero.ts';
+
+export function getStaticPaths() {
+  return [{ params: { styleguide: '_styleguide' } }];
+}
+const colours = ['blush-100', 'blush-200', 'blush-400', 'blush-600', 'blush-700', 'blush-800', 'mist', 'leaf-400', 'leaf-700', 'leaf-100', 'night', 'night-2', 'night-3', 'grey-600', 'grey-300', 'white', 'skin-1', 'skin-3', 'skin-5'];
+const gradients = ['grad-night', 'grad-reading', 'grad-mist', 'grad-aurora', 'grad-cta', 'grad-rose', 'grad-blush', 'grad-leaf', 'grad-ink', 'grad-pearl'];
+const steps = ['step-5', 'step-4', 'step-3', 'step-2', 'step-1', 'step-0', 'step--1'];
+const faqs = [
+  { q: 'Does the accordion work without JavaScript?', a: 'Yes. It is a native details element, so it opens and closes in every browser, including [Opera Mini](/).' },
+  { q: 'Is the second item focusable with the keyboard?', a: 'Yes. Each summary is in the tab order and toggles with Enter or Space, with a visible focus ring.' },
+];
+const scenes: { scene: string; p: string; params?: Record<string, string | number> }[] = [
+  { scene: 'hero', p: '4 / 5', params: { ...heroPlaceholder, mode: 'profile' } },
+  { scene: 'cta', p: '16 / 9' },
+  { scene: 'skin', p: '1 / 1' },
+  { scene: 'figure', p: '3 / 4' },
+  { scene: 'melanocyte', p: '4 / 3' },
+  { scene: 'speech', p: '4 / 3' },
+  { scene: 'droplet', p: '1 / 1' },
+  { scene: 'pin', p: '16 / 10' },
+  { scene: 'bloom', p: '1 / 1' },
+  { scene: 'orbit', p: '1 / 1' },
+  { scene: 'lens', p: '1 / 1' },
+  { scene: 'cells', p: '4 / 3' },
+  { scene: 'scan', p: '1 / 1' },
+  { scene: 'slides', p: '4 / 3' },
+  { scene: 'follicles', p: '3 / 4' },
+  { scene: 'nail', p: '1 / 1' },
+  { scene: 'bubbles', p: '4 / 3' },
+  { scene: 'helix', p: '3 / 4' },
+  { scene: 'prism', p: '4 / 3' },
+  { scene: 'stitch', p: '4 / 3' },
+  { scene: 'mesh', p: '4 / 3' },
+  { scene: 'footprint', p: '3 / 4' },
+  { scene: 'twin', p: '3 / 4' },
+  { scene: 'ripple', p: '4 / 3' },
+  { scene: 'pulse', p: '16 / 9' },
+  { scene: 'wall', p: '4 / 3', params: { n: 48 } },
+  { scene: 'rings', p: '1 / 1' },
+  { scene: 'island', p: '4 / 3' },
+  { scene: 'orb', p: '1 / 1' },
+  { scene: 'constellation', p: '4 / 3' },
+  { scene: 'petal', p: '1 / 1' },
+];
+const patterns = ['smooth', 'bumps', 'plaques', 'patches', 'ridges', 'rings', 'dots', 'lines', 'scales', 'blisters', 'mottled'];
+const accents = ['blush', 'pearl', 'deep', 'rose'];
+---
+
+<BaseLayout seoTitle="Styleguide" description="Internal styleguide for the O.C Clinics website: tokens, components and 3D scenes on light and Night surfaces. Not for public use." path="/_styleguide/" noindex searchable={false}>
+  <Band tone="night" first as="div">
+    <div class="container stack">
+      <Breadcrumbs crumbs={[{ label: 'Styleguide', href: '/_styleguide/' }]} />
+      <h1>Styleguide</h1>
+      <p class="lead">Every token, component and state, on light and on Night. Scenes are listed at the end.</p>
+    </div>
+  </Band>
+
+  <Band tone="reading">
+    <div class="container stack" style="--stack: var(--space-xl)">
+      <section class="stack">
+        <h2>Colour</h2>
+        <ul class="sg-swatches" role="list">
+          {colours.map((c) => <li><span class="sg-swatch" style={`background: var(--${c})`} /><code>--{c}</code></li>)}
+        </ul>
+        <h3>Gradients</h3>
+        <ul class="sg-swatches sg-swatches--wide" role="list">
+          {gradients.map((g) => <li><span class="sg-swatch" style={`background: var(--${g})`} /><code>--{g}</code></li>)}
+        </ul>
+      </section>
+
+      <section class="stack">
+        <h2>Type</h2>
+        {steps.map((s) => <p style={`font-size: var(--${s}); font-family: ${s === 'step-0' || s === 'step--1' ? 'var(--font-body)' : 'var(--font-display)'}; line-height: 1.15`}>{s}: Skin, hair and nail care in Lagos</p>)}
+        <p class="lead">Lead paragraph: the first 40–60 words answer the question directly.</p>
+        <p>Body text at 16–18px with a measure of about 68 characters, so long passages stay comfortable to read on a phone and on a wide screen alike.</p>
+      </section>
+
+      <section class="stack">
+        <h2>Buttons on light</h2>
+        <div class="cluster">
+          <Button href="#" icon="calendar">Book an appointment</Button>
+          <Button href="#" variant="secondary">Secondary</Button>
+          <Button href={whatsappHref} variant="whatsapp">Chat on WhatsApp</Button>
+          <a class="link" href="#">Tertiary link</a>
+        </div>
+        <div class="cluster">
+          <Button loading>Loading</Button>
+          <Button disabled>Disabled</Button>
+          <Button variant="secondary" disabled>Disabled</Button>
+          <Button size="small">Small</Button>
+        </div>
+        <h3>Chips</h3>
+        <div class="cluster">
+          <a class="chip" href="#">Pink chip</a>
+          <a class="chip chip--blush" href="#">Blush chip</a>
+          <a class="chip chip--leaf" href="#">Leaf chip</a>
+          <span class="chip chip--static">Static label</span>
+        </div>
+      </section>
+
+      <section class="stack">
+        <h2>Panels and callouts</h2>
+        <div class="card-grid">
+          <article class="panel panel--light"><h3>Light panel</h3><p>White-to-mist gradient, gradient hairline border, blue-tinted shadow.</p></article>
+          <article class="panel panel--light panel--feature tilt"><h3>Feature panel</h3><p>28px radius. Tilts toward a fine pointer and lifts 4px.</p></article>
+        </div>
+        <aside class="callout callout--derm" role="note"><p class="callout__title">See a dermatologist if</p><ul><li>a rash has lasted more than two weeks</li><li>a mole is changing</li></ul></aside>
+        <aside class="callout callout--urgent" role="note"><p class="callout__title">Urgent care</p><p>Stronger blush gradient, icon, Night text.</p></aside>
+        <aside class="callout callout--know" role="note"><p class="callout__title">Did you know</p><p>Leaf gradient for facts worth remembering.</p></aside>
+        <aside class="callout callout--avoid" role="note"><p class="callout__title">What to avoid</p><p>Glacier gradient for things not to do.</p></aside>
+        <Disclaimer />
+      </section>
+
+      <section class="stack">
+        <h2>Form controls</h2>
+        <form class="form-grid" onsubmit="return false">
+          <div class="form-row">
+            <div class="field"><label for="sg-a">Text input</label><input class="input" id="sg-a" placeholder="Placeholder" /></div>
+            <div class="field"><label for="sg-b">Invalid input</label><input class="input" id="sg-b" aria-invalid="true" value="Not valid" /><p class="field__error">Please enter a valid value.</p></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="sg-c">Select</label><select class="select" id="sg-c"><option>One</option><option>Two</option></select></div>
+            <div class="field"><label for="sg-d">Textarea</label><textarea class="textarea" id="sg-d"></textarea><p class="field__hint">Hint text sits under the field.</p></div>
+          </div>
+          <fieldset class="fieldset"><legend>Radio group</legend><div class="choices"><label class="choice"><input type="radio" name="sg-r" checked /> First</label><label class="choice"><input type="radio" name="sg-r" /> Second</label></div></fieldset>
+          <label class="check"><input type="checkbox" checked /><span>Checkbox with a label that can wrap onto a second line on narrow screens.</span></label>
+          <div class="form-status" data-state="success">Success status message.</div>
+          <div class="form-status" data-state="error">Error status message.</div>
+        </form>
+      </section>
+
+      <section class="stack">
+        <h2>Accordion, steps, table</h2>
+        <Faq faqs={faqs} heading="Accordion" level="h3" id="sg-faq" />
+        <ol class="steps"><li><div><h3>Step title</h3><p>Step description.</p></div></li><li><div><h3>Second step</h3><p>Step description.</p></div></li></ol>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="Example table"><table><thead><tr><th>Type</th><th>Looks like</th><th>Treated with</th></tr></thead><tbody><tr><td>One</td><td>Description</td><td>Treatment</td></tr><tr><td>Two</td><td>Description</td><td>Treatment</td></tr></tbody></table></div>
+      </section>
+
+      <section class="stack">
+        <h2>Image placeholders (registry images that are not supplied yet)</h2>
+        <div class="card-grid">
+          <Media id="services/consultation" />
+          <Media id="services/childrens-skin" />
+          <Media id="services/pharmacy" />
+          <Media id="real/specialist-portrait" />
+        </div>
+      </section>
+
+      <section class="stack">
+        <h2>Icons</h2>
+        <ul class="sg-icons" role="list">
+          {Object.keys(icons).map((name) => <li><Icon name={name} size="l" /><code>{name}</code></li>)}
+        </ul>
+      </section>
+    </div>
+  </Band>
+
+  <Band tone="night">
+    <div class="container stack" style="--stack: var(--space-xl)">
+      <section class="stack">
+        <h2>On Night</h2>
+        <div class="cluster">
+          <Button href="#" icon="calendar">Book an appointment</Button>
+          <Button href="#" variant="secondary">Secondary</Button>
+          <Button href={whatsappHref} variant="whatsapp">Chat on WhatsApp</Button>
+          <a class="link" href="#">Tertiary link</a>
+          <a class="chip" href="#">Chip</a>
+        </div>
+        <div class="card-grid">
+          <article class="panel panel--glass"><h3>Glass panel</h3><p>White 9% → 3% gradient, backdrop blur, aurora hairline, coloured glow on hover.</p></article>
+          <article class="panel panel--glass panel--feature tilt"><h3>Glass feature panel</h3><p>Tilts toward the pointer.</p></article>
+        </div>
+        <Faq faqs={faqs} heading="Accordion on Night" level="h3" id="sg-faq-night" />
+        <ul class="sg-icons" role="list">
+          {['phone', 'calendar', 'pin', 'lens', 'helix', 'prism', 'pulse'].map((name) => <li><Icon name={name} size="l" /><code>{name}</code></li>)}
+        </ul>
+      </section>
+
+      <section class="stack">
+        <h2>3D scenes on Night</h2>
+        <div class="sg-scenes">
+          {scenes.map((s) => (
+            <figure>
+              <Stage scene={s.scene} p={s.p} params={s.params ?? {}} />
+              <figcaption><code>{s.scene}</code></figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+    </div>
+  </Band>
+
+  <Band tone="mist">
+    <div class="container stack" style="--stack: var(--space-l)">
+      <h2>Condition specimens and scenes on light</h2>
+      <div class="sg-scenes">
+        {patterns.map((p, i) => (
+          <figure>
+            <Stage scene="specimen" poster={`specimen--sg-${p}`} p="1 / 1" params={{ pattern: p, tone: 0.15 + (i % 5) * 0.2, density: 0.5, accent: accents[i % 4], seed: i / 11 }} />
+            <figcaption><code>{p}</code></figcaption>
+          </figure>
+        ))}
+        {['rings', 'droplet', 'figure', 'constellation', 'orb', 'helix'].map((s) => (
+          <figure>
+            <Stage scene={s} poster={`${s}--light`} p="1 / 1" />
+            <figcaption><code>{s} (light)</code></figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </Band>
+</BaseLayout>
+
+<style>
+  .sg-swatches {
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  }
+  .sg-swatches--wide {
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  }
+  .sg-swatch {
+    display: block;
+    height: 4rem;
+    border-radius: var(--r-field);
+    border: 1px solid var(--grey-300);
+  }
+  code {
+    font-size: var(--step--1);
+  }
+  .sg-icons {
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+  }
+  .sg-icons li {
+    display: grid;
+    gap: var(--space-3xs);
+    justify-items: center;
+  }
+  .sg-scenes {
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    align-items: end;
+  }
+  .sg-scenes figure {
+    margin: 0;
+  }
+</style>

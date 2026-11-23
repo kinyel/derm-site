@@ -1,0 +1,31 @@
+---
+/** Legal pages (§9.6): plain reading layout, ribbon seam only. Content in src/content/legal/*.md. */
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Band from '../components/Band.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { formatDate, isoDate } from '../lib/content.ts';
+import { fillDeep } from '../lib/facts.ts';
+import { pageSchema } from '../lib/schema.ts';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('legal');
+  return pages.map((entry) => ({ params: { legal: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const d = fillDeep(entry.data);
+const { Content } = await render(entry);
+const path = `/${entry.id}/`;
+const crumbs = [{ label: d.title, href: path }];
+---
+
+<BaseLayout seoTitle={d.seoTitle} description={d.description} path={path} crumbs={crumbs} schema={[pageSchema({ path, title: d.seoTitle, description: d.description, updatedOn: d.updatedOn })]} searchType="Policy">
+  <Band tone="reading" first as="div">
+    <div class="container container--narrow stack">
+      <Breadcrumbs crumbs={crumbs} />
+      <h1>{d.title}</h1>
+      <p class="meta">Updated <time datetime={isoDate(d.updatedOn)}>{formatDate(d.updatedOn)}</time></p>
+      <div class="prose"><Content /></div>
+    </div>
+  </Band>
+</BaseLayout>

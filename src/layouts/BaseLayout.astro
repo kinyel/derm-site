@@ -1,0 +1,144 @@
+---
+/**
+ * Base layout: <head> SEO, fonts, the single 3D canvas, navigation, footer, dock.
+ * Every page goes through here, so head tags and JSON-LD are generated from data in one place.
+ */
+import '../styles/fonts.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/components.css';
+import '../styles/nav.css';
+import font400Url from '@fontsource/alegreya-sans/files/alegreya-sans-latin-400-normal.woff2?url';
+import font500Url from '@fontsource/alegreya-sans/files/alegreya-sans-latin-500-normal.woff2?url';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import ActionDock from '../components/ActionDock.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
+import { clinic, abs } from '../data/clinic.ts';
+import { fullTitle } from '../lib/content.ts';
+import { graph, breadcrumbSchema, websiteSchema, clinicRef, clinicSchema } from '../lib/schema.ts';
+import { tokens } from '../lib/tokens.ts';
+
+interface Props {
+  /** Title without the clinic suffix. */
+  seoTitle: string;
+  description: string;
+  path: string;
+  /** Nav section to mark as current: services | conditions | learn | about | contact */
+  section?: string;
+  crumbs?: { label: string; href: string }[];
+  schema?: (Record<string, unknown> | undefined)[];
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  /** Pagefind: index this page's <main>. */
+  searchable?: boolean;
+  /** Pagefind filter, e.g. "Condition". */
+  searchType?: string;
+  bodyClass?: string;
+}
+const {
+  seoTitle,
+  description,
+  path,
+  section,
+  crumbs = [],
+  schema = [],
+  ogImage,
+  ogType = 'website',
+  noindex = false,
+  searchable = true,
+  searchType,
+  bodyClass,
+} = Astro.props;
+
+const title = fullTitle(seoTitle, clinic.shortName);
+const canonical = abs(path);
+const ogSlug = path === '/' ? 'home' : path.replace(/^\/|\/$/g, '').replace(/\//g, '--');
+const og = abs(ogImage ?? `/og/${ogSlug}.png`);
+// Every page carries the clinic's name, address, hours and areaServed (§14.1.5), unless the page supplies a fuller clinic node itself.
+const hasClinic = schema.some((n) => n && (n as Record<string, unknown>)['@id'] === clinicRef['@id'] && 'address' in (n as object));
+const jsonLd = graph(websiteSchema(), hasClinic ? undefined : clinicSchema(), crumbs.length ? breadcrumbSchema([{ label: 'Home', href: '/' }, ...crumbs]) : undefined, ...schema);
+const ga4 = import.meta.env.PUBLIC_GA4_ID;
+const clarity = import.meta.env.PUBLIC_CLARITY_ID;
+---
+
+<!doctype html>
+<html lang="en-NG">
+  <head>
+    <meta charset="utf-8" />
+    <!-- Cascade layer order must be declared before any stylesheet: build chunks can load in any order (see DECISIONS D53). -->
+    <style is:inline>@layer reset, tokens, base, layout, components, utilities;</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="preload" href={font400Url} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={font500Url} as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content={tokens().night} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:site_name" content={clinic.name} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={seoTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_NG" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={seoTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={og} />
+    <meta name="format-detection" content="telephone=no" />
+    <script type="application/ld+json" set:html={jsonLd} />
+    <noscript><link rel="stylesheet" href="/no-js.css" /></noscript>
+    <slot name="head" />
+  </head>
+  <body class={bodyClass} id="top" data-ga4={ga4 || undefined} data-clarity={clarity || undefined}>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Shared gradients for icon strokes and the logo (§10.8) -->
+    <svg width="0" height="0" class="visually-hidden" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="icon-grad" gradientUnits="userSpaceOnUse" x1="2" y1="2" x2="22" y2="22">
+          <stop offset="0" style="stop-color:var(--glacier-600)"></stop>
+          <stop offset="1" style="stop-color:var(--blush-600)"></stop>
+        </linearGradient>
+        <linearGradient id="icon-grad-night" gradientUnits="userSpaceOnUse" x1="2" y1="2" x2="22" y2="22">
+          <stop offset="0" style="stop-color:var(--glacier-400)"></stop>
+          <stop offset="1" style="stop-color:var(--blush-400)"></stop>
+        </linearGradient>
+        <linearGradient id="icon-grad-leaf" gradientUnits="userSpaceOnUse" x1="2" y1="2" x2="22" y2="22">
+          <stop offset="0" style="stop-color:var(--leaf-100)"></stop>
+          <stop offset="1" style="stop-color:var(--leaf-400)"></stop>
+        </linearGradient>
+        <linearGradient id="logo-grad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="40" y2="28">
+          <stop offset="0" style="stop-color:var(--blush-400)"></stop>
+          <stop offset="1" style="stop-color:var(--glacier-400)"></stop>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <canvas class="scene-canvas" data-scene-canvas aria-hidden="true" hidden></canvas>
+
+    <SiteNav current={section} />
+
+    <main id="main" data-pagefind-body={searchable && !noindex ? '' : undefined} data-pagefind-filter={searchType ? `type:${searchType}` : undefined}>
+      <slot />
+    </main>
+
+    <SiteFooter />
+    <ActionDock />
+    {(ga4 || clarity) && <ConsentBanner />}
+
+    <script>
+      import '../scripts/core.ts';
+    </script>
+  </body>
+</html>

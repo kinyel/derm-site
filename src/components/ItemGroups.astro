@@ -1,0 +1,57 @@
+---
+/**
+ * Every §2 item for a category, grouped as in the brief. An item links only when its page exists.
+ * Procedures filed under this category that no item mentions are added automatically (rule 4.9),
+ * and "coming-soon" procedures appear as plain text (§8.4).
+ */
+import { loadAll, resolveRef, paths, type Service } from '../lib/content.ts';
+
+interface Props {
+  service: Service;
+}
+const { service } = Astro.props;
+const all = await loadAll();
+
+type Row = { label: string; href?: string; note?: string };
+const groups = service.data.groups.map((g) => ({
+  heading: g.heading,
+  intro: g.intro,
+  items: g.items.map((it): Row => {
+    if (typeof it === 'string') return { label: it };
+    const link = resolveRef(all, it.to);
+    return { label: it.label, href: link?.href, note: it.note };
+  }),
+}));
+const linked = new Set(groups.flatMap((g) => g.items.map((i) => i.href)).filter(Boolean));
+const mine = all.procedures.filter((p) => (p.data.category === service.id || p.data.alsoIn.includes(service.id)) && !linked.has(paths.procedure(p)));
+const soon = all.comingSoon.filter((p) => p.data.category === service.id);
+for (const p of [...mine, ...soon]) {
+  const row: Row = p.data.status === 'published' ? { label: p.data.navLabel ?? p.data.title, href: paths.procedure(p) } : { label: p.data.navLabel ?? p.data.title, note: 'coming soon' };
+  const heading = p.data.group ?? 'Also at the clinic';
+  let g = groups.find((x) => x.heading === heading);
+  if (!g) {
+    g = { heading, intro: undefined, items: [] };
+    groups.push(g);
+  }
+  g.items.push(row);
+}
+---
+
+<div class="item-groups">
+  {
+    groups.map((g) => (
+      <section class="item-group">
+        <h3>{g.heading}</h3>
+        {g.intro && <p class="meta">{g.intro}</p>}
+        <ul>
+          {g.items.map((i) => (
+            <li>
+              {i.href ? <a href={i.href}>{i.label}</a> : <span>{i.label}</span>}
+              {i.note && <span class="meta">&nbsp;({i.note})</span>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</div>

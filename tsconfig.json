@@ -1,0 +1,12 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "src/**/*", "functions/**/*", "astro.config.ts", "keystatic.config.ts"],
+  "exclude": ["dist", "node_modules"],
+  "compilerOptions": {
+    "paths": { "@/*": ["./src/*"] },
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    "types": ["node"]
+  }
+}

@@ -1,0 +1,299 @@
+---
+/**
+ * Fade sequence (owner; D78, D81, rebuilt in D82): the first sections of the home page dissolve into one
+ * another in place. Nothing scrolls while it fades, nothing is ever blank, and nothing sits still.
+ *
+ * Markup (index.astro):
+ *   <FadeSequence>
+ *     <div class="fade-step fade-step--hero"><div class="fade-bg"></div><div class="fade-view">…section…</div></div>
+ *     <div class="fade-step"><div class="fade-bg"></div><div class="fade-view">…section…</div></div>
+ *     <div class="fade-step fade-step--self">…a section that pins itself (the staircase)…</div>
+ *   </FadeSequence>
+ *   Inside a section, `data-fade="text"` marks the words and `data-fade="visual"` the picture.
+ *
+ * How it works
+ *   HELD IN PLACE. Every section sits in a window the height of the screen that the browser itself holds
+ *   still (`position: sticky`). A section taller than the screen is moved up inside its window as you
+ *   scroll, so all of it is read; then it rests; then it hands over. The next section's window is pulled
+ *   up underneath (negative margin) and is already held in the same place when the hand-over starts.
+ *   Script never positions a window, so nothing can lag behind the scroll.
+ *
+ *   NEVER BLANK, NEVER ON TOP OF EACH OTHER. The hand-over is a dissolve in layers, each with its own
+ *   timing across the same stretch of scroll:
+ *     background   the next section's ground fades in over the current one (no dip to white)
+ *     words        the current words fade out, then the next words fade in: text is never over text
+ *     picture      the current picture dissolves into the next one, across the whole hand-over
+ *   So when one set of words has gone and the next has not arrived, the picture is mid-dissolve on screen.
+ *
+ *   NEVER STILL. While a section is held, its words and picture drift slowly against each other with the
+ *   scroll and the hero's 3D turns (the scene reads `stage.__seq`). (A rail of three dots at the right
+ *   edge was tried and removed at the owner's request.)
+ *
+ *   THE 3D. The hero's background lives in its own held layer BELOW the shared 3D canvas and the hero's
+ *   words in a layer ABOVE it, as they always were, so the portrait stays behind the text and the strip.
+ *   The portrait fades inside the engine (`stage.__fade`) in the frame it is drawn.
+ *
+ * Without JavaScript, with reduced motion, or on a screen under 600px tall, none of this applies and the
+ * sections are an ordinary page. Content is never hidden from assistive technology: a section that is
+ * not on screen only stops taking clicks, and focusing or linking to anything inside it brings it up.
+ */
+---
+
+<div class="fade-seq" data-fade-seq>
+  <slot />
+</div>
+
+<style is:global>
+  .fade-bg {
+    display: none;
+  }
+  .fade-seq[data-on] {
+    --handover: 50vh;
+    --handover: 50svh;
+  }
+  .fade-seq[data-on] > .fade-step {
+    position: relative;
+  }
+  /* the held layers: ground below the 3D canvas, words above it */
+  .fade-seq[data-on] > .fade-step > .fade-bg,
+  .fade-seq[data-on] > .fade-step > .fade-view {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+  }
+  .fade-seq[data-on] > .fade-step > .fade-bg {
+    display: block;
+    z-index: 0;
+    margin-block-end: -100vh;
+    margin-block-end: -100svh;
+    background: var(--step-bg, var(--white));
+    opacity: var(--fade-bg, 1);
+  }
+  .fade-seq[data-on] > .fade-step > .fade-view {
+    z-index: var(--z-content);
+    overflow: clip;
+  }
+  .fade-seq[data-on] > .fade-step--hero {
+    --step-bg: var(--scrim-light-inline), var(--grad-hero);
+  }
+  @media (max-width: 63.99em) and (orientation: portrait) {
+    .fade-seq[data-on] > .fade-step--hero {
+      --step-bg: var(--scrim-light-block), var(--grad-hero);
+    }
+  }
+  /* the section's own ground is painted by .fade-bg here */
+  .fade-seq[data-on] > .fade-step > .fade-view > .band::before,
+  .fade-seq[data-on] > .fade-step > .fade-view .hero__scrim {
+    display: none;
+  }
+  .fade-seq[data-on] > .fade-step:not(.fade-step--self) {
+    height: calc(100vh + var(--len, 0px));
+    height: calc(100svh + var(--len, 0px));
+  }
+  /* a section taller than the screen moves up inside its window */
+  .fade-seq[data-on] > .fade-step > .fade-view > * {
+    min-height: 100%;
+    transform: translate3d(0, calc(var(--inner, 0px) * -1), 0);
+  }
+  /* held at the top of the screen, a section needs room for the navigation bar above its label */
+  .fade-seq[data-on] > .fade-step > .fade-view > .band:not(.hero) {
+    display: grid;
+    align-content: center;
+    padding-block-start: max(var(--space-xl), calc(var(--nav-h) + var(--space-m)));
+  }
+  /* the next section waits underneath, already in place when the hand-over starts */
+  .fade-seq[data-on] > .fade-step + .fade-step {
+    margin-block-start: calc(-100vh - var(--handover));
+    margin-block-start: calc(-100svh - var(--handover));
+  }
+  .fade-seq[data-on] > .fade-step--self > .band::before {
+    opacity: var(--fade-bg, 1);
+  }
+  /* layers */
+  .fade-seq[data-on] [data-fade='text'] {
+    opacity: var(--fade-text, 1);
+    translate: 0 calc(var(--fade-rise, 0px) + var(--drift, 0) * -22px);
+  }
+  /* words that must not drift (the hero's strip is flush with the foot of the hero) */
+  .fade-seq[data-on] [data-fade='fixed'] {
+    opacity: var(--fade-text, 1);
+  }
+  .fade-seq[data-on] [data-fade='visual'] {
+    opacity: var(--fade-visual, 1);
+    translate: 0 calc(var(--drift, 0) * 26px - 13px);
+    scale: calc(1 + var(--drift, 0) * 0.035);
+  }
+  /* the hero's static picture (no 3D): the same fade as the 3D gets */
+  .fade-seq[data-on] > .fade-step > .fade-view > .hero > .stage {
+    opacity: var(--fade-visual, 1);
+  }
+  .fade-seq[data-on] > .fade-step[data-inert] {
+    pointer-events: none;
+  }
+  .fade-seq[data-on] > .fade-step[data-faded] > * {
+    opacity: 0;
+  }
+  /* A section still waiting its turn is parked below the screen as well as invisible, so it never lies
+     over the section being read (it is invisible either way; this keeps hit-testing and contrast checks
+     honest). It is back in place, still at zero, in the frame its hand-over begins. */
+  .fade-seq[data-on] > .fade-step[data-faded='next'] > * {
+    translate: 0 100vh;
+  }
+</style>
+
+<script>
+  type Stage = HTMLElement & { __fade?: number; __seq?: number };
+  type Lenis = { scrollTo(y: number, o?: { immediate?: boolean }): void };
+
+  /* Lengths as shares of the screen's height */
+  const HANDOVER = 0.5; // must match --handover
+  const DWELL_FIRST = 0.42; // the hero has been on screen since the page opened
+  const DWELL = 0.55;
+
+  function initFadeSequence(root: HTMLElement) {
+    const steps = [...root.querySelectorAll<HTMLElement>(':scope > .fade-step')];
+    if (steps.length < 2) return;
+    const views = steps.map((s) => s.querySelector<HTMLElement>(':scope > .fade-view'));
+    const bands = views.map((v) => (v?.firstElementChild as HTMLElement | null) ?? null);
+    const stages = steps.map((s) => [...s.querySelectorAll<Stage>('[data-scene]')]);
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const tall = window.matchMedia('(min-height: 37.5em)');
+    const last = steps.length - 1;
+    const geo = steps.map(() => ({ lead: 0, overflow: 0, dwell: 0, len: 0 }));
+    let T = 0;
+    let enabled = false;
+    let frame = 0;
+
+    const clamp = (t: number) => Math.min(1, Math.max(0, t));
+    const smooth = (t: number) => t * t * (3 - 2 * t);
+    const ramp = (q: number, from: number, to: number) => smooth(clamp((q - from) / (to - from)));
+
+    const measure = () => {
+      if (!enabled) return;
+      const V = views[0]?.clientHeight || window.innerHeight;
+      T = Math.round(V * HANDOVER);
+      steps.forEach((step, i) => {
+        const g = geo[i];
+        g.lead = i === 0 ? 0 : T;
+        if (i === last || !bands[i]) {
+          // a section that pins itself starts its own show after the hand-over
+          step.style.setProperty('--spiral-lead', `${T}px`);
+          return;
+        }
+        g.overflow = Math.max(0, bands[i]!.offsetHeight - V);
+        g.dwell = Math.round(V * (i === 0 ? DWELL_FIRST : DWELL));
+        g.len = g.lead + g.overflow + g.dwell + T;
+        step.style.setProperty('--len', `${g.len}px`);
+      });
+      window.dispatchEvent(new Event('fadeseq:measure'));
+    };
+
+    const update = () => {
+      frame = 0;
+      if (!enabled) return;
+      // q[i]: how far the hand-over from section i to section i+1 has gone
+      const q = steps.map(() => 0);
+      const scrolled = steps.map((s) => -s.getBoundingClientRect().top);
+      for (let i = 0; i < last; i++) {
+        const g = geo[i];
+        q[i] = clamp((scrolled[i] - g.lead - g.overflow - g.dwell) / (T || 1));
+      }
+      steps.forEach((step, i) => {
+        const g = geo[i];
+        const qin = i === 0 ? 1 : q[i - 1];
+        const qout = i === last ? 0 : q[i];
+        // words: out over the first 42%, in from 40% (never both up); picture: an equal cross-dissolve
+        // through the middle, so when the words are between sections both pictures are at about 65%
+        const textIn = i === 0 ? 1 : ramp(qin, 0.4, 0.82);
+        const text = Math.min(textIn, 1 - ramp(qout, 0, 0.42));
+        const visual = Math.min(i === 0 ? 1 : ramp(qin, 0.2, 0.7), 1 - ramp(qout, 0.3, 0.8));
+        const bg = i === 0 ? 1 : ramp(qin, 0.06, 0.7);
+        const gone = (i > 0 && qin <= 0.001) || (i < last && qout >= 0.999);
+        step.style.setProperty('--fade-text', text.toFixed(3));
+        step.style.setProperty('--fade-visual', visual.toFixed(3));
+        step.style.setProperty('--fade-bg', bg.toFixed(3));
+        step.style.setProperty('--fade-rise', `${((1 - textIn) * 16 - ramp(qout, 0, 0.42) * 12).toFixed(1)}px`);
+        if (gone) step.setAttribute('data-faded', i > 0 && qin <= 0.001 ? 'next' : 'past');
+        else step.removeAttribute('data-faded');
+        step.toggleAttribute('data-inert', text < 0.5);
+        if (i < last) {
+          step.style.setProperty('--inner', `${Math.min(g.overflow, Math.max(0, scrolled[i] - g.lead)).toFixed(1)}px`);
+          // drift: 0 → 1 from the moment the section is fully in to the moment it has gone
+          const life = g.overflow + g.dwell + T;
+          step.style.setProperty('--drift', clamp((scrolled[i] - g.lead) / (life || 1)).toFixed(4));
+          stages[i].forEach((el) => {
+            el.__fade = gone ? 0 : visual;
+            el.__seq = clamp(scrolled[i] / (g.len || 1));
+          });
+        }
+      });
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    const onResize = () => {
+      measure();
+      onScroll();
+    };
+
+    /* Bringing something inside the sequence into view (keyboard focus, a link to an id): go to the
+       point where its section is fully shown, moved up inside its window far enough to show it. */
+    const reveal = (el: Element | null) => {
+      if (!enabled || !el) return;
+      const i = steps.findIndex((s) => s.contains(el));
+      if (i < 0 || !steps[i].hasAttribute('data-inert')) return;
+      const g = geo[i];
+      const top = steps[i].getBoundingClientRect().top + window.scrollY;
+      let inside = 0;
+      if (bands[i] && g.overflow > 0) {
+        const V = views[i]!.clientHeight;
+        const offset = el.getBoundingClientRect().top - bands[i]!.getBoundingClientRect().top;
+        inside = Math.min(g.overflow, Math.max(0, offset - V * 0.35));
+      }
+      const y = Math.round(top + g.lead + inside + 2);
+      const lenis = (window as Window & { __lenis?: Lenis }).__lenis;
+      if (lenis) lenis.scrollTo(y, { immediate: true });
+      else window.scrollTo(0, y);
+      update();
+    };
+    const onFocus = (e: FocusEvent) => reveal(e.target as Element);
+    const onHash = () => reveal(location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null);
+
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(onResize) : null;
+    const apply = () => {
+      enabled = !still.matches && tall.matches;
+      root.toggleAttribute('data-on', enabled);
+      if (enabled) {
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onResize, { passive: true });
+        window.addEventListener('hashchange', onHash);
+        root.addEventListener('focusin', onFocus);
+        bands.forEach((b) => b && observer?.observe(b));
+        measure();
+        update();
+        onHash();
+      } else {
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onResize);
+        window.removeEventListener('hashchange', onHash);
+        root.removeEventListener('focusin', onFocus);
+        observer?.disconnect();
+        steps.forEach((step, i) => {
+          ['--len', '--inner', '--drift', '--fade-text', '--fade-visual', '--fade-bg', '--fade-rise', '--spiral-lead'].forEach((v) => step.style.removeProperty(v));
+          step.removeAttribute('data-faded');
+          step.removeAttribute('data-inert');
+          stages[i].forEach((el) => {
+            delete el.__fade;
+            delete el.__seq;
+          });
+        });
+        window.dispatchEvent(new Event('fadeseq:measure'));
+      }
+    };
+    still.addEventListener('change', apply);
+    tall.addEventListener('change', apply);
+    apply();
+  }
+  document.querySelectorAll<HTMLElement>('[data-fade-seq]').forEach((el) => initFadeSequence(el));
+</script>

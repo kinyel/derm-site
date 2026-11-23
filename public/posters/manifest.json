@@ -1,0 +1,1879 @@
+{
+ "bloom": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "bubbles": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    300
+   ]
+  }
+ },
+ "cells": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    300
+   ]
+  }
+ },
+ "cells--phototherapy": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "constellation": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    300
+   ]
+  }
+ },
+ "constellation--light": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "cta": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    420,
+    420
+   ]
+  }
+ },
+ "droplet": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "droplet--light": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "figure": {
+  "variants": [
+   "p",
+   "l",
+   "d"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    533
+   ],
+   "l": [
+    360,
+    480
+   ],
+   "d": [
+    600,
+    750
+   ]
+  }
+ },
+ "figure--light": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "follicles": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    533
+   ]
+  }
+ },
+ "follicles--hair-transplant": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "follicles--prp-for-hair-loss": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "footprint": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    533
+   ]
+  }
+ },
+ "helix": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    533
+   ]
+  }
+ },
+ "helix--botox": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "helix--butt-filler": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "helix--chemical-peels": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "helix--dermal-fillers": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "helix--exosome-therapy": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "helix--labia-filler": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "helix--light": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "helix--medical-facials": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "helix--microneedling": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "helix--o-shot": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "helix--pdrn-treatment": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "helix--prp-microneedling": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "helix--skin-tightening": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "hero": {
+  "variants": [
+   "p",
+   "l",
+   "d"
+  ],
+  "sizes": {
+   "p": [
+    420,
+    887
+   ],
+   "l": [
+    900,
+    426
+   ],
+   "d": [
+    1440,
+    900
+   ]
+  }
+ },
+ "island": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    300
+   ]
+  }
+ },
+ "lens": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "lens--corporate-skin-screening": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "lens--online-consultation": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "melanocyte": {
+  "variants": [
+   "p",
+   "l",
+   "d"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    300
+   ],
+   "l": [
+    360,
+    270
+   ],
+   "d": [
+    600,
+    450
+   ]
+  }
+ },
+ "mesh": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    300
+   ]
+  }
+ },
+ "nail": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "orb": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "orb--light": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "orbit": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "path": {
+  "variants": [
+   "p",
+   "l",
+   "d"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    2400
+   ],
+   "l": [
+    360,
+    60
+   ],
+   "d": [
+    600,
+    75
+   ]
+  }
+ },
+ "petal": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "pin": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    250
+   ]
+  }
+ },
+ "prism": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    300
+   ]
+  }
+ },
+ "prism--erbium-yag-laser": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "prism--laser-hair-removal": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "prism--laser-pigmentation-removal": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "prism--laser-skin-resurfacing": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "prism--laser-tattoo-removal": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "prism--laser-vascular-treatment": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "prism--led-and-ipl": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "prism--pico-laser": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "prism--q-switch-laser": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "pulse": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    225
+   ]
+  }
+ },
+ "pulse--diabetes": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "pulse--general-medical-consultation": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "pulse--high-cholesterol": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "pulse--hypertension": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "pulse--infectious-diseases": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "rings": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "rings--light": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "ripple": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    300
+   ]
+  }
+ },
+ "scan": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "scan--mohs-surgery": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "scan--mole-mapping-and-dermoscopy": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "signal": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    420,
+    140
+   ]
+  }
+ },
+ "skin": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "slides": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    300
+   ]
+  }
+ },
+ "slides--fungal-tests": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "slides--patch-testing": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "slides--skin-biopsy": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "slides--trichoscopy": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--acne": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--acne-scars": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--alopecia-areata": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--athletes-foot": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--baby-eczema": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--birthmarks-and-haemangiomas": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--boils-and-abscesses": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--burns": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--cellulitis": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--chronic-itch": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--cold-sores": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--contact-dermatitis": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--corns-and-calluses": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--cracked-heels": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--cradle-cap": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--cutaneous-lupus": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--dark-underarms-inner-thighs-knees-and-neck": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--dermatosis-papulosa-nigra": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--diabetic-foot-ulcers": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--diaper-rash": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--eczema": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--enlarged-pores": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--female-pattern-hair-loss": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--folliculitis": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--fungal-nail-infection": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--genital-warts": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--hair-breakage": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--head-lice": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--heat-rash": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--hirsutism": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--hives": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--hyperhidrosis": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--hyperpigmentation": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--ichthyosis": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--impetigo": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--ingrown-hairs": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--ingrown-toenails": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--keloids": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--keratosis-pilaris": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--lichen-planus": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--lichen-sclerosus": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--male-pattern-hair-loss": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--melasma": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--moles": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--molluscum-contagiosum": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--nail-psoriasis": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--paronychia": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--pemphigoid": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--pemphigus": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--photodermatoses": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--pityriasis-rosea": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--pityriasis-versicolor": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--plantar-warts": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--post-inflammatory-hypopigmentation": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--pregnancy-skin-changes": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--psoriasis": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--razor-bumps": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--ringworm-and-fungal-skin-infections": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--rosacea": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--scabies": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--scalp-folliculitis": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--scarring-alopecia": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--seborrhoeic-dermatitis-and-dandruff": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--sg-blisters": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--sg-bumps": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--sg-dots": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--sg-lines": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--sg-mottled": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--sg-patches": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--sg-plaques": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--sg-ridges": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--sg-rings": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--sg-scales": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--sg-smooth": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--shingles": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--skin-allergies": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--skin-cancer-on-dark-skin": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--skin-damage-from-bleaching-and-steroid-creams": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--skin-tags": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--skin-tuberculosis": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--spider-veins": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--stretch-marks": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--telogen-effluvium": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--traction-alopecia": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--venous-leg-ulcers": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--vitiligo": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--warts": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "specimen--wrinkles-and-sun-damage": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "speech": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    300
+   ]
+  }
+ },
+ "stitch": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    300
+   ]
+  }
+ },
+ "stitch--cyst-and-lipoma-removal": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "stitch--mole-removal": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "stitch--scar-revision": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    400
+   ]
+  }
+ },
+ "twin": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    533
+   ]
+  }
+ },
+ "wall": {
+  "variants": [
+   "p"
+  ],
+  "sizes": {
+   "p": [
+    400,
+    300
+   ]
+  }
+ }
+}

@@ -1,0 +1,36 @@
+---
+/** "On this page": sticky rail on desktop, a disclosure on smaller screens. */
+interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+  extra?: { slug: string; text: string }[];
+}
+const { headings, extra = [] } = Astro.props;
+const items = [...headings.filter((h) => h.depth === 2).map((h) => ({ slug: h.slug, text: h.text })), ...extra];
+---
+
+{
+  items.length > 1 && (
+    <>
+      <nav class="toc desktop-only" aria-label="On this page" data-toc>
+        <p class="toc__title">On this page</p>
+        <ol>
+          {items.map((h) => (
+            <li>
+              <a href={`#${h.slug}`}>{h.text}</a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+      <details class="toc mobile-only panel panel--light">
+        <summary>On this page</summary>
+        <ol>
+          {items.map((h) => (
+            <li>
+              <a href={`#${h.slug}`}>{h.text}</a>
+            </li>
+          ))}
+        </ol>
+      </details>
+    </>
+  )
+}
