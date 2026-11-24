@@ -16,6 +16,8 @@
 >   headers and loads stylesheets in a different order; four bugs reached the live site that way (D84, D85). After `npm run build`
 >   use `node scripts/serve.mjs` (port 4173, live headers) for screenshots, and `node scripts/compare-live.mjs http://localhost:4331`
 >   to list every element that differs between the preview and the build.
+> - `node scripts/scroll-perf.mjs [--url=/] [--cpu=4] [--tier=2]` measures scroll smoothness on a slowed phone with the real GPU
+>   (D89). Scroll effects must write transform/opacity onto the moving element only, never inherited values on a section.
 > - `node scripts/fade-probe.mjs <outDir> "<url>?tier=2" [WxH]` steps through the home page's fade sequence;
 >   `node scripts/return-probe.mjs <outDir> "<url>?tier=2" [WxH]` scrolls away and back and checks the hero 3D still moves;
 >   `npm run test:cls` scans every page for layout shift with the fonts held back.
@@ -28,7 +30,7 @@
 
 ## Owner feedback received during the build (must be kept)
 
-Latest first; the newest instruction wins where two differ. Full reasoning in DECISIONS D23, D30–D38, D60–D88.
+Latest first; the newest instruction wins where two differ. Full reasoning in DECISIONS D23, D30–D38, D60–D89.
 
 0. **The clinic is in Victoria Island (Oniru), not Lagos Island** (D71). Never write that it is on or in Lagos Island, or
    "between" Victoria Island and Lekki. "Dermatologist in Lagos" (home) and "dermatologist in Lagos Island" (location page,
@@ -62,7 +64,7 @@ Latest first; the newest instruction wins where two differ. Full reasoning in DE
 
 ## Where the build stands (22 November 2026, end of session 4)
 
-**All ten phases are built, and the owner's redesign (design direction v4, DECISIONS D60–D88) is applied on top**: new
+**All ten phases are built, and the owner's redesign (design direction v4, DECISIONS D60–D89) is applied on top**: new
 type, colour, navigation, home page sections, spiral staircase and hero. Every check was re-run on the redesigned build.
 `docs/FINAL_REPORT.md` is the summary; regenerate it with `node scripts/final-report.mjs` after `npm run test:all`.
 
@@ -92,7 +94,7 @@ Worth doing in a later session:
 | Phase | Status |
 |---|---|
 | 1 Setup | ✅ |
-| 2 Design plan | ✅ `docs/DESIGN_PLAN.md` (colour, type, navigation and home layout are superseded by DECISIONS D60–D88) |
+| 2 Design plan | ✅ `docs/DESIGN_PLAN.md` (colour, type, navigation and home layout are superseded by DECISIONS D60–D89) |
 | 3 Foundation | ✅ tokens (palette v4), flat bands, navigation (D63), footer, dock, components, `/_styleguide/` |
 | 4 3D engine + hero | ✅ engine, 34 scenes, posters pipeline, depth script; Lighthouse passes on tested pages |
 | 5 Homepage | ✅ rebuilt to the owner's direction: hero (D65), spiral staircase (D64), sections on one header pattern (D67) |

@@ -477,12 +477,15 @@ const factory: SceneFactory = async (ctx) => {
           const seq = (ctx.stage as HTMLElement & { __seq?: number }).__seq;
           const r = ctx.stage.getBoundingClientRect();
           const target = seq !== undefined ? seq : r.height > 0 ? ease.clamp(-r.top / r.height) : 0;
-          scrolled = ease.damp(scrolled, target, 7, dt);
+          scrolled = ease.damp(scrolled, target, 5, dt);
         }
         p = scrolled;
       }
       // most of the scroll effect happens while the hero is still well in view
       const s1 = ease.inOut(ease.clamp(p / 0.7));
+      // Calmer on scroll (D89): strong depth relief stretched the picture at the edges of her hair and face,
+      // which read as glitching, most of all at phone size where she fills the screen.
+      const calm = window.innerWidth < 768 ? 0.45 : 1;
 
       // ribbons (profile page) unfurl once, then rotate and stream down with scroll
       ribbonMats.forEach((m, i) => {
@@ -494,9 +497,9 @@ const factory: SceneFactory = async (ctx) => {
 
       // Scrolling out: the camera moves in, the relief of the face deepens and the head turns a little
       // towards the text, so the portrait reads as a solid thing leaving, not a picture sliding away.
-      camera.position.z = BASE_Z - (mode === 'home' ? s1 * 1.15 : p * 0.9);
+      camera.position.z = BASE_Z - (mode === 'home' ? s1 * 0.7 * calm : p * 0.9);
       const breathe = Math.sin(time * 0.55);
-      portraitMat.uniforms.uStrength.value = 0.26 + (mode === 'home' ? s1 * 0.95 : p * 0.5) + (fine ? 0 : breathe * 0.05);
+      portraitMat.uniforms.uStrength.value = 0.26 + (mode === 'home' ? s1 * 0.34 * calm : p * 0.5) + (fine ? 0 : breathe * 0.03);
       portraitMat.uniforms.uFade.value = still ? 1 : ease.clamp(intro * 1.4);
 
       // pointer parallax within ±1.5°; touch devices breathe slowly instead
@@ -506,9 +509,9 @@ const factory: SceneFactory = async (ctx) => {
       rot.x = ease.damp(rot.x, tx, 3.5, dt);
       rot.y = ease.damp(rot.y, ty, 3.5, dt);
       const turn = mode === 'home' ? s1 : 0;
-      portraitGroup.rotation.set(rot.x + turn * 0.07, rot.y - turn * 0.3, 0);
-      (portraitMat.uniforms.uShift.value as THREE.Vector2).set(rot.y * (2.2 + p * 3) - turn * 0.1, -rot.x * (2.2 + p * 3));
-      portraitGroup.position.y = base.y + (mode === 'home' ? s1 * base.hh * 0.16 : p * base.hh * 0.18) + (1 - intro) * -0.25;
+      portraitGroup.rotation.set(rot.x + turn * 0.05 * calm, rot.y - turn * 0.2 * calm, 0);
+      (portraitMat.uniforms.uShift.value as THREE.Vector2).set(rot.y * 2.2 - turn * 0.05 * calm, -rot.x * 2.2);
+      portraitGroup.position.y = base.y + (mode === 'home' ? s1 * base.hh * 0.12 * calm : p * base.hh * 0.18) + (1 - intro) * -0.25;
 
       glows.forEach((g) => {
         g.mesh.position.x = (g.x + Math.sin(time * 0.07 + g.ph) * 0.12) * base.hw;

@@ -8,12 +8,12 @@ Lighthouse column: performance / SEO / accessibility / best practices from the l
 
 | # | Keyword | Owner page | Place | FAQ | Links | Local | Schema | Fresh | AI | Density | Words | Uses | Pages linking in | Lighthouse |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | dermatologist in Lagos | `/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1537 | 3 | 175 | 98 / 100 / 100 / 100 |
-| 2 | dermatologist near me | `/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1537 | 0 | 175 | 98 / 100 / 100 / 100 |
+| 1 | dermatologist in Lagos | `/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1537 | 3 | 175 | 99 / 100 / 100 / 100 |
+| 2 | dermatologist near me | `/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1537 | 0 | 175 | 99 / 100 / 100 / 100 |
 | 3 | dermatologist in Lekki | `/dermatologist-victoria-island-lekki/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1172 | 3 | 167 | 100 / 100 / 100 / 100 |
 | 4 | dermatologist in Victoria Island | `/dermatologist-victoria-island-lekki/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1172 | 4 | 167 | 100 / 100 / 100 / 100 |
 | 5 | dermatologist on the Island *(also: dermatologist in Lagos Island)* | `/dermatologist-victoria-island-lekki/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1172 | 3 | 167 | 100 / 100 / 100 / 100 |
-| 6 | skin doctor on the Island *(also: skin doctor in Lagos, skin specialist in Lagos)* | `/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1537 | 1 | 175 | 98 / 100 / 100 / 100 |
+| 6 | skin doctor on the Island *(also: skin doctor in Lagos, skin specialist in Lagos)* | `/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1537 | 1 | 175 | 99 / 100 / 100 / 100 |
 | 7 | skin clinic in Lekki *(also: skin clinic Victoria Island)* | `/dermatologist-victoria-island-lekki/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1172 | 1 | 167 | 100 / 100 / 100 / 100 |
 | 8 | female dermatologist in Lagos | `/about/lead-dermatologist/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 929 | 4 | 7 | 99 / 100 / 100 / 100 |
 | 9 | online dermatologist consultation Nigeria | `/services/dermatology-consultations/online-consultation/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1415 | 4 | 40 | 100 / 100 / 100 / 100 |

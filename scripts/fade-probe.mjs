@@ -6,7 +6,7 @@ import { chromium } from '@playwright/test';
 import path from 'node:path';
 const [outDir, url, size = '1440x900'] = process.argv.slice(2);
 const [w, h] = size.split('x').map(Number);
-const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+const browser = await chromium.launch({ args: ['--use-angle=metal', '--enable-gpu-rasterization', '--ignore-gpu-blocklist'] });
 const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1, hasTouch: w < 1024, isMobile: w < 1024 });
 const page = await ctx.newPage();
 const errors = [];
@@ -19,21 +19,21 @@ const info = await page.evaluate(() => {
 });
 console.log(JSON.stringify(info));
 const end = info.tops[2] + info.handover + 260;
-const N = 30;
+const N = 60;
 let problems = 0;
 for (let k = 0; k <= N; k++) {
   const y = Math.round((end * k) / N);
   await page.evaluate((yy) => window.scrollTo(0, yy), y);
   await page.waitForTimeout(650);
   const st = await page.evaluate(() => [...document.querySelectorAll('.fade-step')].map((s) => {
-    const cs = getComputedStyle(s);
-    const num = (v) => { const x = cs.getPropertyValue(v).trim(); return x === '' ? 1 : Number(x); };
+    const op = (el) => (el ? Number(getComputedStyle(el).opacity) : 1);
+    const max = (sel) => Math.max(0, ...[...s.querySelectorAll(sel)].map(op));
     const win = s.querySelector(':scope > .fade-view') ?? s.querySelector('.spiral__viewport') ?? s;
-    return { text: num('--fade-text'), visual: num('--fade-visual'), bg: num('--fade-bg'), top: Math.round(win.getBoundingClientRect().top), gone: s.hasAttribute('data-faded') };
+    return { text: max('[data-fade="text"]'), visual: max('[data-fade="visual"]'), bg: op(s.querySelector(':scope > .fade-bg')), top: Math.round(win.getBoundingClientRect().top), gone: s.hasAttribute('data-faded') };
   }));
   const vis = st.map((x) => (x.gone ? { ...x, text: 0, visual: 0, bg: 0 } : x));
   const most = Math.max(...vis.map((x) => Math.max(x.text, x.visual)));
-  const twoTexts = vis.filter((x) => x.text > 0.08).length > 1;
+  const twoTexts = vis.filter((x) => x.text > 0.02).length > 1 || vis.filter((x) => x.visual > 0.02).length > 1;
   const moving = vis.some((x) => Math.max(x.text, x.visual) > 0.05 && Math.abs(x.top) > 2);
   const flag = `${most < 0.5 ? ' BLANK' : ''}${twoTexts ? ' TEXT-OVER-TEXT' : ''}${moving ? ' MOVING' : ''}`;
   if (flag) problems++;

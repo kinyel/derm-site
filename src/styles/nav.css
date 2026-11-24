@@ -32,14 +32,16 @@
       backdrop-filter: blur(14px) saturate(150%);
     }
   }
-  .nav::after {
-    content: '';
+  /* Scroll progress line. Its own element, moved with a transform written straight onto it, so a scroll
+     frame restyles one element, not the whole navigation and its menus (D89). */
+  .nav__progress {
     position: absolute;
     inset: auto 0 -1px 0;
     height: 2px;
     background: var(--grad-aurora);
     transform-origin: 0 50%;
-    scale: var(--scroll, 0) 1;
+    transform: scaleX(0);
+    will-change: transform;
     pointer-events: none;
   }
   /* Over the dark home hero: no ground, light text. */

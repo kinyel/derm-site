@@ -233,9 +233,21 @@ function initNav() {
   /* ----- condense after the hero, hide on fast downward scroll ----- */
   const hero = $('[data-hero]') ?? $('main > :first-child');
   const overDark = nav.hasAttribute('data-over-dark');
+  const progress = $<HTMLElement>('[data-nav-progress]', nav);
   let lastY = window.scrollY;
   let lastT = performance.now();
   let ticking = false;
+  // Measured once and again only when the page's size changes, never inside a scroll frame (D89): reading
+  // layout there, after other scroll effects have written styles, forces the browser to lay out mid-frame.
+  let heroEnd = 400;
+  let maxY = 1;
+  let navH = 72;
+  const measure = () => {
+    heroEnd = hero ? hero.offsetTop + hero.offsetHeight - 120 : 400;
+    maxY = Math.max(1, doc.scrollHeight - window.innerHeight);
+    navH = nav.offsetHeight;
+  };
+  let lastP = '';
   const onScroll = () => {
     if (ticking) return;
     ticking = true;
@@ -244,20 +256,21 @@ function initNav() {
       const now = performance.now();
       const dy = y - lastY;
       const velocity = dy / Math.max(now - lastT, 1); // px per ms
-      const heroEnd = hero ? hero.offsetTop + hero.offsetHeight - 120 : 400;
       nav.classList.toggle('is-condensed', y > heroEnd);
       // transparent with light text only while the dark home hero is under the bar
-      if (overDark) nav.classList.toggle('is-over-dark', y < heroEnd + 120 - nav.offsetHeight);
-      const max = doc.scrollHeight - window.innerHeight;
-      nav.style.setProperty('--scroll', max > 0 ? Math.min(1, y / max).toFixed(4) : '0');
+      if (overDark) nav.classList.toggle('is-over-dark', y < heroEnd + 120 - navH);
+      const p = `scaleX(${Math.min(1, Math.max(0, y / maxY)).toFixed(3)})`;
+      if (progress && p !== lastP) progress.style.transform = lastP = p;
       if (dy < 0 || y < 80) nav.classList.remove('is-hidden');
       else if (velocity > 0.9 && y > heroEnd && !openItem && !sheetOpen()) nav.classList.add('is-hidden');
       lastY = y;
       lastT = now;
       ticking = false;
-      if (!nav.classList.contains('is-hidden')) settle();
     });
   };
+  measure();
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => { measure(); onScroll(); }).observe(document.body);
+  window.addEventListener('resize', measure, { passive: true });
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 }

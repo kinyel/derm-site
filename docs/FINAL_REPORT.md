@@ -35,20 +35,20 @@ Generated on 2026-11-24 by `node scripts/final-report.mjs` from the current buil
 | Template | URL | Perf | SEO | A11y | Best practices | LCP | CLS | TBT | Budgets |
 |---|---|---|---|---|---|---|---|---|---|
 | Home | `/` | 99 | 100 | 100 | 100 | 2.0s | 0.000 | 0ms | ✓ |
-| About | `/about/` | 99 | 100 | 100 | 100 | 2.0s | 0.000 | 0ms | ✓ |
+| About | `/about/` | 100 | 100 | 100 | 100 | 1.8s | 0.000 | 0ms | ✓ |
 | Lead dermatologist profile | `/about/lead-dermatologist/` | 99 | 100 | 100 | 100 | 1.8s | 0.000 | 0ms | ✓ |
-| Your visit | `/your-visit/` | 99 | 100 | 100 | 100 | 2.1s | 0.000 | 0ms | ✓ |
-| Services hub | `/services/` | 99 | 100 | 100 | 100 | 2.3s | 0.000 | 0ms | ✓ |
+| Your visit | `/your-visit/` | 99 | 100 | 100 | 100 | 2.0s | 0.000 | 0ms | ✓ |
+| Services hub | `/services/` | 98 | 100 | 100 | 100 | 2.3s | 0.000 | 0ms | ✓ |
 | Category | `/services/aesthetic-treatments/` | 100 | 100 | 100 | 100 | 1.2s | 0.000 | 0ms | ✓ |
 | Procedure | `/services/aesthetic-treatments/botox/` | 99 | 100 | 100 | 100 | 1.8s | 0.000 | 0ms | ✓ |
-| Conditions hub | `/conditions/` | 99 | 100 | 100 | 100 | 2.0s | 0.000 | 0ms | ✓ |
+| Conditions hub | `/conditions/` | 99 | 100 | 100 | 100 | 2.0s | 0.025 | 0ms | ✓ |
 | Condition | `/conditions/acne/` | 100 | 100 | 100 | 100 | 1.2s | 0.000 | 0ms | ✓ |
 | Learn hub | `/blog/` | 100 | 100 | 100 | 100 | 1.1s | 0.000 | 0ms | ✓ |
 | Article | `/blog/how-to-get-rid-of-pimples/` | 100 | 100 | 100 | 100 | 1.2s | 0.000 | 0ms | ✓ |
 | FAQ | `/faq/` | 100 | 100 | 100 | 100 | 1.2s | 0.000 | 0ms | ✓ |
 | Location | `/dermatologist-victoria-island-lekki/` | 100 | 100 | 100 | 100 | 1.1s | 0.000 | 0ms | ✓ |
 | Book an appointment | `/book-appointment/` | 100 | 100 | 100 | 100 | 1.1s | 0.000 | 0ms | ✓ |
-| Contact | `/contact/` | 99 | 100 | 100 | 100 | 1.8s | 0.000 | 30ms | ✓ |
+| Contact | `/contact/` | 99 | 100 | 100 | 100 | 2.0s | 0.000 | 0ms | ✓ |
 | Legal | `/privacy-policy/` | 100 | 100 | 100 | 100 | 0.9s | 0.000 | 0ms | ✓ |
 
 All Lighthouse runs on record: **57 of 57 pages** meet every budget (performance ≥ 90, SEO 100, accessibility ≥ 95, best practices ≥ 95, LCP ≤ 2.5s, CLS ≤ 0.05, TBT ≤ 200ms). This includes every Priority 50 owner page; their scores are in `docs/KEYWORD_COVERAGE.md`.
@@ -59,11 +59,11 @@ All Lighthouse runs on record: **57 of 57 pages** meet every budget (performance
 |---|---|---|---|
 | Critical path, home (HTML + CSS + fonts + LCP image) | 100.9KB | 350.0KB | ✓ |
 | Critical path, condition page | 84.5KB | 350.0KB | ✓ |
-| JS before interaction, home (gzipped) | 6.8KB | 60.0KB | ✓ |
-| JS before interaction, condition page (gzipped) | 4.4KB | 60.0KB | ✓ |
+| JS before interaction, home (gzipped) | 7.3KB | 60.0KB | ✓ |
+| JS before interaction, condition page (gzipped) | 4.5KB | 60.0KB | ✓ |
 | Deferred 3D bundle: three + engine + largest scene (gzipped) | 152.3KB | 300.0KB | ✓ |
 | Largest single scene module (gzipped) | 4.9KB | 150.0KB | ✓ |
-| First-view transfer on phones, home (estimate) | 396.3KB | 1500.0KB | ✓ |
+| First-view transfer on phones, home (estimate) | 396.8KB | 1500.0KB | ✓ |
 
 ### Other checks
 
@@ -75,6 +75,7 @@ All Lighthouse runs on record: **57 of 57 pages** meet every budget (performance
 | `npm run contrast` | Every gradient stop passes 4.5:1 for the text set on it (3:1 for the large pink headline line on the light hero) |
 | `npm run test:cls` | Layout shift with the web fonts and scripts held back 600ms, every page at phone and desktop size: 350 of 354 page views within 0.05 (the home page 0.000 at both sizes); four between 0.06 and 0.09 (two legal pages, one category page and the not-found page, where a heading or paragraph takes a line more or fewer when the font arrives); none above 0.1 |
 | `npm run test:viewports` | Every page type at 20 sizes and orientations (320×568 to 2560×1440; phones and tablets upright and rotated; a foldable; a short desktop window), scrolled through screen by screen: 340 of 340 combinations with no sideways scrolling, no text off-screen, overlapping or clipped, nothing under 11px, and every touch target at least 44×44px |
+| `node scripts/scroll-perf.mjs` | Scroll smoothness at phone size with the processor slowed 4×, on real graphics hardware (D89): the home page has no frame over 20ms from the top to the end of the staircase, with or without the 3D; inner pages 0–0.4% of frames; 0.2% at 6× slowdown |
 | `npm run test:e2e` | 84 of 84 pass, all under the same security headers as the live site (D84), including checks that no 3D model is hidden on a phone and the staircase is on when a phone is rotated (D88). 17 templates × 22 viewport sizes from brief §12 (no sideways scroll, one H1, body text ≥ 16px, no script errors); axe WCAG 2.2 AA on 17 templates at phone and desktop size with no violations; keyboard use of the mega menu, skip link and phone menu; reduced motion gets the static tier; four pages work with JavaScript off; the home page's LCP element is not a canvas; form fields are labelled |
 | | The accessibility test now waits for entrance animations to finish before measuring contrast: measured 150ms after load, text that is still fading in reads as low contrast. |
 | `npm run test:keywords` | 50 of 50 (section 3) |
@@ -347,3 +348,4 @@ Full reasoning is in `docs/DECISIONS.md`.
 - **D86** The hero portrait stands in front of the strip of services, and the two meet in a longer, softer fade (owner, 23 November 2026).
 - **D87** The clinic is "Dr O.C Clinics", and the founder's photograph is in place (owner, 24 November 2026).
 - **D88** Mobile and rotated screens: designed, not stacked (owner, 24 November 2026).
+- **D89** Smooth scrolling on phones (owner, 24 November 2026).

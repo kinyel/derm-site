@@ -18,12 +18,17 @@
  *   up underneath (negative margin) and is already held in the same place when the hand-over starts.
  *   Script never positions a window, so nothing can lag behind the scroll.
  *
- *   NEVER BLANK, NEVER ON TOP OF EACH OTHER. The hand-over is a dissolve in layers, each with its own
- *   timing across the same stretch of scroll:
- *     background   the next section's ground fades in over the current one (no dip to white)
- *     words        the current words fade out, then the next words fade in: text is never over text
- *     picture      the current picture dissolves into the next one, across the whole hand-over
- *   So when one set of words has gone and the next has not arrived, the picture is mid-dissolve on screen.
+ *   NEVER ON TOP OF EACH OTHER, NEVER BLANK (D89). The hand-over is a quick swap in layers across half a
+ *   screen of scroll: the current words and picture hold, then drop away by 48%; the next ones arrive from
+ *   50% and settle by 82%, so the two sections are never on screen together; the next section's ground
+ *   fades in under them across the swap, so the colour moves while the content changes and the moment
+ *   where neither is clearly visible is about 15% of the hand-over (a few frames at normal speed).
+ *   (D82 cross-dissolved the pictures, which showed the portrait and the photograph on top of each other.)
+ *
+ *   CHEAP ON A PHONE (D89). Each frame writes opacity and transform straight onto the few layers that move,
+ *   and only values that changed. Earlier versions set inherited style values on each whole section, so
+ *   every element in it was restyled on every scroll frame (2.2s of style work on a slowed phone over one
+ *   scroll down the page). Opacity and transform are drawn by the compositor, without layout or paint.
  *
  *   NEVER STILL. While a section is held, its words and picture drift slowly against each other with the
  *   scroll and the hero's 3D turns (the scene reads `stage.__seq`). (A rail of three dots at the right
@@ -68,7 +73,7 @@
     margin-block-end: -100vh;
     margin-block-end: -100svh;
     background: var(--step-bg, var(--white));
-    opacity: var(--fade-bg, 1);
+    will-change: opacity;
   }
   .fade-seq[data-on] > .fade-step > .fade-view {
     z-index: var(--z-content);
@@ -82,19 +87,23 @@
       --step-bg: var(--scrim-light-block), var(--grad-hero);
     }
   }
-  /* the section's own ground is painted by .fade-bg here */
+  .fade-seq[data-on] > .fade-step--self {
+    --step-bg: var(--grad-mist);
+  }
+  /* each section's own ground is painted by its .fade-bg here */
   .fade-seq[data-on] > .fade-step > .fade-view > .band::before,
-  .fade-seq[data-on] > .fade-step > .fade-view .hero__scrim {
+  .fade-seq[data-on] > .fade-step > .fade-view .hero__scrim,
+  .fade-seq[data-on] > .fade-step--self > .band::before {
     display: none;
   }
   .fade-seq[data-on] > .fade-step:not(.fade-step--self) {
     height: calc(100vh + var(--len, 0px));
     height: calc(100svh + var(--len, 0px));
   }
-  /* a section taller than the screen moves up inside its window */
+  /* a section taller than the screen is moved up inside its window (by the script, as a transform) */
   .fade-seq[data-on] > .fade-step > .fade-view > * {
     min-height: 100%;
-    transform: translate3d(0, calc(var(--inner, 0px) * -1), 0);
+    will-change: transform;
   }
   /* held at the top of the screen, a section needs room for the navigation bar above its label */
   .fade-seq[data-on] > .fade-step > .fade-view > .band:not(.hero) {
@@ -107,26 +116,9 @@
     margin-block-start: calc(-100vh - var(--handover));
     margin-block-start: calc(-100svh - var(--handover));
   }
-  .fade-seq[data-on] > .fade-step--self > .band::before {
-    opacity: var(--fade-bg, 1);
-  }
-  /* layers */
-  .fade-seq[data-on] [data-fade='text'] {
-    opacity: var(--fade-text, 1);
-    translate: 0 calc(var(--fade-rise, 0px) + var(--drift, 0) * -22px);
-  }
-  /* words that must not drift (the hero's strip is flush with the foot of the hero) */
-  .fade-seq[data-on] [data-fade='fixed'] {
-    opacity: var(--fade-text, 1);
-  }
-  .fade-seq[data-on] [data-fade='visual'] {
-    opacity: var(--fade-visual, 1);
-    translate: 0 calc(var(--drift, 0) * 26px - 13px);
-    scale: calc(1 + var(--drift, 0) * 0.035);
-  }
-  /* the hero's static picture (no 3D): the same fade as the 3D gets */
-  .fade-seq[data-on] > .fade-step > .fade-view > .hero > .stage {
-    opacity: var(--fade-visual, 1);
+  /* the layers the script moves: each on its own compositor layer */
+  .fade-seq[data-on] [data-fade] {
+    will-change: opacity, transform;
   }
   .fade-seq[data-on] > .fade-step[data-inert] {
     pointer-events: none;
@@ -140,8 +132,7 @@
     opacity: 0;
   }
   /* A section still waiting its turn is parked below the screen as well as invisible, so it never lies
-     over the section being read (it is invisible either way; this keeps hit-testing and contrast checks
-     honest). It is back in place, still at zero, in the frame its hand-over begins. */
+     over the section being read. It is back in place, still at zero, in the frame its hand-over begins. */
   .fade-seq[data-on] > .fade-step[data-faded='next'] > * {
     translate: 0 100vh;
   }
@@ -155,13 +146,28 @@
   const HANDOVER = 0.5; // must match --handover
   const DWELL_FIRST = 0.42; // the hero has been on screen since the page opened
   const DWELL = 0.55;
+  /* The swap, as shares of the hand-over: out, then in, never both (D89). The outgoing section holds, then
+     drops quickly (ease-in); the incoming one arrives quickly, then settles (ease-out). That keeps the
+     moment where neither is clearly visible to a few frames, without the two ever showing together. */
+  const OUT_START = 0.12;
+  const OUT_END = 0.48;
+  const IN_START = 0.5;
+  const IN_END = 0.82;
 
   function initFadeSequence(root: HTMLElement) {
     const steps = [...root.querySelectorAll<HTMLElement>(':scope > .fade-step')];
     if (steps.length < 2) return;
     const views = steps.map((s) => s.querySelector<HTMLElement>(':scope > .fade-view'));
     const bands = views.map((v) => (v?.firstElementChild as HTMLElement | null) ?? null);
+    const grounds = steps.map((s) => s.querySelector<HTMLElement>(':scope > .fade-bg'));
+    const layers = steps.map((s) => ({
+      text: [...s.querySelectorAll<HTMLElement>('[data-fade="text"]')],
+      fixed: [...s.querySelectorAll<HTMLElement>('[data-fade="fixed"]')],
+      visual: [...s.querySelectorAll<HTMLElement>('[data-fade="visual"]')],
+      poster: [...s.querySelectorAll<HTMLElement>('.hero > .stage')],
+    }));
     const stages = steps.map((s) => [...s.querySelectorAll<Stage>('[data-scene]')]);
+    const moved = [...new Set([...layers.flatMap((l) => [...l.text, ...l.fixed, ...l.visual, ...l.poster]), ...grounds, ...bands].filter(Boolean))] as HTMLElement[];
     const still = window.matchMedia('(prefers-reduced-motion: reduce)');
     const tall = window.matchMedia('(min-height: 37.5em)');
     const last = steps.length - 1;
@@ -169,10 +175,26 @@
     let T = 0;
     let enabled = false;
     let frame = 0;
+    let written = new WeakMap<HTMLElement, { opacity?: string; transform?: string }>();
 
     const clamp = (t: number) => Math.min(1, Math.max(0, t));
     const smooth = (t: number) => t * t * (3 - 2 * t);
     const ramp = (q: number, from: number, to: number) => smooth(clamp((q - from) / (to - from)));
+    const easeIn = (t: number) => t * t * t;
+    const easeOut = (t: number) => 1 - (1 - t) ** 3;
+    // write a style only when its value changed: a scroll frame touches a few layers, nothing else
+    const put = (el: HTMLElement, prop: 'opacity' | 'transform', value: string) => {
+      let w = written.get(el);
+      if (!w) written.set(el, (w = {}));
+      if (w[prop] === value) return;
+      w[prop] = value;
+      el.style[prop] = value;
+    };
+    const attr = (el: HTMLElement, name: string, value: string | null) => {
+      if (el.getAttribute(name) === value) return;
+      if (value === null) el.removeAttribute(name);
+      else el.setAttribute(name, value);
+    };
 
     const measure = () => {
       if (!enabled) return;
@@ -197,7 +219,6 @@
     const update = () => {
       frame = 0;
       if (!enabled) return;
-      // q[i]: how far the hand-over from section i to section i+1 has gone
       const q = steps.map(() => 0);
       const scrolled = steps.map((s) => -s.getBoundingClientRect().top);
       for (let i = 0; i < last; i++) {
@@ -208,27 +229,34 @@
         const g = geo[i];
         const qin = i === 0 ? 1 : q[i - 1];
         const qout = i === last ? 0 : q[i];
-        // words: out over the first 42%, in from 40% (never both up); picture: an equal cross-dissolve
-        // through the middle, so when the words are between sections both pictures are at about 65%
-        const textIn = i === 0 ? 1 : ramp(qin, 0.4, 0.82);
-        const text = Math.min(textIn, 1 - ramp(qout, 0, 0.42));
-        const visual = Math.min(i === 0 ? 1 : ramp(qin, 0.2, 0.7), 1 - ramp(qout, 0.3, 0.8));
-        const bg = i === 0 ? 1 : ramp(qin, 0.06, 0.7);
+        const inT = i === 0 ? 1 : easeOut(clamp((qin - IN_START) / (IN_END - IN_START)));
+        const outT = easeIn(clamp((qout - OUT_START) / (OUT_END - OUT_START)));
+        const shown = Math.min(inT, 1 - outT);
+        // the next ground comes in across the swap itself, so the colour is moving while the content changes
+        const bg = i === 0 ? 1 : ramp(qin, 0.3, 0.64);
         const gone = (i > 0 && qin <= 0.001) || (i < last && qout >= 0.999);
-        step.style.setProperty('--fade-text', text.toFixed(3));
-        step.style.setProperty('--fade-visual', visual.toFixed(3));
-        step.style.setProperty('--fade-bg', bg.toFixed(3));
-        step.style.setProperty('--fade-rise', `${((1 - textIn) * 16 - ramp(qout, 0, 0.42) * 12).toFixed(1)}px`);
-        if (gone) step.setAttribute('data-faded', i > 0 && qin <= 0.001 ? 'next' : 'past');
-        else step.removeAttribute('data-faded');
-        step.toggleAttribute('data-inert', text < 0.5);
+        const rise = (1 - inT) * 16 - outT * 12;
+        const life = g.overflow + g.dwell + T;
+        const drift = i < last ? clamp((scrolled[i] - g.lead) / (life || 1)) : 0;
+        const o = shown.toFixed(3);
+        const L = layers[i];
+        for (const el of L.text) {
+          put(el, 'opacity', o);
+          put(el, 'transform', `translate3d(0, ${(rise - drift * 22).toFixed(1)}px, 0)`);
+        }
+        for (const el of L.fixed) put(el, 'opacity', o);
+        for (const el of L.visual) {
+          put(el, 'opacity', o);
+          put(el, 'transform', `translate3d(0, ${(drift * 26 - 13).toFixed(1)}px, 0) scale(${(1 + drift * 0.035).toFixed(4)})`);
+        }
+        for (const el of L.poster) put(el, 'opacity', o);
+        if (grounds[i]) put(grounds[i]!, 'opacity', bg.toFixed(3));
+        if (i < last && bands[i]) put(bands[i]!, 'transform', `translate3d(0, ${(-Math.min(g.overflow, Math.max(0, scrolled[i] - g.lead))).toFixed(1)}px, 0)`);
+        attr(step, 'data-faded', gone ? (i > 0 && qin <= 0.001 ? 'next' : 'past') : null);
+        attr(step, 'data-inert', shown < 0.5 ? '' : null);
         if (i < last) {
-          step.style.setProperty('--inner', `${Math.min(g.overflow, Math.max(0, scrolled[i] - g.lead)).toFixed(1)}px`);
-          // drift: 0 → 1 from the moment the section is fully in to the moment it has gone
-          const life = g.overflow + g.dwell + T;
-          step.style.setProperty('--drift', clamp((scrolled[i] - g.lead) / (life || 1)).toFixed(4));
           stages[i].forEach((el) => {
-            el.__fade = gone ? 0 : visual;
+            el.__fade = gone ? 0 : shown;
             el.__seq = clamp(scrolled[i] / (g.len || 1));
           });
         }
@@ -265,13 +293,21 @@
     const onFocus = (e: FocusEvent) => reveal(e.target as Element);
     const onHash = () => reveal(location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null);
 
+    // Only the sections' own size matters. The window's height is not watched: phones change it while the
+    // address bar slides during a scroll, and the held windows are sized in svh, which does not move.
     const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(onResize) : null;
+    let lastW = window.innerWidth;
+    const onWindowResize = () => {
+      if (window.innerWidth === lastW) return;
+      lastW = window.innerWidth;
+      onResize();
+    };
     const apply = () => {
       enabled = !still.matches && tall.matches;
       root.toggleAttribute('data-on', enabled);
       if (enabled) {
         window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', onResize, { passive: true });
+        window.addEventListener('resize', onWindowResize, { passive: true });
         window.addEventListener('hashchange', onHash);
         root.addEventListener('focusin', onFocus);
         bands.forEach((b) => b && observer?.observe(b));
@@ -280,12 +316,17 @@
         onHash();
       } else {
         window.removeEventListener('scroll', onScroll);
-        window.removeEventListener('resize', onResize);
+        window.removeEventListener('resize', onWindowResize);
         window.removeEventListener('hashchange', onHash);
         root.removeEventListener('focusin', onFocus);
         observer?.disconnect();
+        moved.forEach((el) => {
+          el.style.opacity = '';
+          el.style.transform = '';
+        });
+        written = new WeakMap();
         steps.forEach((step, i) => {
-          ['--len', '--inner', '--drift', '--fade-text', '--fade-visual', '--fade-bg', '--fade-rise', '--spiral-lead'].forEach((v) => step.style.removeProperty(v));
+          ['--len', '--spiral-lead'].forEach((v) => step.style.removeProperty(v));
           step.removeAttribute('data-faded');
           step.removeAttribute('data-inert');
           stages[i].forEach((el) => {

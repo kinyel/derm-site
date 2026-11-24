@@ -137,10 +137,23 @@ function maxDpr() {
   return Math.max(1, Math.min(window.devicePixelRatio || 1, cap, Math.sqrt(budget / area)));
 }
 
-function sizeRenderer() {
+/* Resize the drawing buffer only when its size or pixel ratio really changed (D89). Setting a canvas's
+   width or height, even to the same number, wipes it and reallocates it; phones send a stream of resize
+   events while the address bar slides in and out during a scroll, and each one blanked the 3D for a frame. */
+let sizedW = 0;
+let sizedH = 0;
+let sizedPr = 0;
+function sizeRenderer(force = false) {
   if (!renderer) return;
-  renderer.setPixelRatio(still ? window.devicePixelRatio : maxDpr());
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+  const pr = still ? window.devicePixelRatio : maxDpr();
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
+  if (!force && w === sizedW && h === sizedH && Math.abs(pr - sizedPr) < 0.01) return;
+  sizedW = w;
+  sizedH = h;
+  sizedPr = pr;
+  renderer.setPixelRatio(pr);
+  renderer.setSize(w, h, false);
 }
 
 async function load(rec: StageRec) {
@@ -287,7 +300,7 @@ function dropTier() {
   if (tier === 2) {
     tier = 1;
     document.documentElement.dataset.tier = '1';
-    sizeRenderer();
+    sizeRenderer(true);
     watchStart = 0;
     watchTimes = [];
     watchDone = false; // watch once more on the lower tier
@@ -414,12 +427,13 @@ export function startEngine(startTier: Tier) {
     ro!.observe(s.el);
   });
 
-  const onResize = () => {
-    sizeRenderer();
+  // A window resize only resizes the canvas (and only if its size changed); each scene is refitted when its
+  // own box changes size (the ResizeObserver above), not on every resize event the address bar sends.
+  window.addEventListener('resize', () => sizeRenderer(), { passive: true });
+  window.addEventListener('orientationchange', () => {
+    sizeRenderer(true);
     stages.forEach((s) => (s.aspect = 0));
-  };
-  window.addEventListener('resize', onResize, { passive: true });
-  window.addEventListener('orientationchange', onResize, { passive: true });
+  }, { passive: true });
   window.addEventListener('pointermove', onPointer, { passive: true });
   window.addEventListener('scroll', () => (lastActivity = performance.now()), { passive: true });
   document.addEventListener('visibilitychange', () => (document.hidden ? stop() : play()));
@@ -441,7 +455,7 @@ export function startEngine(startTier: Tier) {
   });
   canvas.addEventListener('webglcontextrestored', () => {
     stages.forEach((s) => (s.aspect = 0));
-    sizeRenderer();
+    sizeRenderer(true);
     watchStart = 0;
     watchTimes = [];
     if (!document.hidden) play();

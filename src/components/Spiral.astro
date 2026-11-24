@@ -273,6 +273,8 @@ const nn = (i: number) => String(i + 1).padStart(2, '0');
     mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     mask-composite: exclude;
     opacity: var(--lit);
+    /* its own layer: the ring brightens and dims every frame without repainting the disc and its shadow (D89) */
+    will-change: opacity;
   }
   .disc__icon {
     display: grid;
@@ -597,6 +599,11 @@ const nn = (i: number) => String(i + 1).padStart(2, '0');
     const entries = [...root.querySelectorAll<HTMLElement>('[data-spiral-link]')];
     const items = [...root.querySelectorAll<HTMLElement>('[data-spiral-item]')];
     const menu = root.querySelector<HTMLElement>('.spiral__menu');
+    // --k goes on the ring only: written on the section, every element in it (index, chips, discs) was
+    // restyled on every scroll frame (D89)
+    const ring = root.querySelector<HTMLElement>('[data-spiral-ring]');
+    const viewport = root.querySelector<HTMLElement>('.spiral__viewport');
+    let lastK = '';
     const bodies = entries.map((el) => el.querySelector<HTMLElement>('.spiral__entry-body'));
     if (!track || entries.length < 2) return;
 
@@ -636,8 +643,11 @@ const nn = (i: number) => String(i + 1).padStart(2, '0');
       frame = 0;
       if (!enabled) return;
       const rect = track.getBoundingClientRect();
-      const travel = rect.height - window.innerHeight;
-      if (travel <= 0 || rect.bottom < -200 || rect.top > window.innerHeight * 2) return;
+      // the pinned window's own height (100svh): window.innerHeight changes while a phone's address bar
+      // slides, which made the staircase jump during a scroll (D89)
+      const vh = viewport?.clientHeight || window.innerHeight;
+      const travel = rect.height - vh;
+      if (travel <= 0 || rect.bottom < -200 || rect.top > vh * 2) return;
       const p = Math.min(1, Math.max(0, (-rect.top - lead) / Math.max(1, travel - lead)));
       const steps = entries.length - 1;
       let k = p * steps;
@@ -647,7 +657,8 @@ const nn = (i: number) => String(i + 1).padStart(2, '0');
         const t = Math.min(1, Math.max(0, (k - base - 0.26) / 0.48));
         k = base + t * t * (3 - 2 * t);
       }
-      root.style.setProperty('--k', k.toFixed(4));
+      const kk = k.toFixed(3);
+      if (ring && kk !== lastK) ring.style.setProperty('--k', (lastK = kk));
       setCurrent(Math.round(k));
     };
     const onScroll = () => {
@@ -673,7 +684,8 @@ const nn = (i: number) => String(i + 1).padStart(2, '0');
       } else {
         window.removeEventListener('scroll', onScroll);
         window.removeEventListener('resize', onResize);
-        root.style.removeProperty('--k');
+        ring?.style.removeProperty('--k');
+        lastK = '';
         ['--detail-h', '--marker-y', '--marker-h'].forEach((v) => menu?.style.removeProperty(v));
         entries.forEach((el) => el.removeAttribute('data-current'));
         items.forEach((el) => el.removeAttribute('data-near'));
