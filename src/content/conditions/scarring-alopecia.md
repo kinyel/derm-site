@@ -7,7 +7,7 @@ summary: "Hair loss in which inflammation destroys hair follicles and replaces t
 bodyAreas: ["scalp"]
 categories: ["hair-and-scalp"]
 seoTitle: "Scarring Alopecia and CCCA: Permanent Hair Loss"
-description: "Scarring alopecia and CCCA: hair loss at the crown with itching or tenderness in Black women, why early treatment matters, and care at {{clinic}}, Lagos."
+description: "Scarring alopecia and CCCA: hair loss at the crown with itching or tenderness in Black women, why early treatment matters; care at {{clinic}}, Lagos."
 h1: "Scarring alopecia: hair loss that destroys the follicles"
 primaryKeyword: "scarring alopecia treatment"
 keywordVariants: ["CCCA treatment", "central centrifugal cicatricial alopecia", "hair loss at crown Black women", "permanent hair loss", "alopecia treatment Lagos", "frontal fibrosing alopecia"]

@@ -7,7 +7,7 @@ summary: "Sweating far beyond what the body needs to cool down, usually from the
 bodyAreas: ["body", "hands-nails", "feet", "face"]
 categories: ["clinical-dermatology", "aesthetic-treatments", "mens-and-womens-skin-health"]
 seoTitle: "Hyperhidrosis Treatment for Excessive Sweating"
-description: "Hyperhidrosis treatment at {{clinic}}, Lagos: why some people sweat heavily from the underarms, palms and feet, and options from antiperspirants to Botox."
+description: "Hyperhidrosis treatment at {{clinic}}, Lagos: why some people sweat heavily from the underarms, palms and feet; options from antiperspirants to Botox."
 h1: "Excessive sweating (hyperhidrosis): underarms, palms, feet and face"
 primaryKeyword: "hyperhidrosis treatment"
 keywordVariants: ["hyperhidrosis treatment Lagos", "excessive sweating treatment", "sweaty palms treatment", "underarm sweating Botox", "how to stop sweating so much", "sweaty feet treatment"]

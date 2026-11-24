@@ -7,7 +7,7 @@ summary: "A bacterial infection of the deeper skin that makes an area, usually t
 bodyAreas: ["body", "feet", "face"]
 categories: ["wound-care", "clinical-dermatology", "internal-medicine"]
 seoTitle: "Cellulitis: Signs on Dark Skin and Treatment"
-description: "Cellulitis: a hot, swollen, painful area of skin, usually on the leg. How to recognise it on dark skin, when it is urgent, and care at {{clinic}}, Lagos."
+description: "Cellulitis: a hot, swollen, painful area of skin, usually on the leg. How to recognise it on dark skin, when it is urgent, care at {{clinic}}, Lagos."
 h1: "Cellulitis: a hot, swollen, painful skin infection"
 primaryKeyword: "cellulitis treatment"
 keywordVariants: ["swollen hot leg infection", "cellulitis symptoms", "cellulitis on dark skin", "leg infection treatment", "erysipelas"]

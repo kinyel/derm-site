@@ -7,7 +7,7 @@ summary: "Rough, firm skin growths caused by the human papillomavirus, common on
 bodyAreas: ["hands-nails", "feet", "face", "body"]
 categories: ["clinical-dermatology", "skin-surgery", "childrens-skin-care"]
 seoTitle: "Wart Removal: Types of Warts and Treatment"
-description: "Wart removal at {{clinic}}, Lagos: common, flat and filiform warts on the hands and face, how they spread, and treatment that limits marks on dark skin."
+description: "Wart removal at {{clinic}}, Lagos: common, flat and filiform warts on the hands and face, how they spread; treatment that limits marks on dark skin."
 h1: "Warts on the hands, face and body: types and removal"
 primaryKeyword: "wart removal"
 keywordVariants: ["wart removal Lagos", "how to get rid of warts", "warts on fingers", "warts on face", "wart treatment for children", "are warts contagious"]

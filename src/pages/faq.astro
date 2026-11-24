@@ -19,7 +19,7 @@ const medical = all.articles.filter((a) => a.data.mostAsked).slice(0, 10);
 const path = '/faq/';
 const crumbs = [{ label: 'Questions and answers', href: path }];
 const seoTitle = 'Dermatology Clinic FAQ: Booking, Fees, HMOs';
-const description = `Answers to common questions about ${clinic.name}, Lagos: booking, fees, HMOs, online consultations, your first consultation, children and finding the clinic.`;
+const description = `Common questions about ${clinic.name}, Lagos: booking, fees, HMOs, online consultations, your first consultation, children and finding the clinic.`;
 ---
 
 <BaseLayout seoTitle={seoTitle} description={description} path={path} section="about" crumbs={crumbs} schema={[pageSchema({ path, title: seoTitle, description }, 'WebPage'), faqSchema(allFaqs)]} searchType="Clinic">

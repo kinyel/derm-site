@@ -7,7 +7,7 @@ summary: "Small, itchy or tender bumps and pus spots centred on hair follicles, 
 bodyAreas: ["body", "face", "scalp"]
 categories: ["clinical-dermatology", "mens-and-womens-skin-health"]
 seoTitle: "Folliculitis: Bumps Around Hair Follicles"
-description: "Folliculitis: itchy pimple-like bumps on the chest, back, thighs or buttocks. Bacterial, fungal and shaving causes, and treatment at {{clinic}} in Lagos."
+description: "Folliculitis: itchy pimple-like bumps on the chest, back, thighs or buttocks. Bacterial, fungal and shaving causes; treatment at {{clinic}} in Lagos."
 h1: "Folliculitis: pimple-like bumps around hair follicles"
 primaryKeyword: "folliculitis treatment"
 keywordVariants: ["bumps on buttocks treatment", "fungal acne treatment", "itchy bumps on back and chest", "pimples on thighs", "Malassezia folliculitis", "hot tub folliculitis"]

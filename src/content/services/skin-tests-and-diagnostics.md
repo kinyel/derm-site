@@ -11,7 +11,7 @@ icon: slides
 image: services/patch-testing
 specialty: Dermatology
 seoTitle: Skin Tests and Diagnostics in Lagos
-description: "Skin tests in Lagos at {{clinic}}, Oniru: skin biopsy, fungal tests, skin allergy test (patch and prick testing), trichoscopy, nail tests and blood tests."
+description: "Skin tests in Lagos at {{clinic}}, Oniru: skin biopsy, fungal tests, skin allergy test (patch and prick), trichoscopy, nail tests and blood tests."
 h1: Skin, hair and nail tests that confirm the diagnosis
 answer: "Diagnostic tests show what is causing a skin, hair or nail condition when looking is not enough. {{clinic}} in Oniru, Lagos, offers skin biopsy, fungal and bacterial tests, allergy testing by patch and prick test, trichoscopy for hair, nail tests, digital skin analysis and blood tests."
 updatedOn: 2026-11-22

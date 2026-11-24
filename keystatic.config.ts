@@ -45,7 +45,7 @@ const body = fields.markdoc({
 
 export default config({
   storage: { kind: 'local' },
-  ui: { brand: { name: 'O.C Clinics content' }, navigation: { Education: ['articles', 'conditions'] } },
+  ui: { brand: { name: 'Dr O.C Clinics content' }, navigation: { Education: ['articles', 'conditions'] } },
   collections: {
     articles: collection({
       label: 'Articles',

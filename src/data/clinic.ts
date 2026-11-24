@@ -8,8 +8,11 @@
 export const TODO_PREFIX = 'TODO:';
 
 export const clinic = {
-  name: 'O.C Clinics',
-  shortName: 'O.C Clinics',
+  /** The clinic's name, as the owner gave it on 24 November 2026 (DECISIONS D87). It was "O.C Clinics" in the brief. */
+  name: 'Dr O.C Clinics',
+  shortName: 'Dr O.C Clinics',
+  /** Names people may still search for; structured data only, never shown. */
+  alsoKnownAs: ['O.C Clinics'],
   domain: 'TODO: domain',
   /** Used for canonicals, sitemaps and JSON-LD until `domain` is filled (see DECISIONS D2). */
   placeholderOrigin: 'https://www.oc-clinics.example',
@@ -31,7 +34,7 @@ export const clinic = {
   whatsapp: {
     display: '+234 707 529 5021',
     e164: '+2347075295021',
-    prefill: "Hello O.C Clinics, I'd like to book an appointment",
+    prefill: "Hello Dr O.C Clinics, I'd like to book an appointment",
   },
   email: 'TODO: email',
 
@@ -72,7 +75,7 @@ export const clinic = {
   areasServed: ['Oniru', 'Victoria Island', 'Lekki', 'Ikoyi', 'Ikate', 'Ajah', 'Lagos Island'],
   city: 'Lagos',
   country: 'Nigeria',
-  editorialByline: 'O.C Clinics editorial team',
+  editorialByline: 'Dr O.C Clinics editorial team',
 };
 
 export type Clinic = typeof clinic;

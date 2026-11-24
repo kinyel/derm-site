@@ -7,7 +7,7 @@ summary: "Paler patches left behind when eczema, a burn, an infection or a proce
 bodyAreas: ["face", "body"]
 categories: ["clinical-dermatology", "childrens-skin-care"]
 seoTitle: "Light Patches After a Rash: Will Colour Return?"
-description: "Post-inflammatory hypopigmentation: why skin heals lighter after eczema, burns or procedures, how it differs from vitiligo, and care at {{clinic}}, Lagos."
+description: "Post-inflammatory hypopigmentation: why skin heals lighter after eczema, burns or procedures, how it differs from vitiligo; care at {{clinic}}, Lagos."
 h1: "Light patches after a rash or injury: post-inflammatory hypopigmentation"
 primaryKeyword: "post-inflammatory hypopigmentation"
 keywordVariants: ["light patches after eczema", "skin lighter after wound healed", "white marks after rash", "hypopigmentation treatment", "pale patch after burn"]

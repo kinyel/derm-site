@@ -11,7 +11,7 @@ icon: stitch
 image: services/skin-surgery
 specialty: Dermatology
 seoTitle: Skin Surgery and Minor Procedures in Lagos
-description: "Minor skin surgery at {{clinic}}, Oniru, Lagos: mole, cyst, lipoma and skin tag removal, keloid treatment, scar revision, cryotherapy and electrosurgery."
+description: "Minor skin surgery at {{clinic}}, Oniru, Lagos: mole, cyst, lipoma and skin tag removal, keloid treatment, scar revision, cryotherapy, electrosurgery."
 h1: Removal of moles, cysts and growths, and treatment of scars
 answer: "Skin surgery removes or treats growths and scars under local anaesthetic. At {{clinic}} in Oniru, Lagos, a dermatologist removes moles, skin tags, cysts, lipomas and warts, treats keloids, revises scars and drains abscesses, using excision, cryotherapy, electrosurgery and other minor procedures, with wound care afterwards."
 updatedOn: 2026-11-22

@@ -8,7 +8,7 @@ bodyAreas: ["body"]
 categories: ["aesthetic-treatments", "mens-and-womens-skin-health", "laser-treatments"]
 topRank: 11
 seoTitle: "How to Get Rid of Stretch Marks: What Works"
-description: "How to get rid of stretch marks: what the evidence shows for creams, microneedling and laser on dark skin, and what does not work. Advice from {{clinic}}."
+description: "How to get rid of stretch marks: the evidence for creams, microneedling and laser on dark skin, and what does not work. Advice from {{clinic}}."
 h1: "Stretch marks: what they are and how to get rid of stretch marks that bother you"
 primaryKeyword: "how to get rid of stretch marks"
 keywordVariants: ["stretch marks removal Lagos", "stretch mark treatment", "stretch marks treatment Lagos", "how to remove stretch marks", "stretch mark removal"]

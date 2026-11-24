@@ -1,7 +1,7 @@
 /* Shared component styles. One block per pattern; values from tokens only. */
 @layer components {
   /* ================= Buttons (owner, D75) =================
-     The owner's PrimeTrack buttons in O.C Clinics colours: a rectangular plate with 6px corners, a bold
+     The owner's PrimeTrack buttons in Dr O.C Clinics colours: a rectangular plate with 6px corners, a bold
      label and, at the end, a round chip whose arrow slides through on hover. Never a pill.
        primary    pink plate, white label, white chip         the main action in a view
        secondary  white plate, hairline edge, glacier chip    the real alternative (glass on dark bands)

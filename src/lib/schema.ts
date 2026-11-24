@@ -17,6 +17,7 @@ export function clinicSchema(services: { name: string; url: string }[] = [], spe
     '@type': 'MedicalClinic',
     '@id': clinicId,
     name: clinic.name,
+    alternateName: clinic.alsoKnownAs,
     url: `${origin}/`,
     logo: abs('/icons/icon-512.png'),
     image: abs('/og/home.png'),

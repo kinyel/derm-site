@@ -8,7 +8,7 @@ order: 20
 summary: "Stage-by-stage removal of certain skin cancers, with each layer checked under the microscope before the wound is closed."
 image: "services/skin-cancer-dermoscopy"
 seoTitle: "Mohs Surgery for Skin Cancer in Nigeria"
-description: "Mohs micrographic surgery at {{clinic}}, Lagos: how skin cancer is removed layer by layer with microscope checks, who it suits and what recovery involves."
+description: "Mohs micrographic surgery at {{clinic}}, Lagos: how skin cancer is removed layer by layer with microscope checks, who it suits, what recovery involves."
 h1: "Mohs micrographic surgery for skin cancer"
 primaryKeyword: "Mohs surgery Nigeria"
 keywordVariants: ["Mohs micrographic surgery", "Mohs surgery Lagos", "skin cancer surgery Lagos"]

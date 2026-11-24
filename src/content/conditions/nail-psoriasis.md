@@ -7,7 +7,7 @@ summary: "Pitting, lifting, thickening and discolouration of the nails caused by
 bodyAreas: ["hands-nails", "feet"]
 categories: ["nail-care", "clinical-dermatology"]
 seoTitle: "Nail Psoriasis: Pitted, Lifting or Thick Nails"
-description: "Nail psoriasis: pits, lifting and thickening of the nails, how it differs from nail fungus, the link with joint pain, and treatment at {{clinic}}, Lagos."
+description: "Nail psoriasis: pits, lifting and thickening of the nails, how it differs from nail fungus, the link with joint pain; treatment at {{clinic}}, Lagos."
 h1: "Nail psoriasis: pitted, lifting or thickened nails"
 primaryKeyword: "nail psoriasis treatment"
 keywordVariants: ["pitted nails causes", "nail lifting from nail bed", "psoriasis nails or fungus", "thick crumbly nails not fungus", "psoriatic nails"]

@@ -9,7 +9,7 @@ popular: true
 summary: "Injectable fillers for lips, cheeks, chin, jawline and under-eye hollows, given by a doctor."
 image: "services/cosmetic"
 seoTitle: "Lip Filler in Lagos & Dermal Fillers, Lekki"
-description: "Lip filler in Lagos and dermal fillers for cheeks, chin, jawline and under-eyes at {{clinic}}, Oniru. Doctor-injected, with risks and aftercare explained."
+description: "Lip filler in Lagos and dermal fillers for cheeks, chin, jawline and under-eyes at {{clinic}}, Oniru. Doctor-injected; risks and aftercare explained."
 h1: "Dermal fillers and lip filler in Lagos"
 primaryKeyword: "lip filler Lagos"
 keywordVariants: ["lip filler in Lagos", "lip fillers Lagos", "dermal fillers Lekki", "under-eye filler Lagos", "dermal fillers Lagos"]

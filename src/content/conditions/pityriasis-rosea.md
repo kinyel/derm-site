@@ -7,7 +7,7 @@ summary: "A harmless rash that begins with one larger oval patch, followed by ma
 bodyAreas: ["body"]
 categories: ["clinical-dermatology"]
 seoTitle: "Pityriasis Rosea: The Rash That Starts With One Patch"
-description: "Pityriasis rosea: a single herald patch then many oval scaly patches on the trunk. How it looks on dark skin, how long it lasts, and care at {{clinic}}."
+description: "Pityriasis rosea: a single herald patch then many oval scaly patches on the trunk. How it looks on dark skin, how long it lasts; care at {{clinic}}."
 h1: "Pityriasis rosea: a rash that starts with one patch"
 primaryKeyword: "pityriasis rosea treatment"
 keywordVariants: ["herald patch rash", "oval scaly patches on trunk", "pityriasis rosea on dark skin", "rash on chest and back", "how long does pityriasis rosea last"]

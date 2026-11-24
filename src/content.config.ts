@@ -16,7 +16,7 @@ const ref = z.object({
 });
 
 const seo = {
-  /** Title tag without the " | O.C Clinics" suffix (the suffix is added when the total stays ≤ 60). */
+  /** Title tag without the " | Dr O.C Clinics" suffix (the suffix is added when the total stays ≤ 60). */
   seoTitle: z.string().min(10).max(60),
   description: z.string().min(70).max(155),
   h1: z.string().min(8),

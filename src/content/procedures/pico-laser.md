@@ -9,7 +9,7 @@ popular: true
 summary: "What a picosecond laser is, what it treats, and how it is used on brown and Black skin."
 image: "real/laser-devices"
 seoTitle: "Pico Laser in Lagos: What It Treats"
-description: "Pico laser in Lagos at {{clinic}}, Oniru: how a picosecond laser works, what it treats (pigment, tattoos, scars) and how it is used safely on dark skin."
+description: "Pico laser in Lagos at {{clinic}}, Oniru: how a picosecond laser works, what it treats (pigment, tattoos, scars) and its safe use on dark skin."
 h1: "Pico laser: how it works and what it treats"
 primaryKeyword: "pico laser"
 keywordVariants: ["pico laser Lagos", "picosecond laser", "pico laser in Lagos", "pico laser treatment", "pico laser for dark spots"]

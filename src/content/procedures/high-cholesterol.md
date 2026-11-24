@@ -8,7 +8,7 @@ order: 40
 summary: "What cholesterol is, why high levels matter, how it is tested and how it is lowered."
 image: "services/internal-medicine"
 seoTitle: "High Cholesterol Treatment in Lagos"
-description: "High cholesterol treatment in Lagos at {{clinic}}, Oniru: what cholesterol is, how it is tested, what the numbers mean and how a doctor lowers your risk."
+description: "High cholesterol treatment in Lagos at {{clinic}}, Oniru: what cholesterol is, how it is tested, what the numbers mean, how a doctor lowers your risk."
 h1: "High cholesterol treatment: what your numbers mean and how they are lowered"
 primaryKeyword: "high cholesterol treatment"
 keywordVariants: ["high cholesterol treatment Lagos", "cholesterol test Lagos", "cholesterol doctor Lagos", "how to lower cholesterol", "what is high cholesterol"]

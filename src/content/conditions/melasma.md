@@ -8,7 +8,7 @@ bodyAreas: ["face"]
 categories: ["clinical-dermatology", "aesthetic-treatments", "mens-and-womens-skin-health"]
 topRank: 3
 seoTitle: "Melasma Treatment: Signs, Causes & Care"
-description: "Melasma treatment at {{clinic}}, Lagos: how to recognise melasma on dark skin, why it returns, what to avoid and the creams, tablets and peels that help."
+description: "Melasma treatment at {{clinic}}, Lagos: how to recognise melasma on dark skin, why it returns, what to avoid, and creams, tablets and peels that help."
 h1: "Melasma: why it appears and how melasma treatment controls it"
 primaryKeyword: "melasma treatment"
 keywordVariants: ["melasma treatment Lagos", "melasma treatment in Lagos", "how to treat melasma", "melasma on dark skin"]

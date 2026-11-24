@@ -8,7 +8,7 @@ order: 20
 summary: "Skin health screening and education for staff, at the clinic or on site, for employers in Lagos."
 image: "services/consultation"
 seoTitle: "Corporate Skin Screening in Lagos"
-description: "Corporate skin screening in Lagos from {{clinic}}: workplace skin checks, occupational skin disease assessment and staff education for employers and HR."
+description: "Corporate skin screening in Lagos from {{clinic}}: workplace skin checks, occupational skin disease assessment, staff education for employers and HR."
 h1: "Corporate and occupational skin health screening"
 primaryKeyword: "corporate skin screening Lagos"
 keywordVariants: ["occupational skin health screening", "workplace skin screening Lagos", "corporate wellness dermatology"]

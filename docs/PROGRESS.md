@@ -22,13 +22,13 @@
 > - Screenshots: `node scripts/shot.mjs <outDir> "<url>?tier=2" 1440x900 390x844 [--tour]`, then
 >   `node scripts/sheet.mjs <outDir> 4 800` to stack them. `?tier=2` pins the 3D tier (headless Chrome has no GPU).
 > - Frontmatter: ALWAYS quote strings. Check with `node scripts/fm-check.mjs` and `node scripts/meta-lengths.mjs`
->   (descriptions ≤ 155 chars after `{{clinic}}` → "O.C Clinics"; I tend to overshoot, aim for ≤ 145).
+>   (descriptions ≤ 155 chars after `{{clinic}}` → "Dr O.C Clinics"; I tend to overshoot, aim for ≤ 145).
 > - Content tokens: `{{clinic}} {{phone}} {{whatsapp}} {{address}} {{hours}} {{area}} {{experience}} {{lead}} {{Lead}}`.
 > - Callouts in Markdown: `> [!DERM] title`, `> [!URGENT]`, `> [!AVOID]`, `> [!DIDYOUKNOW]`, `> [!DOCTOR]`.
 
 ## Owner feedback received during the build (must be kept)
 
-Latest first; the newest instruction wins where two differ. Full reasoning in DECISIONS D23, D30–D38, D60–D86.
+Latest first; the newest instruction wins where two differ. Full reasoning in DECISIONS D23, D30–D38, D60–D87.
 
 0. **The clinic is in Victoria Island (Oniru), not Lagos Island** (D71). Never write that it is on or in Lagos Island, or
    "between" Victoria Island and Lekki. "Dermatologist in Lagos" (home) and "dermatologist in Lagos Island" (location page,
@@ -59,7 +59,7 @@ Latest first; the newest instruction wins where two differ. Full reasoning in DE
 
 ## Where the build stands (22 November 2026, end of session 4)
 
-**All ten phases are built, and the owner's redesign (design direction v4, DECISIONS D60–D86) is applied on top**: new
+**All ten phases are built, and the owner's redesign (design direction v4, DECISIONS D60–D87) is applied on top**: new
 type, colour, navigation, home page sections, spiral staircase and hero. Every check was re-run on the redesigned build.
 `docs/FINAL_REPORT.md` is the summary; regenerate it with `node scripts/final-report.mjs` after `npm run test:all`.
 
@@ -89,7 +89,7 @@ Worth doing in a later session:
 | Phase | Status |
 |---|---|
 | 1 Setup | ✅ |
-| 2 Design plan | ✅ `docs/DESIGN_PLAN.md` (colour, type, navigation and home layout are superseded by DECISIONS D60–D86) |
+| 2 Design plan | ✅ `docs/DESIGN_PLAN.md` (colour, type, navigation and home layout are superseded by DECISIONS D60–D87) |
 | 3 Foundation | ✅ tokens (palette v4), flat bands, navigation (D63), footer, dock, components, `/_styleguide/` |
 | 4 3D engine + hero | ✅ engine, 34 scenes, posters pipeline, depth script; Lighthouse passes on tested pages |
 | 5 Homepage | ✅ rebuilt to the owner's direction: hero (D65), spiral staircase (D64), sections on one header pattern (D67) |

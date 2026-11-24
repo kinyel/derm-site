@@ -10,7 +10,7 @@ popular: true
 summary: "Botulinum toxin injections for frown lines, forehead lines and crow's feet, and for excessive sweating."
 image: "services/cosmetic"
 seoTitle: "Botox in Lagos: Lekki & Victoria Island"
-description: "Botox in Lagos at {{clinic}}, Oniru: doctor-injected treatment for frown lines, forehead lines and excessive sweating. How it works, risks and aftercare."
+description: "Botox in Lagos at {{clinic}}, Oniru: doctor-injected treatment for frown lines, forehead lines and excessive sweating. How it works, risks, aftercare."
 h1: "Botox in Lagos, injected by a doctor"
 primaryKeyword: "Botox in Lagos"
 keywordVariants: ["Botox Lagos", "Botox injection Lagos", "Botox Lekki"]

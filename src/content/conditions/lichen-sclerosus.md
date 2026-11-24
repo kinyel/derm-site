@@ -7,7 +7,7 @@ summary: "A long-term condition causing itchy, white, thin patches of skin, usua
 bodyAreas: ["body"]
 categories: ["mens-and-womens-skin-health", "clinical-dermatology"]
 seoTitle: "Lichen Sclerosus: Signs, Diagnosis and Treatment"
-description: "Lichen sclerosus: itchy white patches on the vulva, foreskin or around the anus, why early treatment matters, and confidential care at {{clinic}}, Lagos."
+description: "Lichen sclerosus: itchy white patches on the vulva, foreskin or around the anus, why early treatment matters; confidential care at {{clinic}}, Lagos."
 h1: "Lichen sclerosus: itchy white patches on genital skin"
 primaryKeyword: "lichen sclerosus treatment"
 keywordVariants: ["white patches on vulva", "itchy vulva treatment", "tight foreskin white skin", "vulval itching causes", "lichen sclerosus in men"]

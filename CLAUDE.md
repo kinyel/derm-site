@@ -1,4 +1,4 @@
-# O.C Clinics website — working rules
+# Dr O.C Clinics website — working rules
 
 Full brief: docs/BRIEF.md — re-read the relevant section before each phase.
 
@@ -119,7 +119,7 @@ from your own knowledge of the topic and mark them "unverified".
 7. **Speed:** the page meets the §13.1 budgets on its own Lighthouse run, not just on average.
 8. **Freshness:** a visible "Updated" date that changes whenever the content changes.
 9. **AI answer readiness:** an answer-first paragraph that makes sense quoted on its own and names
-   O.C Clinics and Lagos where relevant; listed in `/llms.txt` with a one-line summary.
+   Dr O.C Clinics and Lagos where relevant; listed in `/llms.txt` with a one-line summary.
 10. **No over-optimisation:** the exact phrase appears where it reads naturally, typically 2–5
     times on a 1,500-word page, with variants elsewhere. No hidden text, keyword lists, doorway
     pages or the same anchor text on every link pointing to a page.
@@ -157,7 +157,7 @@ number of inbound links and Lighthouse scores.
 - The clinic is in Victoria Island (Oniru is its eastern end, next to Lekki Phase 1). Never write that it is
   in or on Lagos Island, whatever the brief says; Lagos Island is an area it serves and a search phrase the
   location page targets (`/dermatologist-victoria-island-lekki/`, DECISIONS D71).
-- Owner's design direction and later corrections: DECISIONS D60–D86 override §10 of the brief. In short:
+- Owner's design direction and later corrections: DECISIONS D60–D87 override §10 of the brief. In short:
   buttons are 6px-corner plates with a round arrow chip and boxes are white hairline panels with 24px corners
   (copied from primetracknigeria.com), never pills; the home hero is light with no ribbons; the map loads by itself.
 - The clinic treats every skin type and tone (owner, DECISIONS D82): never describe its care as being "for brown

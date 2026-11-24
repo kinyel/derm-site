@@ -7,7 +7,7 @@ summary: "Small, smooth, dome-shaped bumps with a central dimple, caused by a ha
 bodyAreas: ["body", "face"]
 categories: ["childrens-skin-care", "clinical-dermatology"]
 seoTitle: "Molluscum Contagiosum in Children and Adults"
-description: "Molluscum contagiosum: small pearly bumps with a dimple in children and adults, how they spread, how long they last, and treatment at {{clinic}}, Lagos."
+description: "Molluscum contagiosum: small pearly bumps with a dimple in children and adults, how they spread, how long they last; treatment at {{clinic}}, Lagos."
 h1: "Molluscum contagiosum: small pearly bumps with a central dimple"
 primaryKeyword: "molluscum contagiosum treatment"
 keywordVariants: ["molluscum in children", "small pearly bumps on child", "water warts", "molluscum in adults", "how long does molluscum last", "bumps with dimple in centre"]

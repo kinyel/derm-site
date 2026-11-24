@@ -7,7 +7,7 @@ summary: "Small, dark, raised spots on the cheeks and around the eyes that are c
 bodyAreas: ["face", "body"]
 categories: ["skin-surgery", "clinical-dermatology", "aesthetic-treatments"]
 seoTitle: "DPN Removal: Small Black Spots on the Face"
-description: "DPN removal at {{clinic}}, Lagos: what the small black spots on the face are, why they are harmless, and how a dermatologist removes them without marks."
+description: "DPN removal at {{clinic}}, Lagos: what the small black spots on the face are, why they are harmless, how a dermatologist removes them without marks."
 h1: "Black spots on the face that are raised: dermatosis papulosa nigra and DPN removal"
 primaryKeyword: "DPN removal"
 keywordVariants: ["black spots on face", "DPN removal Lagos", "dermatosis papulosa nigra removal", "small black spots on face", "dermatosis papulosa nigra treatment"]

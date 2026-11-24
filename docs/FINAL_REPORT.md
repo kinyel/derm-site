@@ -1,6 +1,6 @@
 # Final report
 
-Generated on 2026-11-23 by `node scripts/final-report.mjs` from the current build and check results. Run it again after filling facts or adding images.
+Generated on 2026-11-24 by `node scripts/final-report.mjs` from the current build and check results. Run it again after filling facts or adding images.
 
 ## 1. What was built
 
@@ -34,21 +34,21 @@ Generated on 2026-11-23 by `node scripts/final-report.mjs` from the current buil
 
 | Template | URL | Perf | SEO | A11y | Best practices | LCP | CLS | TBT | Budgets |
 |---|---|---|---|---|---|---|---|---|---|
-| Home | `/` | 99 | 100 | 100 | 100 | 2.0s | 0.000 | 0ms | ✓ |
+| Home | `/` | 98 | 100 | 100 | 100 | 2.3s | 0.000 | 0ms | ✓ |
 | About | `/about/` | 100 | 100 | 100 | 100 | 1.8s | 0.000 | 0ms | ✓ |
 | Lead dermatologist profile | `/about/lead-dermatologist/` | 100 | 100 | 100 | 100 | 1.2s | 0.000 | 0ms | ✓ |
-| Your visit | `/your-visit/` | 99 | 100 | 100 | 100 | 2.0s | 0.000 | 0ms | ✓ |
-| Services hub | `/services/` | 98 | 100 | 100 | 100 | 2.3s | 0.000 | 0ms | ✓ |
+| Your visit | `/your-visit/` | 99 | 100 | 100 | 100 | 2.1s | 0.000 | 0ms | ✓ |
+| Services hub | `/services/` | 99 | 100 | 100 | 100 | 2.3s | 0.000 | 0ms | ✓ |
 | Category | `/services/aesthetic-treatments/` | 100 | 100 | 100 | 100 | 1.2s | 0.000 | 0ms | ✓ |
 | Procedure | `/services/aesthetic-treatments/botox/` | 99 | 100 | 100 | 100 | 1.8s | 0.000 | 0ms | ✓ |
-| Conditions hub | `/conditions/` | 99 | 100 | 100 | 100 | 2.0s | 0.000 | 0ms | ✓ |
+| Conditions hub | `/conditions/` | 99 | 100 | 100 | 100 | 2.0s | 0.012 | 0ms | ✓ |
 | Condition | `/conditions/acne/` | 100 | 100 | 100 | 100 | 1.2s | 0.000 | 0ms | ✓ |
 | Learn hub | `/blog/` | 100 | 100 | 100 | 100 | 1.1s | 0.015 | 0ms | ✓ |
 | Article | `/blog/how-to-get-rid-of-pimples/` | 100 | 100 | 100 | 100 | 1.2s | 0.000 | 0ms | ✓ |
 | FAQ | `/faq/` | 100 | 100 | 100 | 100 | 1.2s | 0.000 | 0ms | ✓ |
 | Location | `/dermatologist-victoria-island-lekki/` | 100 | 100 | 100 | 100 | 1.1s | 0.000 | 0ms | ✓ |
-| Book an appointment | `/book-appointment/` | 100 | 100 | 100 | 100 | 1.1s | 0.000 | 0ms | ✓ |
-| Contact | `/contact/` | 100 | 100 | 100 | 100 | 1.8s | 0.000 | 0ms | ✓ |
+| Book an appointment | `/book-appointment/` | 100 | 100 | 100 | 100 | 1.2s | 0.000 | 29ms | ✓ |
+| Contact | `/contact/` | 99 | 100 | 100 | 100 | 1.8s | 0.000 | 0ms | ✓ |
 | Legal | `/privacy-policy/` | 100 | 100 | 100 | 100 | 0.9s | 0.000 | 0ms | ✓ |
 
 All Lighthouse runs on record: **57 of 57 pages** meet every budget (performance ≥ 90, SEO 100, accessibility ≥ 95, best practices ≥ 95, LCP ≤ 2.5s, CLS ≤ 0.05, TBT ≤ 200ms). This includes every Priority 50 owner page; their scores are in `docs/KEYWORD_COVERAGE.md`.
@@ -57,13 +57,13 @@ All Lighthouse runs on record: **57 of 57 pages** meet every budget (performance
 
 | Budget | Measured | Limit | |
 |---|---|---|---|
-| Critical path, home (HTML + CSS + fonts + LCP image) | 97.7KB | 350.0KB | ✓ |
+| Critical path, home (HTML + CSS + fonts + LCP image) | 98.0KB | 350.0KB | ✓ |
 | Critical path, condition page | 83.6KB | 350.0KB | ✓ |
 | JS before interaction, home (gzipped) | 6.7KB | 60.0KB | ✓ |
 | JS before interaction, condition page (gzipped) | 4.3KB | 60.0KB | ✓ |
 | Deferred 3D bundle: three + engine + largest scene (gzipped) | 151.9KB | 300.0KB | ✓ |
 | Largest single scene module (gzipped) | 4.6KB | 150.0KB | ✓ |
-| First-view transfer on phones, home (estimate) | 392.3KB | 1500.0KB | ✓ |
+| First-view transfer on phones, home (estimate) | 392.5KB | 1500.0KB | ✓ |
 
 ### Other checks
 
@@ -189,7 +189,7 @@ The site is currently built for the placeholder address `https://www.oc-clinics.
 
 ## 5. Images still to supply
 
-61 required images are missing (2 of 140 registry images are in place). Each shows the brand placeholder at the right aspect ratio. Sizes and where each is used are in `docs/IMAGES_NEEDED.md`.
+60 required images are missing (3 of 140 registry images are in place). Each shows the brand placeholder at the right aspect ratio. Sizes and where each is used are in `docs/IMAGES_NEEDED.md`.
 
 **Brand**
 
@@ -231,7 +231,6 @@ The site is currently built for the placeholder address `https://www.oc-clinics.
 
 **Real photos**
 
-- `src/assets/images/real/specialist-portrait.jpg`
 - `src/assets/images/real/specialist-at-work.jpg`
 - `src/assets/images/real/exterior.jpg`
 - `src/assets/images/real/reception.jpg`
@@ -344,3 +343,4 @@ Full reasoning is in `docs/DECISIONS.md`.
 - **D84** First deploy to Cloudflare Pages (derm-site.pages.dev): the staircase, the section hand-over and the form scripts did not run.
 - **D85** The staircase's floor ring was off-centre on the live site.
 - **D86** The hero portrait stands in front of the strip of services, and the two meet in a longer, softer fade (owner, 23 November 2026).
+- **D87** The clinic is "Dr O.C Clinics", and the founder's photograph is in place (owner, 24 November 2026).

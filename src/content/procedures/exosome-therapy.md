@@ -9,7 +9,7 @@ popular: true
 summary: "Exosome products applied to the skin after microneedling or laser: what they are and what the evidence shows so far."
 image: "services/regenerative-skin"
 seoTitle: "Exosome Facial & Exosome Treatment in Lagos"
-description: "Exosome facial and exosome treatment at {{clinic}}, Lagos: what exosomes are, how they are applied, what the evidence shows so far and the open questions."
+description: "Exosome facial and exosome treatment at {{clinic}}, Lagos: what exosomes are, how they are applied, what the evidence shows so far, and open questions."
 h1: "Exosome treatment for skin: what is known so far"
 primaryKeyword: "exosome treatment"
 keywordVariants: ["exosome facial", "exosome therapy", "exosome facial Lagos", "exosome treatment Lagos", "exosomes for skin"]

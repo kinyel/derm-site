@@ -11,7 +11,7 @@ featured: false
 summary: "Long-term hair reduction for face and body with a laser and settings chosen for brown and Black skin."
 image: "services/laser-hair-removal"
 seoTitle: "Laser Hair Removal in Lagos for Dark Skin"
-description: "Laser hair removal in Lagos at {{clinic}}, Oniru: underarm, Brazilian, face and full body hair reduction with a laser and settings chosen for dark skin."
+description: "Laser hair removal in Lagos at {{clinic}}, Oniru: underarm, Brazilian, face and full body hair reduction with laser settings chosen for dark skin."
 h1: "Laser hair removal in Lagos, planned for dark skin"
 primaryKeyword: "laser hair removal Lagos"
 keywordVariants: ["laser hair removal in Lagos", "laser hair removal Lekki", "Brazilian laser hair removal Lagos", "underarm laser hair removal", "full body laser hair removal Lagos"]

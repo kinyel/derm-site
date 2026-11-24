@@ -4,11 +4,9 @@
  * until then /about/lead-dermatologist/ (DECISIONS D3). Owner page for "female dermatologist in Lagos".
  */
 import { getCollection, render } from 'astro:content';
-import { getImage } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import Band from '../../components/Band.astro';
-import Stage from '../../components/Stage.astro';
 import Media from '../../components/Media.astro';
 import Faq from '../../components/Faq.astro';
 import VisitUs from '../../components/VisitUs.astro';
@@ -16,7 +14,6 @@ import CtaBand from '../../components/CtaBand.astro';
 import Trust from '../../components/Trust.astro';
 import { clinic, leadSlug, leadPath, leadName, leadNameKnown, experienceStatement, knownList } from '../../data/clinic.ts';
 import { fillDeep } from '../../lib/facts.ts';
-import { profileAssets } from '../../lib/hero.ts';
 import { pageSchema, personSchema, faqSchema } from '../../lib/schema.ts';
 
 export function getStaticPaths() {
@@ -32,14 +29,13 @@ const crumbs = [
 ];
 const quals = knownList(clinic.lead.qualifications);
 const members = [...knownList(clinic.lead.memberships), ...knownList(clinic.lead.affiliations)];
-const assets = await profileAssets(getImage);
-const real = assets.glass === 0;
 ---
 
 <BaseLayout seoTitle={d.seoTitle} description={d.description} path={leadPath} section="about" crumbs={crumbs} schema={[pageSchema({ path: leadPath, title: d.seoTitle, description: d.description, updatedOn: d.updatedOn }, 'ProfilePage'), personSchema(d.focusAreas.map((f) => f.label)), faqSchema(d.faqs)]} ogType="article" searchType="Clinic">
   <PageHero h1={d.h1} lead={d.answer} crumbs={crumbs}>
     <Trust slot="meta" updatedOn={d.updatedOn} />
-    {real ? <Stage slot="stage" scene="hero" poster="hero--profile" p="4 / 5" params={{ ...assets, mode: 'profile' }} /> : <Media slot="stage" id="real/specialist-portrait" feature priority sizes="(min-width: 64em) 30vw, 60vw" />}
+    {/* The photograph itself, framed. The 3D portrait with glass ribbons was dropped here when the real picture arrived: the owner had the ribbons taken off the home hero, and this is a photograph with a room behind it, not a cut-out (D87). */}
+    <Media slot="stage" id="real/specialist-portrait" feature priority sizes="(min-width: 64em) 30vw, 60vw" />
   </PageHero>
 
   <Band tone="reading">

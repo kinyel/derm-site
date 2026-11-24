@@ -7,7 +7,7 @@ summary: "A contagious bacterial skin infection, common in children, that causes
 bodyAreas: ["face", "body"]
 categories: ["childrens-skin-care", "clinical-dermatology"]
 seoTitle: "Impetigo in Children: Signs and Treatment"
-description: "Impetigo: honey-coloured crusts and sores in children, how it spreads at home and school, and treatment with creams or antibiotics at {{clinic}}, Lagos."
+description: "Impetigo: honey-coloured crusts and sores in children, how it spreads at home and school, treatment with creams or antibiotics at {{clinic}}, Lagos."
 h1: "Impetigo: crusted sores that spread between children"
 primaryKeyword: "impetigo treatment"
 keywordVariants: ["impetigo in children", "honey coloured crust sores", "school sores", "blisters on child skin infection", "is impetigo contagious"]

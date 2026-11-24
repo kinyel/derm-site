@@ -8,7 +8,7 @@ order: 10
 summary: "A full skin check with a dermatoscope, and digital mapping of moles so that changes can be found early."
 image: "services/skin-cancer-dermoscopy"
 seoTitle: "Mole Check & Mole Mapping in Lagos"
-description: "Mole check in Lagos at {{clinic}}, Oniru: dermoscopy and full-body mole mapping to find changes early, including on palms, soles and nails in dark skin."
+description: "Mole check in Lagos at {{clinic}}, Oniru: dermoscopy and full-body mole mapping to find changes early, including palms, soles and nails in dark skin."
 h1: "Mole checks, dermoscopy and mole mapping"
 primaryKeyword: "mole check Lagos"
 keywordVariants: ["mole mapping Lagos", "dermoscopy Lagos", "full body skin check Lagos", "skin cancer screening Lagos"]

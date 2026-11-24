@@ -1,7 +1,7 @@
 {
   "name": "oc-clinics-site",
   "version": "1.0.0",
-  "description": "O.C Clinics website",
+  "description": "Dr O.C Clinics website",
   "scripts": {
     "dev": "astro dev",
     "build": "node scripts/build.mjs",

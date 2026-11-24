@@ -24,7 +24,7 @@ git add -A
 ```
 
 ```bash
-git commit -m "O.C Clinics website"
+git commit -m "Dr O.C Clinics website"
 ```
 
 Then create a private repository on GitHub and push to it.

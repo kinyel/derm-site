@@ -9,7 +9,7 @@ popular: true
 abstractVisualOnly: true
 summary: "Injectable body filler for the buttocks and hip dips: what it is, the real risks, and who is not suitable."
 seoTitle: "Butt Filler (Non-Surgical BBL) in Lagos"
-description: "Butt filler in Lagos, sometimes called a non-surgical BBL or hip dip filler: products used, real risks, who should not have it. Doctor-led at {{clinic}}."
+description: "Butt filler in Lagos, sometimes called a non-surgical BBL or hip dip filler: products used, real risks, who should avoid it. Doctor-led at {{clinic}}."
 h1: "Butt filler: what a non-surgical BBL involves"
 primaryKeyword: "butt filler"
 keywordVariants: ["non-surgical BBL", "hip dip filler", "butt filler Lagos", "buttock filler", "non surgical BBL Lagos"]

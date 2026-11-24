@@ -9,7 +9,7 @@ order: 10
 summary: "A small sample of skin, scalp or nail taken under local anaesthetic and examined under a microscope."
 image: "services/skin-surgery"
 seoTitle: "Skin Biopsy in Lagos: What to Expect"
-description: "Skin biopsy in Lagos at {{clinic}}, Oniru: punch, shave and excisional biopsy under local anaesthetic, how results are reported and how the wound heals."
+description: "Skin biopsy in Lagos at {{clinic}}, Oniru: punch, shave and excisional biopsy under local anaesthetic, how results are reported, how the wound heals."
 h1: "Skin biopsy: a small sample for a firm diagnosis"
 primaryKeyword: "skin biopsy Lagos"
 keywordVariants: ["skin biopsy in Lagos", "punch biopsy", "scalp biopsy", "nail biopsy"]

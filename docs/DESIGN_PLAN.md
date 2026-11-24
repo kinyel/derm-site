@@ -1,4 +1,4 @@
-# Design plan — O.C Clinics
+# Design plan — Dr O.C Clinics
 
 > **Read this first.** This plan was written before the owner's design feedback and is kept as a record. Where it differs from the site, the site is right. Colour, type, navigation, section edges and the home page layout were all changed: pink and light glacier blue are both primary colours on white-led surfaces with slate-navy dark bands (DECISIONS D60), one typeface and a compact scale (D61), one page edge and straight section joins (D62), a full-width navigation bar with white dropdowns (D63), a spiral staircase with circular steps (D64), the hero from the owner's sample (D65) and two home layouts only (D67). The clinic is in Victoria Island, not on Lagos Island as some lines below say (D71), and the hero headline is two lines (D72). `src/styles/tokens.css` is the source of truth for colour and type.
 

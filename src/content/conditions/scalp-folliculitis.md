@@ -7,7 +7,7 @@ summary: "Itchy pus spots on the scalp, and firm bumps at the back of the head a
 bodyAreas: ["scalp"]
 categories: ["hair-and-scalp", "mens-and-womens-skin-health"]
 seoTitle: "Bumps at the Back of the Head: Acne Keloidalis"
-description: "Scalp folliculitis and acne keloidalis nuchae: bumps at the back of the head after haircuts, why early treatment matters, and care at {{clinic}}, Lagos."
+description: "Scalp folliculitis and acne keloidalis nuchae: bumps at the back of the head after haircuts, why early treatment matters; care at {{clinic}}, Lagos."
 h1: "Scalp folliculitis and bumps at the back of the head (acne keloidalis nuchae)"
 primaryKeyword: "acne keloidalis nuchae treatment"
 keywordVariants: ["bumps on back of head after haircut", "barber bumps on head", "scalp folliculitis treatment", "keloid at back of head", "pimples on scalp"]

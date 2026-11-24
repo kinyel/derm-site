@@ -7,7 +7,7 @@ summary: "An itchy rash where the skin has touched something that irritates it o
 bodyAreas: ["face", "body", "hands-nails", "scalp"]
 categories: ["clinical-dermatology", "skin-tests-and-diagnostics"]
 seoTitle: "Contact Dermatitis: Causes, Patch Tests, Treatment"
-description: "Contact dermatitis explained: rashes from hair dye, jewellery, cosmetics, detergents and work, how patch testing at {{clinic}} in Lagos finds the cause."
+description: "Contact dermatitis explained: rashes from hair dye, jewellery, cosmetics, detergents and work; patch testing at {{clinic}} in Lagos finds the cause."
 h1: "Contact dermatitis: rashes caused by what touches your skin"
 primaryKeyword: "contact dermatitis treatment"
 keywordVariants: ["skin allergy rash", "hair dye allergy", "nickel allergy rash", "hand dermatitis treatment", "allergic reaction on face", "detergent rash on hands"]

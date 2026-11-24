@@ -7,7 +7,7 @@ summary: "A receding hairline and thinning crown in men, caused by inherited sen
 bodyAreas: ["scalp"]
 categories: ["hair-and-scalp", "mens-and-womens-skin-health"]
 seoTitle: "Male Pattern Hair Loss: Treatment for Balding"
-description: "Male pattern hair loss: a receding hairline and thinning crown, what causes balding, and proven treatment and hair transplant advice at {{clinic}}, Lagos."
+description: "Male pattern hair loss: a receding hairline and thinning crown, what causes balding; proven treatment and hair transplant advice at {{clinic}}, Lagos."
 h1: "Male pattern hair loss: receding hairline and thinning crown"
 primaryKeyword: "male pattern baldness treatment"
 keywordVariants: ["receding hairline treatment", "balding at the crown", "hair loss treatment for men", "finasteride and minoxidil", "going bald in 20s", "hair transplant for men Lagos"]

@@ -33,7 +33,7 @@ const services = [
 const description = `Dermatologist in Lagos at ${clinic.name}, ${clinic.address.neighbourhood}, ${clinic.address.addressLocality}: a skin doctor on the Island with ${experienceFragment.replace(' in dermatology', '')}. Book an appointment.`;
 ---
 
-<BaseLayout seoTitle={`Dermatologist in Lagos: ${clinic.address.neighbourhood}, ${clinic.address.addressLocality}`} description={description} path="/" schema={[clinicSchema(services, specialties), faqSchema(homeFaqs)]} searchType="Clinic">
+<BaseLayout seoTitle={`Dermatologist in Lagos, ${clinic.address.addressLocality}`} description={description} path="/" schema={[clinicSchema(services, specialties), faqSchema(homeFaqs)]} searchType="Clinic">
   <!-- LCP help on phones: fetch the portrait hero poster early (the <picture> picks the same file) -->
   <link slot="head" rel="preload" as="image" type="image/avif" href="/posters/hero-p@2x.avif" imagesrcset="/posters/hero-p@1x.avif 1x, /posters/hero-p@2x.avif 2x" media="(max-width: 63.99em) and (orientation: portrait)" fetchpriority="high" />
   <FadeSequence>

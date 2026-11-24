@@ -47,7 +47,7 @@ export const fixedImages: ImageSpec[] = [
     group: 'brand',
     width: 512,
     height: 512,
-    alt: 'O.C Clinics',
+    alt: 'Dr O.C Clinics',
     pages: ['Every page (navigation, footer)', 'Favicon and app icons (generated from it)'],
   },
 
@@ -68,7 +68,7 @@ export const fixedImages: ImageSpec[] = [
     group: 'hero',
     width: 1200,
     height: 630,
-    alt: 'O.C Clinics, dermatology clinic in Oniru, Lagos',
+    alt: 'Dr O.C Clinics, dermatology clinic in Oniru, Lagos',
     pages: ['/ (Open Graph share image)'],
   },
 
@@ -100,17 +100,17 @@ export const fixedImages: ImageSpec[] = [
   service('diabetes', 'Finger-prick blood glucose test being taken with a glucose meter', ['/services/internal-medicine/diabetes/'], 'leaf'),
 
   /* Real equipment (real photos only) */
-  real('phototherapy-booth', 1600, 1200, 'The full-body phototherapy booth at O.C Clinics', ['/services/clinical-dermatology/phototherapy/'], 'equipment'),
-  real('phototherapy-handheld', 1600, 1200, 'The digital handheld phototherapy unit at O.C Clinics', ['/services/clinical-dermatology/phototherapy/'], 'equipment'),
-  real('laser-devices', 1600, 1200, 'Laser devices in a treatment room at O.C Clinics', ['/services/laser-treatments/q-switch-laser/', '/services/laser-treatments/pico-laser/', '/services/laser-treatments/erbium-yag-laser/'], 'equipment'),
+  real('phototherapy-booth', 1600, 1200, 'The full-body phototherapy booth at Dr O.C Clinics', ['/services/clinical-dermatology/phototherapy/'], 'equipment'),
+  real('phototherapy-handheld', 1600, 1200, 'The digital handheld phototherapy unit at Dr O.C Clinics', ['/services/clinical-dermatology/phototherapy/'], 'equipment'),
+  real('laser-devices', 1600, 1200, 'Laser devices in a treatment room at Dr O.C Clinics', ['/services/laser-treatments/q-switch-laser/', '/services/laser-treatments/pico-laser/', '/services/laser-treatments/erbium-yag-laser/'], 'equipment'),
 
   /* Real photos of staff and premises */
-  real('specialist-portrait', 1600, 2000, 'The lead consultant dermatologist at O.C Clinics', ['/ (The clinic)', '/about/', 'Lead dermatologist profile']),
+  real('specialist-portrait', 1600, 2000, 'The lead consultant dermatologist at Dr O.C Clinics', ['/ (The clinic)', '/about/', 'Lead dermatologist profile']),
   real('specialist-at-work', 1800, 1200, 'The lead consultant dermatologist examining a patient’s skin', ['/about/', 'Lead dermatologist profile']),
-  real('exterior', 1800, 1200, 'The entrance to O.C Clinics on Chief Yesufu Abiodun Oniru Road', ['/dermatologist-victoria-island-lekki/', '/ (Visit us)', '/contact/']),
-  real('reception', 1800, 1200, 'The reception area at O.C Clinics', ['/about/', '/your-visit/']),
-  real('treatment-room', 1800, 1200, 'A treatment room at O.C Clinics', ['/about/', '/your-visit/']),
-  real('team', 1800, 1200, 'Members of the O.C Clinics team', ['/about/']),
+  real('exterior', 1800, 1200, 'The entrance to Dr O.C Clinics on Chief Yesufu Abiodun Oniru Road', ['/dermatologist-victoria-island-lekki/', '/ (Visit us)', '/contact/']),
+  real('reception', 1800, 1200, 'The reception area at Dr O.C Clinics', ['/about/', '/your-visit/']),
+  real('treatment-room', 1800, 1200, 'A treatment room at Dr O.C Clinics', ['/about/', '/your-visit/']),
+  real('team', 1800, 1200, 'Members of the Dr O.C Clinics team', ['/about/']),
 ];
 
 /** Optional illustration for a condition page: src/assets/images/illustrations/{slug}.png */

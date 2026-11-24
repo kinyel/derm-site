@@ -11,7 +11,7 @@ icon: lens
 image: services/consultation
 specialty: Dermatology
 seoTitle: Dermatology Consultations in Lagos
-description: "Book a dermatology consultation in Lagos at {{clinic}}, Oniru: general, specialist, second-opinion and online consultations, plus full skin assessments."
+description: "Book a dermatology consultation in Lagos at {{clinic}}, Oniru: general, specialist, second-opinion and online consultations, and full skin assessments."
 h1: See a dermatologist for a consultation or skin assessment
 answer: "A dermatology consultation is an appointment with a skin doctor who examines your skin, hair or nails, makes a diagnosis and plans treatment. At {{clinic}} in Oniru, Lagos, you can book a general, specialist, follow-up or second-opinion consultation, in person or online, for adults and children."
 updatedOn: 2026-11-22
