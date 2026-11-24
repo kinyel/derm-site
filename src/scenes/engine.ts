@@ -7,6 +7,7 @@
 import * as THREE from 'three';
 import type { Tier } from '../scripts/core.ts';
 import { disposeTree, setTime, setSurface } from './kit.ts';
+import { STILL_TIME } from './hero-layout.ts';
 
 export interface FrameState {
   time: number;
@@ -73,7 +74,7 @@ const query = new URLSearchParams(location.search);
 const still = query.has('poster');
 /** ?tier=N pins the tier for testing and switches the frame-time watchdog off. */
 const pinned = query.has('tier') || still;
-const stillTime = 3.2;
+const stillTime = STILL_TIME; // the pose posters are rendered in; the home hero continues from it (D91)
 
 /* Frame-time watchdog (D79, D81). It decides once per tier whether this device can keep up with the 3D.
    The owner's rule is that the hero must stay alive on a capable computer, so the verdict is built to be

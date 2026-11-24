@@ -10,6 +10,7 @@ import AxeBuilder from '@axe-core/playwright';
 import fs from 'node:fs';
 import path from 'node:path';
 import { leadPath } from '../src/data/clinic.ts';
+import { HERO_COMP, HERO_MEDIA, HERO_NARROW } from '../src/scenes/hero-layout.ts';
 
 const TEMPLATES: Record<string, string> = {
   home: '/',
@@ -180,6 +181,50 @@ test.describe('home hand-over: one section on screen at a time (D90)', () => {
         if (drawn.filter((o) => o > 0.04).length > 1) clashes.push(`y=${y}: ${drawn.map((o) => o.toFixed(2)).join(' / ')}`);
       }
       expect(clashes, 'scroll positions where two sections show words at once').toEqual([]);
+      await ctx.close();
+    });
+  }
+});
+
+/* The home hero's poster stands exactly where the live 3D draws the portrait (D91), or the page shows two
+   faces while it loads. The scene places the portrait by the numbers in src/scenes/hero-layout.ts; this
+   checks that the poster's CSS (components.css) and the poster file chosen (Stage media) follow the same
+   numbers: full hero height, the portrait's centre in the image standing at its place across the hero. */
+test.describe('home hero: poster and 3D agree (D91)', () => {
+  const sizes = [
+    ['small phone', 375, 667, true],
+    ['phone', 390, 844, true],
+    ['narrow phone', 360, 800, true],
+    ['phone on its side', 667, 375, true],
+    ['large phone on its side', 932, 430, true],
+    ['tablet upright', 768, 1024, true],
+    ['tablet on its side', 960, 600, true],
+    ['desktop', 1440, 900, false],
+    ['tall desktop', 1280, 1000, false],
+  ] as const;
+  for (const [label, width, height, mobile] of sizes) {
+    test(`${label} ${width}×${height}`, async ({ browser }) => {
+      const ctx = await browser.newContext({ viewport: { width, height }, hasTouch: mobile, isMobile: mobile });
+      const page = await ctx.newPage();
+      await page.goto('/?tier=0', { waitUntil: 'load' });
+      await settle(page);
+      const m = await page.evaluate(
+        ({ comp, media, narrow }) => {
+          const stage = document.querySelector<HTMLElement>('.hero .stage')!;
+          const img = stage.querySelector<HTMLImageElement>('.stage__poster img')!;
+          const lay = matchMedia(media.short).matches ? 'short' : matchMedia(media.wide).matches ? 'wide' : 'cover';
+          const c = comp[lay as 'cover' | 'short' | 'wide'];
+          const at = c.atNarrow !== undefined && matchMedia(narrow).matches ? c.atNarrow : c.at;
+          const s = stage.getBoundingClientRect();
+          const r = img.getBoundingClientRect();
+          const file = (img.currentSrc.match(/hero-([pld])@/) ?? [])[1];
+          return { lay, file, stageH: s.height, imgH: r.height, centre: r.left + c.px * r.width, want: s.left + at * s.width };
+        },
+        { comp: HERO_COMP, media: HERO_MEDIA, narrow: HERO_NARROW },
+      );
+      expect(m.file, 'poster file for this layout').toBe({ cover: 'p', short: 'l', wide: 'd' }[m.lay]);
+      expect(Math.abs(m.imgH - m.stageH), 'poster height against the hero').toBeLessThanOrEqual(1);
+      expect(Math.abs(m.centre - m.want), 'portrait centre across the hero').toBeLessThanOrEqual(1.5);
       await ctx.close();
     });
   }

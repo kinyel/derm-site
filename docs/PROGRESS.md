@@ -23,7 +23,9 @@
 >   The CSS minifier keeps only the LAST of two declarations of one property: put fallbacks in `@supports`, never as a
 >   duplicate line. `node scripts/screencast.mjs <outDir> [/path or URL] [375x667] [wheel|touch]` records every drawn frame
 >   while scrolling (then `node scripts/frame-sheet.mjs <outDir> <out.jpg>`); `node scripts/sideways.mjs [--narrow] [--noclip]`
->   checks every page for sideways scroll at phone widths.
+>   checks every page for sideways scroll at phone widths. `screencast.mjs … load` / `hold:<y>` record the page load or
+>   a held position; `node scripts/frame-jumps.mjs <dir>` flags frames that jump. The home hero's composition lives in
+>   `src/scenes/hero-layout.ts` (D91): scene, poster and poster CSS must agree, an e2e test checks it.
 > - `node scripts/fade-probe.mjs <outDir> "<url>?tier=2" [WxH]` steps through the home page's fade sequence;
 >   `node scripts/return-probe.mjs <outDir> "<url>?tier=2" [WxH]` scrolls away and back and checks the hero 3D still moves;
 >   `npm run test:cls` scans every page for layout shift with the fonts held back.
@@ -36,7 +38,7 @@
 
 ## Owner feedback received during the build (must be kept)
 
-Latest first; the newest instruction wins where two differ. Full reasoning in DECISIONS D23, D30–D38, D60–D90.
+Latest first; the newest instruction wins where two differ. Full reasoning in DECISIONS D23, D30–D38, D60–D91.
 
 0. **The clinic is in Victoria Island (Oniru), not Lagos Island** (D71). Never write that it is on or in Lagos Island, or
    "between" Victoria Island and Lekki. "Dermatologist in Lagos" (home) and "dermatologist in Lagos Island" (location page,

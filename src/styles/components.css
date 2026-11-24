@@ -626,17 +626,36 @@
   .stage--behind .stage__poster img {
     object-fit: cover;
   }
-  /* Hero poster (static tier): shown whole and at the size the live scene draws the portrait, never
-     zoomed to fill. The hero is rarely the poster's exact shape, and filling the box blew the portrait
-     up, cut off the top of her head and softened it (D79). Standing on the foot of the hero; the
-     horizontal anchor is where the portrait stands in each layout. */
+  /* Hero poster (D91): exactly where the live scene draws the portrait, so the hand-over is invisible.
+     Shown at the hero's full height (the poster is the scene rendered at that height, so the portrait's
+     size and height match at any width; the head is never cut off, D79), with the portrait's centre in
+     the image (`px`) standing at its place across the hero (`at`). The numbers and the media queries are
+     those of src/scenes/hero-layout.ts (HERO_COMP, HERO_MEDIA, HERO_NARROW): change them together; the
+     e2e test "hero poster stands where the 3D draws" checks it. */
   .stage--behind[data-scene='hero'] .stage__poster img {
+    inset: 0 auto;
+    width: auto;
+    max-width: none;
+    height: 100%;
     object-fit: contain;
-    object-position: 56% 100%;
+    left: 59%;
+    transform: translateX(-59%);
   }
-  @media (min-width: 64em), (orientation: landscape) and (max-height: 30em) {
+  @media (orientation: landscape) and (max-height: 30em) {
     .stage--behind[data-scene='hero'] .stage__poster img {
-      object-position: 78% 100%;
+      left: 66%;
+      transform: translateX(-66%);
+    }
+  }
+  @media (orientation: landscape) and (max-height: 30em) and (max-width: 41.99em) {
+    .stage--behind[data-scene='hero'] .stage__poster img {
+      left: 78%;
+    }
+  }
+  @media (min-aspect-ratio: 6/5) and (min-height: 30.01em) {
+    .stage--behind[data-scene='hero'] .stage__poster img {
+      left: 78%;
+      transform: translateX(-78%);
     }
   }
   .stage--behind {

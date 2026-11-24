@@ -22,6 +22,14 @@
  */
 import { THREE, color, glass, glowMaterial, ribbonGeometry, frustumAt, ease, rng } from '../kit.ts';
 import type { SceneFactory } from '../engine.ts';
+import { HERO_COMP, heroLayout, heroAt, type HeroLayout } from '../hero-layout.ts';
+
+/* Taking over from the poster (D91). The poster shows the scene's own rest pose, and the live scene starts
+   in exactly that pose at exactly that place, at full strength, so the poster fading out above it changes
+   nothing on screen. The marks then glide from where the poster has them to their places beside the words. */
+const MARK_POSE_TIME = 2.4; // the marks' clock in a poster
+const GLIDE_AFTER = 0.85; // s: once the poster has faded (--dur-reveal is 0.8s)
+const GLIDE_FOR = 1.3; // s
 
 function loadTexture(url: string, width: number, srgb: boolean): Promise<THREE.Texture> {
   return new Promise((resolve, reject) => {
@@ -152,6 +160,8 @@ const factory: SceneFactory = async (ctx) => {
     spin: THREE.Group;
     pearls: { mesh: THREE.Mesh; r: number; sp: number; ph: number; tilt: number }[];
     base: { x: number; y: number; s: number };
+    /** where the poster has it, mapped onto this screen (the start of the glide) */
+    from: { x: number; y: number; s: number };
     phase: number;
     dir: number;
   }
@@ -205,7 +215,7 @@ const factory: SceneFactory = async (ctx) => {
         m.renderOrder = 6; // drawn after the portrait: never hidden by it
       });
       scene.add(root);
-      return { root, spin, pearls, base: { x: 0, y: 0, s: 1 }, phase, dir };
+      return { root, spin, pearls, base: { x: 0, y: 0, s: 1 }, from: { x: 0, y: 0, s: 1 }, phase, dir };
     };
     marks.push(buildMark(0, 1), buildMark(1.9, -1));
   }
@@ -236,26 +246,47 @@ const factory: SceneFactory = async (ctx) => {
     }
     return { x, y, ok: Boolean(el) && n === heroEl };
   };
-  /** A phone on its side: too short for the tall composition. */
-  const isShort = () => window.innerHeight < 600;
-  /** Cover layout from the page: under the headline to the foot of the hero, centred right of middle. */
-  function coverFromPage(hw: number, hh: number): { h: number; x: number; y: number } | null {
-    const title = heroEl?.querySelector<HTMLElement>('.hero__title');
-    const W = ctx.stage.offsetWidth;
-    const H = ctx.stage.offsetHeight;
-    const t = offsetIn(title);
-    if (!title || !t.ok || !W || !H) return null;
-    const unit = (2 * hh) / H;
-    const topPx = t.y + title.offsetHeight + 6;
-    const hPx = Math.max(H * 0.45, H - topPx);
-    const centrePx = W * (W < 600 ? 0.6 : 0.64);
-    return { h: hPx * unit, x: (centrePx / W) * 2 * hw - hw, y: hh - ((topPx + hPx / 2) / H) * 2 * hh };
+  /* The layout is the one the poster on screen was rendered in (hero-layout.ts): phones upright, phones on
+     their side, or wide. */
+  let lay: HeroLayout = heroLayout();
+  /* What the placement depends on, as one string. The scene looks again every 45 frames (the web font can
+     arrive late and move the words) but lays out again only when this changed (D91): laying out puts the
+     camera and the portrait back at rest, and it used to run after the frame had set the scroll's zoom, so
+     one frame in 45 showed the portrait smaller and lower, a snap every 1.5 seconds on phones. */
+  const pageKey = () => {
+    const els = ['.hero__title', '.hero__lead', '.hero__accent', '.hero__strip'].map((s) => heroEl?.querySelector<HTMLElement>(s) ?? null);
+    els.push(actionsEl, (actionsEl?.lastElementChild as HTMLElement | null) ?? null, innerEl);
+    const parts: (number | string)[] = [ctx.stage.offsetWidth, ctx.stage.offsetHeight, heroLayout(), heroAt(lay)];
+    for (const el of els) {
+      const o = offsetIn(el);
+      parts.push(o.x, o.y, el?.offsetWidth ?? 0, el?.offsetHeight ?? 0);
+    }
+    return parts.join(',');
+  };
+  let placedKey = '';
+  /* The poster on screen, if it has loaded: the live scene takes over from it (D91). Its own width and
+     height tell the shape it was rendered in. */
+  const posterImg = ctx.stage.querySelector<HTMLImageElement>('.stage__poster img');
+  const posterReady = () => Boolean(posterImg && posterImg.complete && posterImg.naturalWidth > 0 && posterImg.naturalHeight > 0);
+  const handoff = !still && mode === 'home' && posterReady();
+  /** The marks where a poster (no page around it) puts them, in the poster's own scene units. */
+  function posterMarks(hwP: number, hh: number): { x: number; y: number; r: number }[] {
+    return lay !== 'cover'
+      ? [
+          { x: hwP * 0.03, y: -hh * 0.3, r: hh * 0.15 },
+          { x: hwP * 0.84, y: hh * 0.66, r: hh * 0.07 },
+        ]
+      : [
+          { x: -hwP * 0.58, y: hh * 0.05, r: hwP * 0.17 },
+          { x: hwP * 0.68, y: hh * 0.72, r: hwP * 0.07 },
+        ];
   }
   function placeMarks() {
     if (!marks.length) return;
     const { hw, hh } = base;
     const near = (BASE_Z - EMBLEM_Z) / BASE_Z; // the marks are nearer the camera than the portrait's plane
-    const wide = lastAspect >= 1.2;
+    const wide = lay !== 'cover';
+    const isShort = () => lay === 'short';
     const W = ctx.stage.offsetWidth;
     const H = ctx.stage.offsetHeight;
     const a = offsetIn(actionsEl);
@@ -312,10 +343,9 @@ const factory: SceneFactory = async (ctx) => {
         const r = Math.max(22, Math.min(W * 0.085, 46, room)) * unit;
         set(marks[0], toX(a.x) + r * 1.95, toY(a.y + ah) - 14 * unit - r * 1.2, r);
       }
-    } else if (wide) {
-      set(marks[0], hw * 0.03, -hh * 0.3, hh * 0.15);
     } else {
-      set(marks[0], -hw * 0.58, hh * 0.05, hw * 0.17);
+      const p = posterMarks(hw, hh)[0];
+      set(marks[0], p.x, p.y, p.r);
     }
 
     // corner
@@ -330,10 +360,21 @@ const factory: SceneFactory = async (ctx) => {
       const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) * 16 || 72;
       const r = Math.max(13, Math.min(W * (W < 768 ? 0.05 : 0.034), H * 0.05, 40)) * unit;
       set(marks[1], toX(W - edge) - r * 1.95, toY(navH + 22) - r * 1.25, r);
-    } else if (wide) {
-      set(marks[1], hw * 0.84, hh * 0.66, hh * 0.07);
     } else {
-      set(marks[1], hw * 0.68, hh * 0.72, hw * 0.07);
+      const p = posterMarks(hw, hh)[1];
+      set(marks[1], p.x, p.y, p.r);
+    }
+
+    /* Where the poster on screen has the marks (D91). The poster is shown at the hero's full height, so its
+       scene units are this screen's; only across does it differ: its point `px` stands at `at`. */
+    if (posterReady()) {
+      const hwP = hh * (posterImg!.naturalWidth / posterImg!.naturalHeight);
+      const shift = (2 * heroAt(lay) - 1) * hw - (2 * HERO_COMP[lay].px - 1) * hwP;
+      posterMarks(hwP, hh).forEach((p, i) => {
+        if (marks[i]) marks[i].from = { x: (p.x + shift) * near, y: p.y * near, s: p.r * near };
+      });
+    } else {
+      marks.forEach((m) => (m.from = { ...m.base }));
     }
   }
 
@@ -396,37 +437,22 @@ const factory: SceneFactory = async (ctx) => {
     base.hw = hw;
     base.hh = hh;
     let h: number;
+    lay = heroLayout();
     if (mode === 'profile') {
       h = hh * 1.86;
       base.x = 0;
       base.y = -hh * 0.04;
-    } else if (aspect >= 1.2 && isShort()) {
-      // phones on their side (D88): text in the left half, the portrait standing in the middle of the
-      // right half from just under the navigation to the foot, the marks to her right
-      h = hh * 1.86;
-      base.x = hw * (window.innerWidth < 672 ? 0.56 : 0.32);
-      base.y = -hh * 0.07;
-    } else if (aspect >= 1.2) {
-      // tablets on their side, laptops, desktops: text left, portrait right.
-      // The strip of services covers the left 70% of the foot, so the portrait has the right-hand
-      // column to itself from top to bottom (D79).
-      h = hh * 1.74;
-      base.x = hw * 0.56;
-      base.y = -hh * 0.1;
     } else {
-      // phones and upright tablets: a cover (D88). The portrait fills the space between the headline and
-      // the foot of the hero, wider than the screen and running off its right edge.
-      const c = coverFromPage(hw, hh);
-      if (c) {
-        h = c.h;
-        base.x = c.x;
-        base.y = c.y;
-      } else {
-        // no page around the scene (the poster renderer): a typical phone
-        h = hh * 1.5;
-        base.x = hw * 0.18;
-        base.y = -hh * 0.25;
-      }
+      // Home (D91): the shared composition, the same for the poster and the live scene at every size.
+      //   phones upright and upright tablets: a cover from a quarter of the way down to the foot, right of
+      //     centre, running off the right edge on narrow phones (D88);
+      //   phones on their side: the right half, nearly full height, the marks to her right (D88);
+      //   wide screens: the right-hand column top to bottom; the strip of services covers the left 70% of
+      //     the foot (D79).
+      const c = HERO_COMP[lay];
+      h = c.h * 2 * hh;
+      base.x = (2 * heroAt(lay) - 1) * hw;
+      base.y = (1 - 2 * c.cy) * hh;
     }
     portraitGroup.position.set(base.x, base.y, 0);
     portraitGroup.scale.setScalar(h / BASE_H);
@@ -434,12 +460,13 @@ const factory: SceneFactory = async (ctx) => {
     // foot dissolve over a longer distance there: her arm melts into the box instead of stopping on it (D86).
     if (mode === 'home' && params.fadeSides === undefined && params.fadeBottom === undefined) {
       const e = portraitMat.uniforms.uEdge.value as THREE.Vector3;
-      if (aspect >= 1.2) e.set(0.24, 0.27, 0.12);
+      if (lay !== 'cover') e.set(0.24, 0.27, 0.12);
       else e.set(0.14, 0.2, 0.14);
     }
 
     lastAspect = aspect;
     placeMarks();
+    if (marks.length) placedKey = pageKey();
 
     const paths = aspect >= 1.2 ? RIBBONS_WIDE : RIBBONS_TALL;
     const segs = tier === 2 ? 140 : 64;
@@ -467,7 +494,12 @@ const factory: SceneFactory = async (ctx) => {
     resize: layout,
     update({ time, dt, progress, pointer }) {
       if (t0 < 0) t0 = time;
-      const intro = still ? 1 : ease.out((time - t0) / 1.9);
+      // first, before this frame's zoom and lift are applied, so a new layout never shows at rest
+      if (marks.length && !still && ++placeTick % 45 === 0 && pageKey() !== placedKey) layout(lastAspect);
+      // Taking over from a poster, the scene starts at rest in the poster's pose and place, at full strength
+      // (no fade or rise in); `settle` then brings in the motion and moves the marks to their places (D91).
+      const intro = still || handoff ? 1 : ease.out((time - t0) / 1.9);
+      const settle = handoff ? ease.inOut(ease.clamp((time - t0 - GLIDE_AFTER) / GLIDE_FOR)) : 1;
       let p = progress;
       if (mode === 'home') {
         if (still) {
@@ -499,7 +531,7 @@ const factory: SceneFactory = async (ctx) => {
       // towards the text, so the portrait reads as a solid thing leaving, not a picture sliding away.
       camera.position.z = BASE_Z - (mode === 'home' ? s1 * 0.7 * calm : p * 0.9);
       const breathe = Math.sin(time * 0.55);
-      portraitMat.uniforms.uStrength.value = 0.26 + (mode === 'home' ? s1 * 0.34 * calm : p * 0.5) + (fine ? 0 : breathe * 0.03);
+      portraitMat.uniforms.uStrength.value = 0.26 + (mode === 'home' ? s1 * 0.34 * calm : p * 0.5) + (fine ? 0 : breathe * 0.03 * settle);
       portraitMat.uniforms.uFade.value = still ? 1 : ease.clamp(intro * 1.4);
 
       // pointer parallax within ±1.5°; touch devices breathe slowly instead
@@ -521,16 +553,18 @@ const factory: SceneFactory = async (ctx) => {
       // The marks never rest: they sway and bob, their pearls orbit, they lean with the pointer and
       // they turn further and lift as the page scrolls.
       if (marks.length) {
-        if (!still && ++placeTick % 45 === 0) layout(lastAspect);
         marks.forEach((m, i) => {
-          const t = (still ? 2.4 : time) + m.phase;
-          const grow = still ? 1 : 0.72 + 0.28 * ease.out(ease.clamp(intro * 1.1 - i * 0.15));
-          m.root.scale.setScalar(m.base.s * grow);
+          // a poster's clock; after a hand-over the marks carry on from the pose the poster shows
+          const t = (still ? MARK_POSE_TIME : handoff ? MARK_POSE_TIME + (time - t0) : time) + m.phase;
+          const grow = still || handoff ? 1 : 0.72 + 0.28 * ease.out(ease.clamp(intro * 1.1 - i * 0.15));
+          const at = (a: number, b: number) => a + (b - a) * settle; // from the poster's place to its own
+          m.root.scale.setScalar(at(m.from.s, m.base.s) * grow);
+          m.root.position.x = at(m.from.x, m.base.x);
           // the main mark stays level with the buttons it is placed against; the corner one lifts a little
-          m.root.position.y = m.base.y + Math.sin(t * 0.9) * base.hh * 0.016 + s1 * base.hh * (i === 0 ? 0 : 0.04);
+          m.root.position.y = at(m.from.y, m.base.y) + Math.sin(t * 0.9) * base.hh * 0.016 + s1 * base.hh * (i === 0 ? 0 : 0.04);
           // sways and tumbles, and turns further with scroll, but never far enough to read back to front
           // the static picture shows the marks square-on, so both rings read as the logo
-          const sway = still ? 0 : 1;
+          const sway = still ? 0 : settle;
           m.root.rotation.set(
             0.16 + sway * Math.sin(t * 0.52) * 0.14 + rot.x * 5 + s1 * 0.55,
             m.dir * (0.1 + sway * Math.sin(t * 0.4) * 0.32) + rot.y * 6 + m.dir * s1 * 0.75,

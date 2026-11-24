@@ -16,6 +16,7 @@ import Button from '../Button.astro';
 import { clinic, experienceFragment, whatsappHref } from '../../data/clinic.ts';
 import { loadAll, paths } from '../../lib/content.ts';
 import { heroAssets } from '../../lib/hero.ts';
+import { HERO_MEDIA } from '../../scenes/hero-layout.ts';
 
 const all = await loadAll();
 const assets = await heroAssets(getImage);
@@ -30,7 +31,7 @@ const strip = [
 ---
 
 <Band tone="mist" first hero="home" as="header" class="hero">
-  <Stage scene="hero" behind priority surface="light" layer="front" p="9 / 19" l="19 / 9" d="16 / 10" params={{ ...assets, mode: 'home' }} />
+  <Stage scene="hero" behind priority surface="light" layer="front" p="9 / 19" l="19 / 9" d="16 / 10" media={{ d: HERO_MEDIA.wide, l: HERO_MEDIA.short }} params={{ ...assets, mode: 'home' }} />
   <div class="hero__scrim" aria-hidden="true"></div>
   <div class="hero__veil" aria-hidden="true" data-fade="fixed"></div>
   <div class="container hero__inner" data-fade="text">

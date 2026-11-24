@@ -1,4 +1,4 @@
-// node scripts/screencast.mjs <outDir> [path-or-url=/] [WxH=375x667] [wheel|touch]
+// node scripts/screencast.mjs <outDir> [path-or-url=/] [WxH=375x667] [wheel|touch|hold:<scrollY>|load]
 //
 // Records every frame the browser actually draws while scrolling a page at phone size (D90), as numbered
 // JPEGs (s<index>-<ms>.jpg), and prints any animation frame over 25ms with its scroll position. A path is
@@ -28,8 +28,28 @@ fs.mkdirSync(outDir, { recursive: true });
 const browser = await chromium.launch({ channel: 'chrome', args: ['--use-angle=metal', '--enable-gpu-rasterization', '--ignore-gpu-blocklist'] });
 const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 2, hasTouch: true, isMobile: true });
 const page = await ctx.newPage();
+const loading = plan === 'load';
+const early = loading ? await ctx.newCDPSession(page) : null;
+const loadFrames = [];
+if (early) {
+  // the page's first seconds, from navigation: the still picture handing over to the 3D
+  early.on('Page.screencastFrame', async (f) => {
+    loadFrames.push({ t: Date.now() - tl0, data: f.data });
+    await early.send('Page.screencastFrameAck', { sessionId: f.sessionId }).catch(() => {});
+  });
+  await early.send('Page.startScreencast', { format: 'jpeg', quality: 70, maxWidth: w, maxHeight: h, everyNthFrame: 1 });
+}
+const tl0 = Date.now();
 await page.goto(url, { waitUntil: 'load' });
-await page.waitForTimeout(4000);
+await page.waitForTimeout(loading ? 5000 : 4000);
+if (early) {
+  await early.send('Page.stopScreencast');
+  await browser.close();
+  if (server) await server.close();
+  loadFrames.forEach((f, i) => fs.writeFileSync(`${outDir}/s${String(i).padStart(3, '0')}-${f.t}.jpg`, Buffer.from(f.data, 'base64')));
+  console.log(`${loadFrames.length} frames of the page load recorded in ${outDir}`);
+  process.exit(0);
+}
 await page.evaluate(() => {
   window.__raf = [];
   let l = performance.now();
@@ -48,7 +68,11 @@ cdp.on('Page.screencastFrame', async (f) => {
   await cdp.send('Page.screencastFrameAck', { sessionId: f.sessionId }).catch(() => {});
 });
 await cdp.send('Page.startScreencast', { format: 'jpeg', quality: 70, maxWidth: w, maxHeight: h, everyNthFrame: 1 });
-if (plan === 'wheel') {
+if (plan.startsWith('hold:')) {
+  // scroll to a place and keep still: anything that jumps between frames is the page, not the scroll
+  await page.evaluate((y) => window.scrollTo(0, y), Number(plan.slice(5)));
+  await page.waitForTimeout(3500);
+} else if (plan === 'wheel') {
   await page.mouse.move(w / 2, h / 2);
   for (const d of [100, 100, 100, -100, 100, 100, 100, 100, -100, -100, 100, 100]) {
     await page.mouse.wheel(0, d);
