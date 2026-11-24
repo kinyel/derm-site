@@ -9,6 +9,7 @@ const steps = [
   ['test:keywords', 'node', ['scripts/test-keywords.mjs']],
   ['test:e2e', 'playwright', ['test']],
   ['test:cls', 'node', ['scripts/cls-probe.mjs']],
+  ['test:viewports', 'node', ['scripts/viewport-audit.mjs']],
   ['lhci', 'node', ['scripts/lhci.mjs']],
 ];
 const results = [];

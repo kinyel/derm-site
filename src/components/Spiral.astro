@@ -497,6 +497,93 @@ const nn = (i: number) => String(i + 1).padStart(2, '0');
         visibility 0s;
     }
   }
+
+  /* ---------- Phones on their side (owner, D88) ----------
+     The same staircase, turned with the screen: the heading and the step being read in the left half,
+     the staircase standing in the right half at the full height under the navigation, its discs sized to
+     that height. Nothing is dropped. */
+  @media (orientation: landscape) and (max-height: 37.49em) {
+    .spiral {
+      --disc: 8.25rem;
+      --radius: 5.25rem;
+      --rise: 4.25rem;
+      --perspective: 680px;
+      --stage-h: calc(100svh - var(--nav-h) - 1.25rem);
+    }
+    .spiral[data-on] .spiral__layout {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-rows: auto minmax(0, 1fr);
+      column-gap: var(--space-l);
+      row-gap: var(--space-xs);
+      align-content: center;
+      padding-block: calc(var(--nav-h) + 0.5rem) 0.75rem;
+    }
+    .spiral[data-on] .section-head {
+      grid-column: 1;
+      grid-row: 1;
+      margin-block-end: 0;
+      align-self: end;
+    }
+    .spiral[data-on] .section-head h2 {
+      font-size: var(--step-3);
+    }
+    .spiral[data-on] .spiral__menu {
+      grid-column: 1;
+      grid-row: 2;
+      align-self: start;
+      margin-inline: 0;
+      padding: var(--space-2xs) 0 0;
+      background: none;
+    }
+    .spiral[data-on] .spiral__stage {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      align-self: center;
+    }
+    .disc__title {
+      font-size: 0.875rem;
+    }
+  }
+  @media (orientation: landscape) and (max-height: 22.49em) {
+    .spiral {
+      --disc: 7.25rem;
+      --radius: 4.5rem;
+      --rise: 3.5rem;
+    }
+  }
+
+  /* ---------- Wide but short screens: tablets on their side, laptops (D88) ----------
+     The index has to fit under the navigation with the staircase: a smaller heading, no "What are you
+     looking for?" line, tighter rows. Otherwise the heading was cut off at the top and the last link ran
+     into the next section. */
+  @media (min-width: 64em) and (max-height: 56em) {
+    .spiral {
+      --stage-h: min(74svh, 40rem);
+    }
+    .spiral[data-on] .spiral__layout {
+      padding-block: calc(var(--nav-h) + 0.5rem) 0.5rem;
+      gap: var(--space-2xs);
+    }
+    .spiral[data-on] .section-head {
+      gap: 0.3rem;
+      margin-block-end: 0;
+    }
+    .spiral[data-on] .section-head h2 {
+      font-size: var(--step-3);
+    }
+    .spiral[data-on] .spiral__menu-title {
+      display: none;
+    }
+    .spiral[data-on] .spiral__entry {
+      padding-block: 0.3rem;
+    }
+    .spiral[data-on] .spiral__entry-head {
+      font-size: var(--step-0);
+    }
+    .spiral[data-on] .spiral__hub {
+      margin-block-start: var(--space-2xs);
+    }
+  }
 </style>
 
 <script>
@@ -514,7 +601,9 @@ const nn = (i: number) => String(i + 1).padStart(2, '0');
     if (!track || entries.length < 2) return;
 
     const still = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const tall = window.matchMedia('(min-height: 37.5em)');
+    // on: a tall screen, or a phone on its side that is at least 300px tall (D88: the staircase is no longer
+    // dropped for a plain list when the phone is turned)
+    const tall = window.matchMedia('(min-height: 37.5em), (orientation: landscape) and (min-height: 18.75em)');
     const hold = window.matchMedia('(max-width: 63.99em)');
     const trig = typeof CSS !== 'undefined' && CSS.supports('opacity', 'calc(cos(0deg) * 1)');
     let frame = 0;

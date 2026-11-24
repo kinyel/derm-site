@@ -20,7 +20,7 @@ const asked = all.articles.filter((a) => a.data.mostAsked && !latest.includes(a)
       lead="Plain answers to the questions people in Lagos ask about skin, hair and nails, written by the clinic’s editorial team."
       action={{ href: '/blog/', label: 'All articles' }}
     />
-    <div class="card-grid">
+    <div class="card-grid learn__cards" data-rail>
       {
         latest.map((a) => (
           <article class="card">
@@ -91,5 +91,32 @@ const asked = all.articles.filter((a) => a.data.mostAsked && !latest.includes(a)
   }
   .asked__list a:hover :global(.icon) {
     translate: 3px 0;
+  }
+
+  /* ---------- Phones (owner, D88): the articles as cards you swipe, the next one peeking in ---------- */
+  @media (max-width: 47.99em), (orientation: landscape) and (max-height: 30em) {
+    .learn__cards {
+      display: flex;
+      gap: var(--space-xs);
+      margin-inline: calc(-1 * var(--page-pad));
+      padding: var(--space-3xs) var(--page-pad) var(--space-s);
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--page-pad);
+      scrollbar-width: none;
+    }
+    .learn__cards::-webkit-scrollbar {
+      display: none;
+    }
+    .learn__cards > :global(.card) {
+      flex: 0 0 min(80%, 19rem);
+      scroll-snap-align: start;
+    }
+  }
+  @media (orientation: landscape) and (max-height: 30em) {
+    .learn__cards > :global(.card) {
+      flex-basis: min(42%, 19rem);
+    }
   }
 </style>

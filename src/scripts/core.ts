@@ -300,6 +300,26 @@ function initDock() {
 
 /* ------------------------------------------------------------------ small behaviours */
 
+/** Footer link groups (D88): open on wide screens and without JavaScript; collapsed on phones. */
+function initFooterGroups() {
+  const groups = [...document.querySelectorAll<HTMLDetailsElement>('[data-footer-group]')];
+  if (!groups.length) return;
+  const phone = window.matchMedia('(max-width: 47.99em)');
+  const apply = () =>
+    groups.forEach((g) => {
+      g.open = !phone.matches;
+      // on wide screens the summary is only the group's heading, not a control
+      g.querySelector('summary')?.setAttribute('tabindex', phone.matches ? '0' : '-1');
+    });
+  groups.forEach((g) =>
+    g.addEventListener('toggle', () => {
+      if (!phone.matches && !g.open) g.open = true;
+    }),
+  );
+  phone.addEventListener('change', apply);
+  apply();
+}
+
 type DataLayerWindow = Window & { dataLayer?: unknown[]; gtag?: (...args: unknown[]) => void; clarity?: (...args: unknown[]) => void };
 
 function initEvents() {
@@ -459,6 +479,7 @@ function initDeferred() {
 
 initNav();
 initDock();
+initFooterGroups();
 initEvents();
 initPointerEffects();
 initToc();

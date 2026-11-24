@@ -141,6 +141,29 @@ test.describe('same conditions as the live site (D84)', () => {
   }
 });
 
+/* Every 3D model keeps its place at every size (owner, D88): none may be dropped to make a small or
+   rotated screen easier. */
+test.describe('3D on phones and rotated phones (D88)', () => {
+  for (const [label, width, height] of [['phone', 390, 844], ['phone on its side', 844, 390], ['small phone on its side', 568, 320]] as const) {
+    test(`home (${label}): every 3D stage is shown, and the staircase is on`, async ({ browser }) => {
+      const ctx = await browser.newContext({ viewport: { width, height }, hasTouch: true, isMobile: true });
+      const page = await ctx.newPage();
+      await page.goto('/', { waitUntil: 'load' });
+      await settle(page);
+      await page.waitForTimeout(600);
+      const r = await page.evaluate(() => ({
+        hidden: [...document.querySelectorAll<HTMLElement>('[data-scene]')]
+          .filter((el) => getComputedStyle(el).display === 'none' || getComputedStyle(el.parentElement!).display === 'none' || el.getBoundingClientRect().width < 40)
+          .map((el) => el.dataset.scene),
+        staircase: document.querySelector('[data-spiral]')?.hasAttribute('data-on') ?? false,
+      }));
+      expect(r.hidden, 'hidden 3D stages').toEqual([]);
+      expect(r.staircase, 'staircase switched on').toBe(true);
+      await ctx.close();
+    });
+  }
+});
+
 test.describe('accessibility (axe, WCAG 2.2 AA)', () => {
   for (const [name, url] of pages) {
     for (const [label, width, height] of [['phone', 390, 844], ['desktop', 1440, 900]] as const) {

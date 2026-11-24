@@ -89,4 +89,60 @@ import { clinic, experienceStatement, leadPath, leadName } from '../../data/clin
       --rx: 2deg;
     }
   }
+
+  /* ---------- Phones (owner, D88) ----------
+     Heading, then her photograph set to the right with the statement as a white card overlapping its
+     lower left edge, then the paragraph and the links. The words come first in the page's code; only the
+     order on screen changes. */
+  @media (max-width: 47.99em) {
+    .clinic {
+      gap: 0;
+    }
+    .clinic__text {
+      display: contents;
+    }
+    .clinic :global(.section-head) {
+      order: 1;
+      margin-block-end: var(--space-m);
+    }
+    .pane {
+      order: 2;
+      width: 84%;
+      max-width: 20rem;
+      justify-self: end;
+    }
+    .clinic__statement {
+      order: 3;
+      position: relative;
+      z-index: 2;
+      width: 82%;
+      margin-block-start: -4.5rem;
+      padding: var(--space-s) var(--space-s) var(--space-s) var(--space-m);
+      border-radius: var(--r-card);
+      background: var(--white);
+      box-shadow: 0 1px 2px rgb(15 26 44 / 0.06), 0 18px 36px -18px rgb(23 60 110 / 0.35);
+      font-size: var(--step-0);
+    }
+    .clinic__body {
+      order: 4;
+      margin-block-start: var(--space-m);
+    }
+    .clinic > .clinic__text > :last-child {
+      order: 5;
+      margin-block-start: var(--space-s);
+    }
+  }
+
+  /* phones on their side (D88): words on the left, her photograph beside them */
+  @media (orientation: landscape) and (max-height: 30em) {
+    .clinic {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+      align-items: center;
+      gap: var(--space-l);
+    }
+    .pane {
+      max-width: 15rem;
+      justify-self: end;
+    }
+  }
 </style>

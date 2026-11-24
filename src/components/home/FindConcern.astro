@@ -23,7 +23,7 @@ const areas = conditionsByArea(all).map((a) => ({
       action={{ href: '/conditions/', label: 'All conditions A–Z' }}
     />
     <div class="concern">
-      <div class="concern__areas" data-areas>
+      <div class="concern__areas" data-areas data-rail>
         {
           areas.map((a, i) => (
             <section class="concern__area" data-area={a.id}>
@@ -96,6 +96,88 @@ const areas = conditionsByArea(all).map((a) => ({
     .concern__stage {
       max-width: 22rem;
       justify-self: end;
+    }
+  }
+
+  /* ---------- Phones and tablets (owner, D88) ----------
+     The body figure comes first, then the areas. On phones the areas are cards you swipe through, each
+     with its own list, the next one peeking in from the right; every link stays in the page. */
+  @media (max-width: 63.99em) {
+    .concern {
+      gap: var(--space-m);
+    }
+    .concern__stage {
+      order: -1;
+      width: min(100%, 17rem);
+      justify-self: center;
+    }
+  }
+  @media (max-width: 47.99em) and (orientation: portrait), (orientation: landscape) and (max-height: 30em) {
+    .concern__areas {
+      display: flex;
+      gap: var(--space-xs);
+      margin-inline: calc(-1 * var(--page-pad));
+      padding: var(--space-3xs) var(--page-pad) var(--space-s);
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--page-pad);
+      scrollbar-width: none;
+    }
+    .concern__areas::-webkit-scrollbar {
+      display: none;
+    }
+    .concern__area {
+      flex: 0 0 min(78%, 19rem);
+      scroll-snap-align: start;
+      padding: var(--space-s) var(--space-m) var(--space-xs);
+      border: 1px solid var(--rule);
+      border-radius: var(--r-feature);
+      background: var(--white);
+      box-shadow: 0 14px 30px -22px rgb(23 60 110 / 0.35);
+    }
+  }
+  /* upright tablets: the figure beside the areas, two columns of areas */
+  @media (min-width: 48em) and (max-width: 63.99em) and (orientation: portrait) {
+    .concern {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      align-items: start;
+    }
+    .concern__stage {
+      position: sticky;
+      top: calc(var(--nav-h) + var(--space-s));
+      width: 100%;
+    }
+    .concern__areas {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  /* phones on their side: the figure on the left, the cards beside it */
+  @media (orientation: landscape) and (max-height: 30em) {
+    .concern {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+      align-items: center;
+    }
+    .concern__stage {
+      width: 100%;
+      max-height: 78svh;
+    }
+    .concern__areas {
+      margin-inline-start: 0;
+      padding-inline-start: 0;
+      scroll-padding-inline: 0;
+    }
+    .concern__area {
+      flex-basis: min(64%, 17rem);
+    }
+  }
+
+  @media (pointer: coarse) {
+    .concern__area h3 a {
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--tap);
+      min-width: var(--tap);
     }
   }
 </style>

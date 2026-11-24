@@ -55,7 +55,31 @@ export function remarkCallouts() {
   };
 }
 
-type HNode = { type: string; tagName?: string; properties?: Record<string, unknown>; children?: HNode[] };
+type HNode = { type: string; tagName?: string; value?: string; properties?: Record<string, unknown>; children?: HNode[] };
+
+const textOf = (n: HNode): string => (n.type === 'text' ? (n.value ?? '') : (n.children ?? []).map(textOf).join(''));
+const kids = (n: HNode, tag: string) => (n.children ?? []).filter((c) => c.type === 'element' && c.tagName === tag);
+
+/**
+ * Tables on phones (D88): each row is shown as a card, each value with its column's name. The names
+ * are written onto the cells here (data-label), and the table keeps explicit roles so screen readers
+ * still announce it as a table when CSS changes how its parts are displayed.
+ */
+function labelTable(table: HNode) {
+  table.properties = { ...table.properties, role: 'table' };
+  const head = kids(table, 'thead')[0];
+  const labels = head ? kids(kids(head, 'tr')[0] ?? { type: 'x' }, 'th').map((th) => textOf(th).trim()) : [];
+  for (const group of [...kids(table, 'thead'), ...kids(table, 'tbody')]) {
+    group.properties = { ...group.properties, role: 'rowgroup' };
+    for (const tr of kids(group, 'tr')) {
+      tr.properties = { ...tr.properties, role: 'row' };
+      (tr.children ?? []).filter((c) => c.type === 'element').forEach((cell, i) => {
+        const role = cell.tagName === 'th' ? (group.tagName === 'thead' ? 'columnheader' : 'rowheader') : 'cell';
+        cell.properties = { ...cell.properties, role, ...(group.tagName === 'tbody' && labels[i] ? { dataLabel: labels[i] } : {}) };
+      });
+    }
+  }
+}
 
 export function rehypePolish() {
   return (root: unknown) => {
@@ -64,6 +88,7 @@ export function rehypePolish() {
       if (!node.children) return;
       node.children = node.children.map((child) => {
         if (child.type === 'element' && child.tagName === 'table') {
+          labelTable(child);
           return {
             type: 'element',
             tagName: 'div',

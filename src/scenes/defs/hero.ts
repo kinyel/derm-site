@@ -236,6 +236,21 @@ const factory: SceneFactory = async (ctx) => {
     }
     return { x, y, ok: Boolean(el) && n === heroEl };
   };
+  /** A phone on its side: too short for the tall composition. */
+  const isShort = () => window.innerHeight < 600;
+  /** Cover layout from the page: under the headline to the foot of the hero, centred right of middle. */
+  function coverFromPage(hw: number, hh: number): { h: number; x: number; y: number } | null {
+    const title = heroEl?.querySelector<HTMLElement>('.hero__title');
+    const W = ctx.stage.offsetWidth;
+    const H = ctx.stage.offsetHeight;
+    const t = offsetIn(title);
+    if (!title || !t.ok || !W || !H) return null;
+    const unit = (2 * hh) / H;
+    const topPx = t.y + title.offsetHeight + 6;
+    const hPx = Math.max(H * 0.45, H - topPx);
+    const centrePx = W * (W < 600 ? 0.6 : 0.64);
+    return { h: hPx * unit, x: (centrePx / W) * 2 * hw - hw, y: hh - ((topPx + hPx / 2) / H) * 2 * hh };
+  }
   function placeMarks() {
     if (!marks.length) return;
     const { hw, hh } = base;
@@ -256,8 +271,27 @@ const factory: SceneFactory = async (ctx) => {
       m.root.position.z = EMBLEM_Z;
     };
 
+    const inner = offsetIn(innerEl);
+    const edge = inner.ok && innerEl && innerEl.offsetWidth > 0 ? inner.x : 20; // the page's side margin
+
     // main
-    if (onPage && actionsEl) {
+    if (onPage && actionsEl && !wide) {
+      // cover (D88): in the open space left of her face, between the headline and the answer
+      const title = heroEl?.querySelector<HTMLElement>('.hero__title');
+      const lead = heroEl?.querySelector<HTMLElement>('.hero__lead');
+      const t = offsetIn(title);
+      const l = offsetIn(lead);
+      const top = t.ok && title ? t.y + title.offsetHeight : a.y - H * 0.4;
+      const bottom = l.ok ? l.y : a.y;
+      const r = Math.max(24, Math.min(W * 0.085, 46)) * unit;
+      set(marks[0], toX(edge) + r * 1.95, toY(top + (bottom - top) * 0.36), r);
+    } else if (onPage && actionsEl && isShort()) {
+      // phone on its side (D88): to the right of the portrait, below the corner mark
+      const portraitR = base.x + ((portraitGroup.scale.x || 1) * BASE_H * ar) / 2;
+      const room = toX(W - edge) - portraitR;
+      const r = Math.max(18 * unit, Math.min(room / 4, 34 * unit));
+      set(marks[0], Math.min(portraitR + room / 2, toX(W - edge) - r * 1.95), toY(H * 0.6), r);
+    } else if (onPage && actionsEl) {
       const aw = actionsEl.offsetWidth;
       const ah = actionsEl.offsetHeight;
       // room beside the buttons, before her elbow
@@ -281,15 +315,20 @@ const factory: SceneFactory = async (ctx) => {
     } else if (wide) {
       set(marks[0], hw * 0.03, -hh * 0.3, hh * 0.15);
     } else {
-      set(marks[0], -hw * 0.58, -hh * 0.16, hw * 0.17);
+      set(marks[0], -hw * 0.58, hh * 0.05, hw * 0.17);
     }
 
     // corner
-    if (onPage) {
-      const inner = offsetIn(innerEl);
-      const edge = inner.ok && innerEl && innerEl.offsetWidth > 0 ? inner.x : 20; // the page's side margin
+    const acc = heroEl?.querySelector<HTMLElement>('.hero__accent');
+    const ao = offsetIn(acc);
+    if (onPage && !wide && W < 600 && acc && ao.ok) {
+      // narrow upright phones: beside the pink line of the headline, where the line leaves room
+      const free = W - edge - (ao.x + acc.offsetWidth + 14);
+      const r = Math.max(13, Math.min(free / 3.9, 30)) * unit;
+      set(marks[1], toX(W - edge) - r * 1.95, toY(ao.y + acc.offsetHeight / 2), r);
+    } else if (onPage) {
       const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) * 16 || 72;
-      const r = Math.max(13, Math.min(W * 0.034, H * 0.05, 40)) * unit;
+      const r = Math.max(13, Math.min(W * (W < 768 ? 0.05 : 0.034), H * 0.05, 40)) * unit;
       set(marks[1], toX(W - edge) - r * 1.95, toY(navH + 22) - r * 1.25, r);
     } else if (wide) {
       set(marks[1], hw * 0.84, hh * 0.66, hh * 0.07);
@@ -361,23 +400,33 @@ const factory: SceneFactory = async (ctx) => {
       h = hh * 1.86;
       base.x = 0;
       base.y = -hh * 0.04;
+    } else if (aspect >= 1.2 && isShort()) {
+      // phones on their side (D88): text in the left half, the portrait standing in the middle of the
+      // right half from just under the navigation to the foot, the marks to her right
+      h = hh * 1.86;
+      base.x = hw * (window.innerWidth < 672 ? 0.56 : 0.32);
+      base.y = -hh * 0.07;
     } else if (aspect >= 1.2) {
-      // landscape phones, tablets on their side, laptops, desktops: text left, portrait right.
+      // tablets on their side, laptops, desktops: text left, portrait right.
       // The strip of services covers the left 70% of the foot, so the portrait has the right-hand
       // column to itself from top to bottom (D79).
       h = hh * 1.74;
       base.x = hw * 0.56;
       base.y = -hh * 0.1;
-    } else if (aspect >= 0.72) {
-      // tall tablets
-      h = hh * 1.1;
-      base.x = hw * 0.34;
-      base.y = -hh * 0.42;
     } else {
-      // portrait phones: text on top, portrait below and partly behind the buttons
-      h = hh * 0.98;
-      base.x = hw * 0.12;
-      base.y = -hh * 0.5;
+      // phones and upright tablets: a cover (D88). The portrait fills the space between the headline and
+      // the foot of the hero, wider than the screen and running off its right edge.
+      const c = coverFromPage(hw, hh);
+      if (c) {
+        h = c.h;
+        base.x = c.x;
+        base.y = c.y;
+      } else {
+        // no page around the scene (the poster renderer): a typical phone
+        h = hh * 1.5;
+        base.x = hw * 0.18;
+        base.y = -hh * 0.25;
+      }
     }
     portraitGroup.position.set(base.x, base.y, 0);
     portraitGroup.scale.setScalar(h / BASE_H);
@@ -469,7 +518,7 @@ const factory: SceneFactory = async (ctx) => {
       // The marks never rest: they sway and bob, their pearls orbit, they lean with the pointer and
       // they turn further and lift as the page scrolls.
       if (marks.length) {
-        if (!still && ++placeTick % 45 === 0) placeMarks();
+        if (!still && ++placeTick % 45 === 0) layout(lastAspect);
         marks.forEach((m, i) => {
           const t = (still ? 2.4 : time) + m.phase;
           const grow = still ? 1 : 0.72 + 0.28 * ease.out(ease.clamp(intro * 1.1 - i * 0.15));

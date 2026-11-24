@@ -15,7 +15,7 @@ Lighthouse column: performance / SEO / accessibility / best practices from the l
 | 5 | dermatologist on the Island *(also: dermatologist in Lagos Island)* | `/dermatologist-victoria-island-lekki/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1172 | 3 | 167 | 100 / 100 / 100 / 100 |
 | 6 | skin doctor on the Island *(also: skin doctor in Lagos, skin specialist in Lagos)* | `/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1537 | 1 | 175 | 98 / 100 / 100 / 100 |
 | 7 | skin clinic in Lekki *(also: skin clinic Victoria Island)* | `/dermatologist-victoria-island-lekki/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1172 | 1 | 167 | 100 / 100 / 100 / 100 |
-| 8 | female dermatologist in Lagos | `/about/lead-dermatologist/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 929 | 4 | 7 | 100 / 100 / 100 / 100 |
+| 8 | female dermatologist in Lagos | `/about/lead-dermatologist/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 929 | 4 | 7 | 99 / 100 / 100 / 100 |
 | 9 | online dermatologist consultation Nigeria | `/services/dermatology-consultations/online-consultation/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1415 | 4 | 40 | 100 / 100 / 100 / 100 |
 | 10 | paediatric dermatologist Lagos *(also: pediatric dermatologist Lagos)* | `/services/childrens-skin-care/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1272 | 2 | 28 | 100 / 100 / 100 / 100 |
 | 11 | how to get rid of pimples | `/blog/how-to-get-rid-of-pimples/` | ✓ | ✓ | ✓ | – | ✓ | ✓ | ✓ | ✓ | 1617 | 6 | 9 | 100 / 100 / 100 / 100 |
@@ -41,19 +41,19 @@ Lighthouse column: performance / SEO / accessibility / best practices from the l
 | 31 | mole removal | `/services/skin-surgery/mole-removal/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1371 | 10 | 14 | 99 / 100 / 100 / 100 |
 | 32 | Botox in Lagos | `/services/aesthetic-treatments/botox/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1465 | 5 | 10 | 99 / 100 / 100 / 100 |
 | 33 | lip filler Lagos | `/services/aesthetic-treatments/dermal-fillers/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1508 | 5 | 11 | 99 / 100 / 100 / 100 |
-| 34 | butt filler *(also: non-surgical BBL, hip dip filler)* | `/services/aesthetic-treatments/butt-filler/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1496 | 12 | 6 | 100 / 100 / 100 / 100 |
+| 34 | butt filler *(also: non-surgical BBL, hip dip filler)* | `/services/aesthetic-treatments/butt-filler/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1496 | 12 | 6 | 99 / 100 / 100 / 100 |
 | 35 | labia puff *(also: labia filler)* | `/services/aesthetic-treatments/labia-filler/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1306 | 6 | 5 | 100 / 100 / 100 / 100 |
 | 36 | O-shot | `/services/aesthetic-treatments/o-shot/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1324 | 14 | 6 | 100 / 100 / 100 / 100 |
-| 37 | chemical peel Lagos | `/services/aesthetic-treatments/chemical-peels/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1445 | 5 | 31 | 100 / 100 / 100 / 100 |
+| 37 | chemical peel Lagos | `/services/aesthetic-treatments/chemical-peels/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1445 | 5 | 31 | 99 / 100 / 100 / 100 |
 | 38 | PRP microneedling *(also: vampire facial)* | `/services/aesthetic-treatments/prp-microneedling/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1377 | 10 | 11 | 100 / 100 / 100 / 100 |
-| 39 | exosome facial *(also: exosome treatment)* | `/services/aesthetic-treatments/exosome-therapy/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1309 | 5 | 6 | 100 / 100 / 100 / 100 |
+| 39 | exosome facial *(also: exosome treatment)* | `/services/aesthetic-treatments/exosome-therapy/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1309 | 5 | 6 | 99 / 100 / 100 / 100 |
 | 40 | PDRN *(also: salmon DNA treatment)* | `/services/aesthetic-treatments/pdrn-treatment/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1334 | 17 | 6 | 100 / 100 / 100 / 100 |
 | 41 | laser hair removal Lagos | `/services/laser-treatments/laser-hair-removal/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1464 | 5 | 14 | 99 / 100 / 100 / 100 |
 | 42 | laser dark spot removal | `/services/laser-treatments/laser-pigmentation-removal/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1268 | 5 | 13 | 100 / 100 / 100 / 100 |
 | 43 | laser tattoo removal | `/services/laser-treatments/laser-tattoo-removal/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1380 | 10 | 5 | 100 / 100 / 100 / 100 |
 | 44 | pico laser | `/services/laser-treatments/pico-laser/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1268 | 17 | 10 | 100 / 100 / 100 / 100 |
 | 45 | Q-switch laser | `/services/laser-treatments/q-switch-laser/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1212 | 10 | 11 | 100 / 100 / 100 / 100 |
-| 46 | phototherapy for vitiligo | `/services/clinical-dermatology/phototherapy/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1436 | 5 | 14 | 100 / 100 / 100 / 100 |
+| 46 | phototherapy for vitiligo | `/services/clinical-dermatology/phototherapy/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1436 | 5 | 14 | 99 / 100 / 100 / 100 |
 | 47 | hypertension treatment *(also: high blood pressure doctor Lagos)* | `/services/internal-medicine/hypertension/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1443 | 5 | 6 | 100 / 100 / 100 / 100 |
 | 48 | diabetes clinic Lagos | `/services/internal-medicine/diabetes/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1523 | 4 | 21 | 100 / 100 / 100 / 100 |
 | 49 | high cholesterol treatment | `/services/internal-medicine/high-cholesterol/` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 1409 | 5 | 6 | 100 / 100 / 100 / 100 |

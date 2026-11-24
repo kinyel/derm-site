@@ -114,4 +114,27 @@ const description = `Contact ${clinic.name} in ${clinic.address.neighbourhood}, 
     color: var(--link);
     font-weight: 600;
   }
+
+  /* Phones (D88): three compact rows, icon beside the words, instead of three tall cards */
+  @media (max-width: 47.99em) {
+    .contact__cards {
+      gap: var(--space-2xs);
+    }
+    .contact__card {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      grid-template-rows: auto auto;
+      column-gap: var(--space-s);
+      align-items: center;
+      padding: var(--space-s) var(--space-m);
+    }
+    .contact__card > :global(.icon) {
+      grid-row: 1 / span 2;
+      width: 2rem;
+      height: 2rem;
+    }
+    .contact__card > :global(*) {
+      margin: 0;
+    }
+  }
 </style>

@@ -18,7 +18,7 @@ const year = new Date().getFullYear();
     <div class="footer__rule" aria-hidden="true"></div>
     <div class="footer__grid">
       <div class="stack" style="--stack: var(--space-s)">
-        <a href="/" aria-label={`${clinic.name} home`} style="color:inherit;text-decoration:none"><Logo /></a>
+        <a class="footer__brand" href="/" aria-label={`${clinic.name} home`}><Logo /></a>
         <p class="text-soft">Dermatology, aesthetics and laser, and internal medicine in {clinic.address.neighbourhood}, {clinic.city}. {experienceStatement()}</p>
         <address>
           {clinic.address.displayed}<br />
@@ -44,40 +44,48 @@ const year = new Date().getFullYear();
       </div>
 
       <nav aria-label="Services">
-        <h2>Services</h2>
-        <ul class="link-list" role="list">
-          {all.services.map((s) => (
-            <li><a href={paths.service(s.id)}><span>{s.data.navLabel}</span></a></li>
-          ))}
-        </ul>
+        <details class="footer__group" open data-footer-group>
+          <summary><h2>Services</h2><Icon name="chevron" solid class="footer__chev" /></summary>
+          <ul class="link-list" role="list">
+            {all.services.map((s) => (
+              <li><a href={paths.service(s.id)}><span>{s.data.navLabel}</span></a></li>
+            ))}
+          </ul>
+        </details>
       </nav>
 
       <nav aria-label="Conditions">
-        <h2>Conditions</h2>
-        <ul class="link-list" role="list">
-          {top.map((c) => (
-            <li><a href={paths.condition(c.id)}><span>{c.data.shortTitle}</span></a></li>
-          ))}
-          <li><a href="/conditions/"><span>All conditions A–Z</span></a></li>
-        </ul>
+        <details class="footer__group" open data-footer-group>
+          <summary><h2>Conditions</h2><Icon name="chevron" solid class="footer__chev" /></summary>
+          <ul class="link-list" role="list">
+            {top.map((c) => (
+              <li><a href={paths.condition(c.id)}><span>{c.data.shortTitle}</span></a></li>
+            ))}
+            <li><a href="/conditions/"><span>All conditions A–Z</span></a></li>
+          </ul>
+        </details>
       </nav>
 
       <nav aria-label="Learn and clinic">
-        <h2>Learn</h2>
-        <ul class="link-list" role="list">
-          {latest.map((a) => (
-            <li><a href={paths.article(a.id)}><span>{a.data.title}</span></a></li>
-          ))}
-          <li><a href="/blog/"><span>All articles</span></a></li>
-        </ul>
-        <h2 style="margin-block-start: var(--space-m)">Clinic</h2>
-        <ul class="link-list" role="list">
-          <li><a href="/about/"><span>About the clinic</span></a></li>
-          <li><a href="/your-visit/"><span>Your visit</span></a></li>
-          <li><a href="/faq/"><span>Questions and answers</span></a></li>
-          <li><a href="/book-appointment/"><span>Book an appointment</span></a></li>
-          <li><a href="/contact/"><span>Contact</span></a></li>
-        </ul>
+        <details class="footer__group" open data-footer-group>
+          <summary><h2>Learn</h2><Icon name="chevron" solid class="footer__chev" /></summary>
+          <ul class="link-list" role="list">
+            {latest.map((a) => (
+              <li><a href={paths.article(a.id)}><span>{a.data.title}</span></a></li>
+            ))}
+            <li><a href="/blog/"><span>All articles</span></a></li>
+          </ul>
+        </details>
+        <details class="footer__group footer__group--next" open data-footer-group>
+          <summary><h2>Clinic</h2><Icon name="chevron" solid class="footer__chev" /></summary>
+          <ul class="link-list" role="list">
+            <li><a href="/about/"><span>About the clinic</span></a></li>
+            <li><a href="/your-visit/"><span>Your visit</span></a></li>
+            <li><a href="/faq/"><span>Questions and answers</span></a></li>
+            <li><a href="/book-appointment/"><span>Book an appointment</span></a></li>
+            <li><a href="/contact/"><span>Contact</span></a></li>
+          </ul>
+        </details>
         {socialLinks.length > 0 && (
           <ul class="cluster" role="list" style="margin-block-start: var(--space-s)">
             {socialLinks.map((s) => (

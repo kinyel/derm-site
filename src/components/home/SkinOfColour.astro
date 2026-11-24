@@ -38,7 +38,7 @@ const panels = [
       />
       <div class="colour__stage"><Stage scene="melanocyte" p="4 / 3" l="4 / 3" d="4 / 3" small /></div>
     </div>
-    <div class="colour__panels">
+    <div class="colour__panels" data-rail>
       {
         panels.map((p, i) => (
           <article class="colour__panel">
@@ -109,6 +109,66 @@ const panels = [
       max-width: 20rem;
       justify-self: end;
       margin-block-end: var(--space-l);
+    }
+  }
+
+  /* ---------- Phones and tablets (owner, D88) ----------
+     The pigment-cell model is shown at every size now (it used to be dropped below 1024px): beside the
+     heading on tablets, under it on phones, overlapping the first card. On phones the three notes are
+     cards you swipe through. */
+  @media (max-width: 63.99em) {
+    .colour__stage {
+      display: block;
+      width: min(100%, 17rem);
+      justify-self: center;
+    }
+  }
+  @media (min-width: 48em) and (max-width: 63.99em) {
+    .colour__head {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      align-items: center;
+    }
+    .colour__panels {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 47.99em), (orientation: landscape) and (max-height: 30em) {
+    .colour__stage {
+      position: relative;
+      z-index: 0;
+      margin-block: calc(-1 * var(--space-m)) calc(-1 * var(--space-l));
+    }
+    .colour__panels {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: var(--space-xs);
+      margin-inline: calc(-1 * var(--page-pad));
+      padding: var(--space-3xs) var(--page-pad) var(--space-s);
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--page-pad);
+      scrollbar-width: none;
+    }
+    .colour__panels::-webkit-scrollbar {
+      display: none;
+    }
+    .colour__panel {
+      flex: 0 0 min(82%, 20rem);
+      scroll-snap-align: start;
+    }
+  }
+  @media (orientation: landscape) and (max-height: 30em) {
+    .colour__head {
+      grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+      align-items: center;
+    }
+    .colour__stage {
+      margin-block: 0;
+    }
+    .colour__panel {
+      flex-basis: min(46%, 20rem);
     }
   }
 </style>

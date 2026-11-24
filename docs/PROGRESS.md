@@ -28,7 +28,7 @@
 
 ## Owner feedback received during the build (must be kept)
 
-Latest first; the newest instruction wins where two differ. Full reasoning in DECISIONS D23, D30–D38, D60–D87.
+Latest first; the newest instruction wins where two differ. Full reasoning in DECISIONS D23, D30–D38, D60–D88.
 
 0. **The clinic is in Victoria Island (Oniru), not Lagos Island** (D71). Never write that it is on or in Lagos Island, or
    "between" Victoria Island and Lekki. "Dermatologist in Lagos" (home) and "dermatologist in Lagos Island" (location page,
@@ -39,6 +39,9 @@ Latest first; the newest instruction wins where two differ. Full reasoning in DE
 0b. **Hero details (D79–D80)**: the 3D mark (the logo's rings) is never hidden behind the portrait and sits level with the
    hero buttons; the three-service strip covers the left 70% only, flush with the left and bottom edges; boxes have hover
    behaviour; the 3D must not fall back to the static image on a capable computer (the engine's speed check was made fair).
+0d. **Phones and rotated screens (D88)**: every section has a phone design of its own (not the desktop stacked), every 3D
+   model is shown at every size, and rotated phones get their own compositions. `npm run test:viewports` checks every page at
+   20 sizes; run it after any layout change, on the built site.
 0a. **Shapes and motion (D74–D78)**: buttons and boxes copy primetracknigeria.com (6px-corner plates with a round arrow
    chip, never pills; white hairline boxes with 24px corners); the home hero is light (glacier blue, light pink, white)
    with no ribbons and the logo's rings in 3D; the first three home sections dissolve into each other in place: held still while they fade, never blank, never text over text, and never lifeless while held (D82); the
@@ -59,7 +62,7 @@ Latest first; the newest instruction wins where two differ. Full reasoning in DE
 
 ## Where the build stands (22 November 2026, end of session 4)
 
-**All ten phases are built, and the owner's redesign (design direction v4, DECISIONS D60–D87) is applied on top**: new
+**All ten phases are built, and the owner's redesign (design direction v4, DECISIONS D60–D88) is applied on top**: new
 type, colour, navigation, home page sections, spiral staircase and hero. Every check was re-run on the redesigned build.
 `docs/FINAL_REPORT.md` is the summary; regenerate it with `node scripts/final-report.mjs` after `npm run test:all`.
 
@@ -89,7 +92,7 @@ Worth doing in a later session:
 | Phase | Status |
 |---|---|
 | 1 Setup | ✅ |
-| 2 Design plan | ✅ `docs/DESIGN_PLAN.md` (colour, type, navigation and home layout are superseded by DECISIONS D60–D87) |
+| 2 Design plan | ✅ `docs/DESIGN_PLAN.md` (colour, type, navigation and home layout are superseded by DECISIONS D60–D88) |
 | 3 Foundation | ✅ tokens (palette v4), flat bands, navigation (D63), footer, dock, components, `/_styleguide/` |
 | 4 3D engine + hero | ✅ engine, 34 scenes, posters pipeline, depth script; Lighthouse passes on tested pages |
 | 5 Homepage | ✅ rebuilt to the owner's direction: hero (D65), spiral staircase (D64), sections on one header pattern (D67) |

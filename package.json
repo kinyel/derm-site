@@ -21,7 +21,8 @@
     "indexnow": "node scripts/indexnow.mjs",
     "pages:dev": "wrangler pages dev dist --compatibility-date=2026-11-01",
     "test:all": "node scripts/run-all.mjs",
-    "test:cls": "node scripts/cls-probe.mjs"
+    "test:cls": "node scripts/cls-probe.mjs",
+    "test:viewports": "node scripts/viewport-audit.mjs"
   },
   "type": "module",
   "private": true,

@@ -76,9 +76,11 @@ async function render(key, job) {
       const big = sharp(png);
       const meta = await big.metadata();
       const w1 = Math.round(meta.width / scale);
-      await big.clone().avif({ quality: 46, effort: 5 }).toFile(`${base}@2x.avif`);
+      // The phone's static hero picture is the page's largest paint on phones (D88): encoded tighter, same pixels.
+      const q2 = job.behind && variant === 'p' ? 36 : 46;
+      await big.clone().avif({ quality: q2, effort: 6 }).toFile(`${base}@2x.avif`);
       await big.clone().webp({ quality: 70, alphaQuality: 80 }).toFile(`${base}@2x.webp`);
-      await big.clone().resize({ width: w1 }).avif({ quality: 50, effort: 5 }).toFile(`${base}@1x.avif`);
+      await big.clone().resize({ width: w1 }).avif({ quality: job.behind && variant === 'p' ? 42 : 50, effort: 6 }).toFile(`${base}@1x.avif`);
       await big.clone().resize({ width: w1 }).webp({ quality: 74, alphaQuality: 80 }).toFile(`${base}@1x.webp`);
       entry.variants.push(variant);
       entry.sizes[variant] = [w, h];

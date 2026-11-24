@@ -992,6 +992,21 @@
       justify-self: center;
     }
   }
+  /* Phones held upright (D88): the model is set to the right, larger, and hangs over the edge of the
+     header into the section below, so the header ends on a picture instead of a gap. The overhang is
+     shorter than the next section's top padding, so it never sits on its words. */
+  @media (max-width: 47.99em) and (orientation: portrait) {
+    .page-hero__stage {
+      width: min(80%, 20rem);
+      max-width: none;
+      justify-self: end;
+      margin-block: calc(-1 * var(--space-xs)) calc(-1 * (var(--space-2xl) + 2.5rem));
+      margin-inline-end: calc(-0.5 * var(--page-pad));
+    }
+    .band--hero:has(.page-hero__stage) {
+      overflow-x: clip;
+    }
+  }
   @media (orientation: landscape) and (max-height: 30em) {
     .page-hero__stage {
       max-width: 15rem;
@@ -1418,6 +1433,84 @@
     min-height: 2.5rem;
     color: var(--on-night-soft);
   }
+  .footer__brand {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: inherit;
+    text-decoration: none;
+  }
+  /* Link groups (D88): headings on wide screens; on phones, rows that open. The summary looks and reads as
+     the group's heading; all links are in the page either way. */
+  .footer__group > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    cursor: default;
+  }
+  .footer__group > summary::-webkit-details-marker {
+    display: none;
+  }
+  .footer__group--next {
+    margin-block-start: var(--space-m);
+  }
+  .footer__chev {
+    display: none;
+  }
+  @media (min-width: 48em) {
+    .footer__group > summary {
+      pointer-events: none;
+    }
+  }
+  @media (max-width: 47.99em) {
+    .footer__grid {
+      gap: 0;
+    }
+    .footer__grid > :first-child {
+      margin-block-end: var(--space-l);
+    }
+    .footer__group,
+    .footer__group--next {
+      margin: 0;
+      border-block-start: 1px solid rgb(255 255 255 / 0.14);
+    }
+    .footer__grid > :last-child .footer__group:last-of-type {
+      border-block-end: 1px solid rgb(255 255 255 / 0.14);
+    }
+    .footer__group > summary {
+      min-height: 3.25rem;
+      cursor: pointer;
+    }
+    .footer__group > summary h2 {
+      margin: 0;
+      font-size: var(--step-0);
+    }
+    .footer__chev {
+      display: block;
+      width: 1rem;
+      height: 1rem;
+      color: var(--glacier-400);
+      transition: rotate var(--dur-ui) var(--ease-out);
+    }
+    .footer__group[open] .footer__chev {
+      rotate: 180deg;
+    }
+    .footer__group > .link-list {
+      padding-block-end: var(--space-s);
+    }
+  }
+  /* touch screens: every footer link at least 44px tall (rule 4.8) */
+  @media (pointer: coarse) {
+    .footer .link-list a,
+    .footer .link,
+    .footer__legal a {
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--tap);
+      min-width: var(--tap);
+    }
+  }
   .footer .link-list a:hover {
     color: var(--white);
   }
@@ -1425,6 +1518,43 @@
   @media (max-width: 63.99em) {
     .footer {
       padding-block-end: calc(var(--space-l) + 5rem + env(safe-area-inset-bottom));
+    }
+  }
+
+  /* Touch screens: links that stand on their own (not inside a sentence) are at least 44px tall (rule 4.8, D88) */
+  @media (pointer: coarse) {
+    .link--arrow,
+    .link--tap {
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--tap);
+    }
+    /* short words still make a 44px-wide target */
+    .crumbs a,
+    .link-list a,
+    .chip {
+      min-width: var(--tap);
+    }
+    .crumbs a {
+      text-align: center;
+    }
+    .chip {
+      justify-content: center;
+    }
+    /* a link standing alone in a list item, and the contents box */
+    li > a:only-child {
+      min-width: var(--tap);
+    }
+    .toc a {
+      min-height: var(--tap);
+    }
+    /* headings that are links, on hub pages */
+    .stack > h3 > a,
+    h3 > a:only-child {
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--tap);
+      min-width: var(--tap);
     }
   }
 

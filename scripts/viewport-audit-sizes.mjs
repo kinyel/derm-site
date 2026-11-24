@@ -1,0 +1,23 @@
+// Screen sizes for scripts/viewport-audit.mjs and its helpers: [width, height, touch].
+export const SIZES = {
+  'phone-s': [320, 568, true],
+  android: [360, 740, true],
+  phone: [390, 844, true],
+  'phone-l': [430, 932, true],
+  'land-s': [568, 320, true],
+  'land-a': [740, 360, true],
+  land: [844, 390, true],
+  'land-l': [932, 430, true],
+  fold: [884, 1104, true],
+  tablet: [768, 1024, true],
+  'tablet-land': [1024, 768, true],
+  'ipad-air': [820, 1180, true],
+  'ipad-air-land': [1180, 820, true],
+  'ipad-pro': [1024, 1366, true],
+  'ipad-pro-land': [1366, 1024, true],
+  'short-desk': [1366, 640, false],
+  laptop: [1280, 720, false],
+  desktop: [1440, 900, false],
+  fhd: [1920, 1080, false],
+  qhd: [2560, 1440, false],
+};

@@ -15,7 +15,7 @@ const { heading = 'Book an appointment', text = `See a dermatologist at ${clinic
   <p class="meta">{text}</p>
   <Button href="/book-appointment/" icon="calendar" size="small" block event="book_click">Book an appointment</Button>
   <Button href={whatsappHref} variant="whatsapp" size="small" block event="whatsapp_click">Chat on WhatsApp</Button>
-  <a class="link" href={telHref} data-event="call_click">Call {clinic.phone.display}</a>
+  <a class="link link--tap" href={telHref} data-event="call_click">Call {clinic.phone.display}</a>
 </aside>
 
 <style>

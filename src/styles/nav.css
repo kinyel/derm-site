@@ -353,6 +353,43 @@
     background: none;
   }
 
+  /* ---------------- Phones on their side and upright tablets: call + book in the bar (D88) ---------------- */
+  @media (min-width: 35em) and (max-width: 63.99em) {
+    .nav__actions {
+      display: flex;
+      margin-inline-start: auto;
+      order: 1;
+    }
+    .nav__menu-btn {
+      order: 2;
+      margin-inline-start: var(--space-xs);
+    }
+    .nav__util {
+      width: 2.75rem;
+      justify-content: center;
+      padding-inline: 0;
+    }
+    .nav__util span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+  }
+  /* the short label on narrow bars: "Book", read in full by screen readers */
+  @media (max-width: 47.99em) {
+    .nav__cta-more {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+  }
+
   /* ---------------- Phones and tablets: bar + white sheet ---------------- */
   @media (max-width: 63.99em) {
     .nav__menu-btn {
@@ -497,6 +534,28 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--space-2xs);
+    }
+  }
+
+  /* ---------------- Menu sheet on a phone on its side (D88) ----------------
+     The sheet is only about 390px tall: smaller rows, and the three actions in one row at the foot, so
+     the booking button is never cut off. */
+  @media (orientation: landscape) and (max-height: 30em) and (max-width: 63.99em) {
+    .nav__link {
+      min-height: 2.75rem;
+      font-size: var(--step-1);
+    }
+    .nav__sheet-actions {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 2fr);
+      gap: var(--space-2xs);
+      padding-block-start: var(--space-xs);
+    }
+    .nav__sheet-actions > :first-child {
+      min-height: var(--tap);
+    }
+    .nav__sheet-row {
+      margin: 0;
     }
   }
 
@@ -668,16 +727,11 @@
   .dock:not(.is-visible) {
     translate: 0 110%;
   }
-  @media (min-width: 64em) {
+  /* The dock is for phones held upright only (D88). From 35em wide (a phone on its side, an upright
+     tablet) the call and booking buttons sit in the top bar instead, where they cost no screen height. */
+  @media (min-width: 35em) {
     .dock {
       display: none;
-    }
-  }
-  @media (orientation: landscape) and (max-height: 30em) {
-    .dock {
-      inset-inline: auto 0;
-      width: min(26rem, 60vw);
-      border-start-start-radius: var(--r-card);
     }
   }
 }
