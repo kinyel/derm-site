@@ -18,6 +18,12 @@
 >   to list every element that differs between the preview and the build.
 > - `node scripts/scroll-perf.mjs [--url=/] [--cpu=4] [--tier=2]` measures scroll smoothness on a slowed phone with the real GPU
 >   (D89). Scroll effects must write transform/opacity onto the moving element only, never inherited values on a section.
+> - **Measure what is drawn, not what is written** (D90): a layer with `display: contents` ignores the opacity written to it.
+>   The hand-over handles this itself now; the probe and the e2e hand-over test multiply every box's opacity up to the page.
+>   The CSS minifier keeps only the LAST of two declarations of one property: put fallbacks in `@supports`, never as a
+>   duplicate line. `node scripts/screencast.mjs <outDir> [/path or URL] [375x667] [wheel|touch]` records every drawn frame
+>   while scrolling (then `node scripts/frame-sheet.mjs <outDir> <out.jpg>`); `node scripts/sideways.mjs [--narrow] [--noclip]`
+>   checks every page for sideways scroll at phone widths.
 > - `node scripts/fade-probe.mjs <outDir> "<url>?tier=2" [WxH]` steps through the home page's fade sequence;
 >   `node scripts/return-probe.mjs <outDir> "<url>?tier=2" [WxH]` scrolls away and back and checks the hero 3D still moves;
 >   `npm run test:cls` scans every page for layout shift with the fonts held back.
@@ -30,7 +36,7 @@
 
 ## Owner feedback received during the build (must be kept)
 
-Latest first; the newest instruction wins where two differ. Full reasoning in DECISIONS D23, D30–D38, D60–D89.
+Latest first; the newest instruction wins where two differ. Full reasoning in DECISIONS D23, D30–D38, D60–D90.
 
 0. **The clinic is in Victoria Island (Oniru), not Lagos Island** (D71). Never write that it is on or in Lagos Island, or
    "between" Victoria Island and Lekki. "Dermatologist in Lagos" (home) and "dermatologist in Lagos Island" (location page,

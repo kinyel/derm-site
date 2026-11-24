@@ -79,6 +79,13 @@
     z-index: var(--z-content);
     overflow: clip;
   }
+  /* Safari before 16 has no clip; without either, a section taller than its window would spill out below it
+     over the next one (D90). In @supports because the minifier keeps only the last of two declarations. */
+  @supports not (overflow: clip) {
+    .fade-seq[data-on] > .fade-step > .fade-view {
+      overflow: hidden;
+    }
+  }
   .fade-seq[data-on] > .fade-step--hero {
     --step-bg: var(--scrim-light-inline), var(--grad-hero);
   }
@@ -160,14 +167,24 @@
     const views = steps.map((s) => s.querySelector<HTMLElement>(':scope > .fade-view'));
     const bands = views.map((v) => (v?.firstElementChild as HTMLElement | null) ?? null);
     const grounds = steps.map((s) => s.querySelector<HTMLElement>(':scope > .fade-bg'));
-    const layers = steps.map((s) => ({
+    const marked = steps.map((s) => ({
       text: [...s.querySelectorAll<HTMLElement>('[data-fade="text"]')],
       fixed: [...s.querySelectorAll<HTMLElement>('[data-fade="fixed"]')],
       visual: [...s.querySelectorAll<HTMLElement>('[data-fade="visual"]')],
       poster: [...s.querySelectorAll<HTMLElement>('.hero > .stage')],
     }));
+    /* A layer whose box is switched off (`display: contents`, as "The clinic" does on phones to re-order its
+       words around the photograph) draws nothing of its own, so opacity and transform written to it are
+       ignored and its words stayed on screen over the hero (D90). The script writes to the boxes that are
+       drawn: the layer itself, or its children when it has no box. Worked out again on every measure,
+       because a layout can switch at a breakpoint. */
+    const boxes = (els: HTMLElement[]): HTMLElement[] =>
+      els.flatMap((el) => (getComputedStyle(el).display === 'contents' ? boxes([...el.children] as HTMLElement[]) : [el]));
+    const resolve = () =>
+      marked.map((m) => ({ text: boxes(m.text), fixed: boxes(m.fixed), visual: boxes(m.visual), poster: m.poster }));
+    let layers = marked;
     const stages = steps.map((s) => [...s.querySelectorAll<Stage>('[data-scene]')]);
-    const moved = [...new Set([...layers.flatMap((l) => [...l.text, ...l.fixed, ...l.visual, ...l.poster]), ...grounds, ...bands].filter(Boolean))] as HTMLElement[];
+    const touched = new Set<HTMLElement>();
     const still = window.matchMedia('(prefers-reduced-motion: reduce)');
     const tall = window.matchMedia('(min-height: 37.5em)');
     const last = steps.length - 1;
@@ -189,6 +206,27 @@
       if (w[prop] === value) return;
       w[prop] = value;
       el.style[prop] = value;
+      touched.add(el);
+    };
+    const release = (el: HTMLElement) => {
+      el.style.opacity = '';
+      el.style.transform = '';
+      el.style.willChange = '';
+      written.delete(el);
+      touched.delete(el);
+    };
+    const relayer = () => {
+      layers = resolve();
+      const now = new Set<HTMLElement>([...grounds, ...bands].filter(Boolean) as HTMLElement[]);
+      for (const l of layers) {
+        for (const el of [...l.text, ...l.fixed, ...l.visual]) {
+          now.add(el);
+          // a stand-in for a layer without a box gets the layer's own compositor hint
+          if (!el.hasAttribute('data-fade')) el.style.willChange = 'opacity, transform';
+        }
+        l.poster.forEach((el) => now.add(el));
+      }
+      for (const el of [...touched]) if (!now.has(el)) release(el);
     };
     const attr = (el: HTMLElement, name: string, value: string | null) => {
       if (el.getAttribute(name) === value) return;
@@ -198,6 +236,7 @@
 
     const measure = () => {
       if (!enabled) return;
+      relayer();
       const V = views[0]?.clientHeight || window.innerHeight;
       T = Math.round(V * HANDOVER);
       steps.forEach((step, i) => {
@@ -262,12 +301,18 @@
         }
       });
     };
+    /* Worked out in the scroll event itself, not in an animation frame of its own (D90). Browsers send the
+       scroll event once per frame, just before animation frames run, so the shared 3D canvas (drawn in the
+       engine's animation frame, reading `stage.__fade`) and these words change in the same frame. From an
+       animation frame of its own this ran after the engine's, so on a quick scroll back to the hero its words
+       were up one frame before its portrait. */
     const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update);
+      if (frame) cancelAnimationFrame(frame);
+      update();
     };
     const onResize = () => {
       measure();
-      onScroll();
+      if (!frame) frame = requestAnimationFrame(update);
     };
 
     /* Bringing something inside the sequence into view (keyboard focus, a link to an id): go to the
@@ -302,10 +347,29 @@
       lastW = window.innerWidth;
       onResize();
     };
+    /* A held section's photograph is decoded ahead of its hand-over, once the page has loaded and the phone is
+       idle (D90). Left to the moment it first fades in, the decode landed in the hand-over itself: a stall of
+       a few hundred milliseconds, then a frame with an empty white frame where the photograph should be. */
+    let warmed = false;
+    const warm = () => {
+      if (warmed) return;
+      warmed = true;
+      const go = () =>
+        views.slice(1).forEach((v) =>
+          v?.querySelectorAll('img').forEach((img) => {
+            img.loading = 'eager';
+            img.decode?.().catch(() => {});
+          }),
+        );
+      const idle = () => ('requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 2500 }) : setTimeout(go, 1200));
+      if (document.readyState === 'complete') idle();
+      else window.addEventListener('load', idle, { once: true });
+    };
     const apply = () => {
       enabled = !still.matches && tall.matches;
       root.toggleAttribute('data-on', enabled);
       if (enabled) {
+        warm();
         window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('resize', onWindowResize, { passive: true });
         window.addEventListener('hashchange', onHash);
@@ -320,10 +384,7 @@
         window.removeEventListener('hashchange', onHash);
         root.removeEventListener('focusin', onFocus);
         observer?.disconnect();
-        moved.forEach((el) => {
-          el.style.opacity = '';
-          el.style.transform = '';
-        });
+        [...touched].forEach(release);
         written = new WeakMap();
         steps.forEach((step, i) => {
           ['--len', '--spiral-lead'].forEach((v) => step.style.removeProperty(v));

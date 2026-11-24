@@ -141,6 +141,50 @@ test.describe('same conditions as the live site (D84)', () => {
   }
 });
 
+/* The home page's first sections hand over without their words ever being drawn together (owner; D89, D90).
+   Measured as drawn, not as written: the opacity of every box from the words up to the page, multiplied. A
+   layer without a box of its own (`display: contents`) ignores the opacity written to it, which is how
+   "The clinic" stayed fully on screen over the hero on phones while its own opacity read 0. */
+test.describe('home hand-over: one section on screen at a time (D90)', () => {
+  for (const [label, width, height, mobile] of [['small phone', 375, 667, true], ['phone', 390, 844, true], ['tablet', 768, 1024, true], ['desktop', 1440, 900, false]] as const) {
+    test(`home (${label}): two sections' words are never drawn together`, async ({ browser }) => {
+      const ctx = await browser.newContext({ viewport: { width, height }, hasTouch: mobile, isMobile: mobile });
+      const page = await ctx.newPage();
+      await page.goto('/?tier=0', { waitUntil: 'load' });
+      await settle(page);
+      const end = await page.evaluate(() => {
+        const steps = [...document.querySelectorAll<HTMLElement>('.fade-step')];
+        return Math.round(steps[steps.length - 1].getBoundingClientRect().top + scrollY + innerHeight * 0.6);
+      });
+      const clashes: string[] = [];
+      for (let k = 0; k <= 48; k++) {
+        const y = Math.round((end * k) / 48);
+        await page.evaluate((yy) => window.scrollTo(0, yy), y);
+        await page.evaluate(() => new Promise((ok) => requestAnimationFrame(() => requestAnimationFrame(ok))));
+        const drawn = await page.evaluate(() =>
+          [...document.querySelectorAll<HTMLElement>('.fade-step')].map((step) => {
+            let most = 0;
+            for (const el of step.querySelectorAll<HTMLElement>('h1, h2, p')) {
+              const b = el.getBoundingClientRect();
+              if (b.width < 1 || b.bottom <= 0 || b.top >= innerHeight || getComputedStyle(el).visibility === 'hidden') continue;
+              let o = 1;
+              for (let a: HTMLElement | null = el; a; a = a.parentElement) {
+                const cs = getComputedStyle(a);
+                if (cs.display !== 'contents') o *= Number(cs.opacity);
+              }
+              most = Math.max(most, o);
+            }
+            return most;
+          }),
+        );
+        if (drawn.filter((o) => o > 0.04).length > 1) clashes.push(`y=${y}: ${drawn.map((o) => o.toFixed(2)).join(' / ')}`);
+      }
+      expect(clashes, 'scroll positions where two sections show words at once').toEqual([]);
+      await ctx.close();
+    });
+  }
+});
+
 /* Every 3D model keeps its place at every size (owner, D88): none may be dropped to make a small or
    rotated screen easier. */
 test.describe('3D on phones and rotated phones (D88)', () => {

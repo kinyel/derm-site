@@ -26,8 +26,11 @@ for (let k = 0; k <= N; k++) {
   await page.evaluate((yy) => window.scrollTo(0, yy), y);
   await page.waitForTimeout(650);
   const st = await page.evaluate(() => [...document.querySelectorAll('.fade-step')].map((s) => {
-    const op = (el) => (el ? Number(getComputedStyle(el).opacity) : 1);
-    const max = (sel) => Math.max(0, ...[...s.querySelectorAll(sel)].map(op));
+    // as drawn (D90): every box from the element up to the page, multiplied; a box-less layer
+    // (display: contents) ignores its own opacity, so it is skipped rather than trusted
+    const drawn = (el) => { let o = 1; for (let a = el; a; a = a.parentElement) { const cs = getComputedStyle(a); if (cs.display !== 'contents') o *= Number(cs.opacity); } return o; };
+    const op = (el) => (el ? drawn(el) : 1);
+    const max = (sel) => Math.max(0, ...[...s.querySelectorAll(sel)].flatMap((el) => [el, ...el.querySelectorAll('h1, h2, p')]).filter((el) => getComputedStyle(el).display !== 'contents').map(op));
     const win = s.querySelector(':scope > .fade-view') ?? s.querySelector('.spiral__viewport') ?? s;
     return { text: max('[data-fade="text"]'), visual: max('[data-fade="visual"]'), bg: op(s.querySelector(':scope > .fade-bg')), top: Math.round(win.getBoundingClientRect().top), gone: s.hasAttribute('data-faded') };
   }));

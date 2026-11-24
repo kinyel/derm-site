@@ -75,6 +75,14 @@
     overflow-x: clip;
     text-wrap: pretty;
   }
+  /* Safari before 16 has no clip. On body, hidden passes to the window just as clip does, so the page never
+     pans sideways and sticky sections still work (D90). In @supports, not as a second declaration in the rule
+     above: the build's minifier keeps only the last of two declarations of one property. */
+  @supports not (overflow: clip) {
+    body {
+      overflow-x: hidden;
+    }
+  }
   /* Lenis (desktop only) */
   html.lenis,
   html.lenis body {
