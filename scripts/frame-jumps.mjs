@@ -15,7 +15,8 @@ const box = { left, top, width: Math.min(meta.width - left, Math.round(meta.widt
 let prev = null;
 const diffs = [];
 for (const f of files) {
-  const px = await sharp(`${dir}/${f}`).extract(box).greyscale().resize(96).raw().toBuffer();
+  // every frame at the first one's size (the blank page before a load can be another size)
+  const px = await sharp(await sharp(`${dir}/${f}`).resize(meta.width, meta.height, { fit: 'fill' }).toBuffer()).extract(box).greyscale().resize(96).raw().toBuffer();
   if (prev) {
     let s = 0;
     for (let i = 0; i < px.length; i++) s += Math.abs(px[i] - prev[i]);

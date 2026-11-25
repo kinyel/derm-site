@@ -29,8 +29,9 @@ export const HERO_NARROW = '(max-width: 41.99em)';
 export type HeroLayout = 'cover' | 'short' | 'wide';
 
 export const HERO_COMP: Record<HeroLayout, { h: number; cy: number; at: number; atNarrow?: number; px: number }> = {
-  // phones and upright tablets: from a quarter of the way down to the foot, standing right of centre
-  cover: { h: 0.75, cy: 0.625, at: 0.59, px: 0.59 },
+  // phones and upright tablets: her head just under the headline, a quarter of the way down, standing right
+  // of centre; two thirds of the hero tall (owner, D91: smaller than the 0.75 first used, "but not too small")
+  cover: { h: 0.66, cy: 0.58, at: 0.59, px: 0.59 },
   // phones on their side: nearly the full height, in the right half
   short: { h: 0.93, cy: 0.535, at: 0.66, atNarrow: 0.78, px: 0.66 },
   // wide screens: the right-hand column, top to bottom

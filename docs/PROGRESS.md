@@ -38,7 +38,7 @@
 
 ## Owner feedback received during the build (must be kept)
 
-Latest first; the newest instruction wins where two differ. Full reasoning in DECISIONS D23, D30–D38, D60–D91.
+Latest first; the newest instruction wins where two differ. Full reasoning in DECISIONS D23, D30–D38, D60–D92.
 
 0. **The clinic is in Victoria Island (Oniru), not Lagos Island** (D71). Never write that it is on or in Lagos Island, or
    "between" Victoria Island and Lekki. "Dermatologist in Lagos" (home) and "dermatologist in Lagos Island" (location page,

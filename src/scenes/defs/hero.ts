@@ -269,7 +269,9 @@ const factory: SceneFactory = async (ctx) => {
   const posterImg = ctx.stage.querySelector<HTMLImageElement>('.stage__poster img');
   const posterReady = () => Boolean(posterImg && posterImg.complete && posterImg.naturalWidth > 0 && posterImg.naturalHeight > 0);
   const handoff = !still && mode === 'home' && posterReady();
-  /** The marks where a poster (no page around it) puts them, in the poster's own scene units. */
+  /** The marks where a poster (no page around it) puts them, in the poster's own scene units. On upright
+      phones the poster has no corner mark (r 0): its place depends on where the headline ends, which a
+      picture cannot know, so the live scene grows it in beside the headline instead (D91). */
   function posterMarks(hwP: number, hh: number): { x: number; y: number; r: number }[] {
     return lay !== 'cover'
       ? [
@@ -278,7 +280,7 @@ const factory: SceneFactory = async (ctx) => {
         ]
       : [
           { x: -hwP * 0.58, y: hh * 0.05, r: hwP * 0.17 },
-          { x: hwP * 0.68, y: hh * 0.72, r: hwP * 0.07 },
+          { x: hwP * 0.68, y: hh * 0.72, r: 0 },
         ];
   }
   function placeMarks() {
@@ -352,10 +354,13 @@ const factory: SceneFactory = async (ctx) => {
     const acc = heroEl?.querySelector<HTMLElement>('.hero__accent');
     const ao = offsetIn(acc);
     if (onPage && !wide && W < 600 && acc && ao.ok) {
-      // narrow upright phones: beside the pink line of the headline, where the line leaves room
+      // Narrow upright phones: in the room the pink line of the headline leaves at its right, its top level
+      // with the top of that line, so it never covers a word of the first line (owner, D91; centred on the
+      // pink line and up to 30px it reached up over "answers."). The ring and its pearls rise about 1.2
+      // radii above the centre as it sways.
       const free = W - edge - (ao.x + acc.offsetWidth + 14);
-      const r = Math.max(13, Math.min(free / 3.9, 30)) * unit;
-      set(marks[1], toX(W - edge) - r * 1.95, toY(ao.y + acc.offsetHeight / 2), r);
+      const r = Math.max(11, Math.min(free / 3.9, 16)) * unit;
+      set(marks[1], toX(W - edge) - r * 1.95, toY(ao.y + 4) - r * 1.5, r);
     } else if (onPage) {
       const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) * 16 || 72;
       const r = Math.max(13, Math.min(W * (W < 768 ? 0.05 : 0.034), H * 0.05, 40)) * unit;
@@ -371,7 +376,9 @@ const factory: SceneFactory = async (ctx) => {
       const hwP = hh * (posterImg!.naturalWidth / posterImg!.naturalHeight);
       const shift = (2 * heroAt(lay) - 1) * hw - (2 * HERO_COMP[lay].px - 1) * hwP;
       posterMarks(hwP, hh).forEach((p, i) => {
-        if (marks[i]) marks[i].from = { x: (p.x + shift) * near, y: p.y * near, s: p.r * near };
+        if (!marks[i]) return;
+        // a mark the poster does not show grows in at its own place
+        marks[i].from = p.r > 0 ? { x: (p.x + shift) * near, y: p.y * near, s: p.r * near } : { x: marks[i].base.x, y: marks[i].base.y, s: 0 };
       });
     } else {
       marks.forEach((m) => (m.from = { ...m.base }));
